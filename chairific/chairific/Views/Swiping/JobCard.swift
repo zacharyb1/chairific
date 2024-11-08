@@ -11,6 +11,8 @@ struct JobCard: Identifiable, View {
     let id: String
     let position: Dictionary<String, Any>
     let company: Dictionary<String, Any>
+    let responses: [String: Int]
+    var similarity: Double?
     // @State var matchingQuestions: Dictionary<String, Any> = [:]
     
     var body: some View {
@@ -23,7 +25,7 @@ struct JobCard: Identifiable, View {
                         .fill(Color.orange)
                         .frame(width: 320, height: 320)
                     
-                    Text("69%")
+                    Text("\(Int(similarity ?? 0))%")
                         .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.white)
                 }
@@ -75,14 +77,17 @@ struct JobCard: Identifiable, View {
         FirestoreManager.shared.fetchCompany(fromId: position["companyId"] as? String ?? "") { result in
             switch result {
             case .success(let company):
-                completion(.success(JobCard(id: position["id"] as? String ?? "", position: position, company: company)))
+                let responses = position["responses"] as? [String: Int] ?? [:]
+//                let similarity = calculateSimilarity(companyArray: responses, userArray: UserManager.shared.usersResponses)
+                completion(.success(JobCard(id: position["id"] as? String ?? "", position: position, company: company, responses: responses)))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+
 }
 
 #Preview {
-    JobCard(id: "0", position: [:], company: [:])
+    JobCard(id: "0", position: [:], company: [:], responses: ["q1": 1], similarity: 100)
 }

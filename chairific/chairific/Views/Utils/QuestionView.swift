@@ -1,6 +1,6 @@
 //
 //  QuestionView.swift
-//  chairific
+//  Chairific
 //
 //  Created by Jules Morillon on 8.11.2024.
 //

@@ -21,6 +21,13 @@ struct SwipingView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
+                // Show the next card in the background
+                if currentIndex + 1 < jobCards.count {
+                    jobCards[currentIndex + 1]
+                        .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))                        .opacity(Double(2*abs(dragOffset)) / Double(geometry.size.width))
+                }
+                
+                // Show the current card on top
                 if currentIndex < jobCards.count {
                     jobCards[currentIndex]
                         .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
@@ -37,10 +44,12 @@ struct SwipingView: View {
                         .animation(.spring(), value: dragOffset)
                 } else {
                     Text("No more cards")
+                        .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
                         .font(.headline)
                         .foregroundColor(.gray)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
     }
     
@@ -50,9 +59,11 @@ struct SwipingView: View {
         if gesture.translation.width > swipeThreshold {
             // Swiped right
             moveToNextCard()
+            showApplyOverlay = true
         } else if gesture.translation.width < -swipeThreshold {
             // Swiped left
             moveToNextCard()
+            showDenyOverlay = true
         } else {
             // Reset position if swipe was too small
             dragOffset = 0
