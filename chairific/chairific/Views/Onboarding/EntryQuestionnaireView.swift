@@ -23,13 +23,23 @@ struct EntryQuestionnaireView: View {
     @State private var name = ""
     @State private var surname = ""
     @State private var city = ""
-    @State private var currentQuestionIndex = 0
+    @State private var currentQuestionIndex = UserManager.shared.usersResponses.count
     @State private var isCurrentQuestionCompleted: Bool = false
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
     @State private var selectedAnswerIndex: Int? = nil
     
     @State private var questions: [QuestionView] = []
     private var numberOfMendatoryQuestions: Int = 10
+    @State var firstLogin: Bool
+
+    // Custom initializer
+    init(firstLogin: Bool) {
+        self._firstLogin = State(initialValue: firstLogin)
+        if !firstLogin{
+            numberOfMendatoryQuestions = 44
+//            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
+        }
+    }
     
     @Environment(\.dismiss) var dismiss
     
@@ -52,6 +62,9 @@ struct EntryQuestionnaireView: View {
         }
         .onAppear {
             loadQuestions()
+            if !firstLogin{
+                currentStep = .questions
+            }
         }
         .padding()
         .navigationBarBackButtonHidden(true)
@@ -214,6 +227,6 @@ struct EntryQuestionnaireView: View {
     }
 }
 
-#Preview {
-    EntryQuestionnaireView()
-}
+//#Preview {
+//    EntryQuestionnaireView(firstLogin: false)
+//}

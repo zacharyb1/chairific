@@ -249,7 +249,7 @@ struct SkillsView: View {
             
 
             .navigationDestination(isPresented: $navigateToQuestioner) {
-                EntryQuestionnaireView()
+                EntryQuestionnaireView(firstLogin: true)
             }
             .padding(.horizontal, 25)
             .navigationBarBackButtonHidden(true)

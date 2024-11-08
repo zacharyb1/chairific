@@ -17,6 +17,8 @@ struct EditProfileView: View {
 
     @AppStorage("isSignedIn") private var isSignedIn: Bool = true
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = true
+    @State private var navigateToQuestionnaire = false  // State to manage navigation
+
     
     var body: some View {
         NavigationView {
@@ -81,19 +83,25 @@ struct EditProfileView: View {
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.gray)
                     }
-                    
-                    Button(action: {
-                    }) {
-                        HStack {
-                            Spacer()
-                            Text("Answer")
-                                .font(.system(size: 18, weight: .bold))
-                                .frame(width: 200, height: 50)
-                                .background(.lightorange)
-                                .foregroundColor(.black)
-                                .cornerRadius(10)
-                                .padding(.horizontal)
-                                .shadow(radius: 5)
+                    NavigationLink(destination: EntryQuestionnaireView(firstLogin: false), isActive: $navigateToQuestionnaire) {
+                        
+                        Button(action: {
+                            navigateToQuestionnaire = true
+
+                            let lastQuestion = findLatestNonZeroID(from: UserManager.shared.usersResponses)
+                            
+                        }) {
+                            HStack {
+                                Spacer()
+                                Text("Answer")
+                                    .font(.system(size: 18, weight: .bold))
+                                    .frame(width: 200, height: 50)
+                                    .background(.lightorange)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(10)
+                                    .padding(.horizontal)
+                                    .shadow(radius: 5)
+                            }
                         }
                     }
                     .padding()
@@ -181,6 +189,19 @@ struct EditProfileView: View {
         }
 
         
+    }
+    
+    func findLatestNonZeroID(from array: [String: Int]) -> String {
+        // Sort the array by keys in descending order to find the latest ID
+        let sortedKeys = array.keys.sorted { $0 > $1 }
+        
+        for key in sortedKeys {
+            if let value = array[key], value != 0 {
+                return key
+            }
+        }
+        
+        return "q1"
     }
     
     func deleteAccount() async throws{
