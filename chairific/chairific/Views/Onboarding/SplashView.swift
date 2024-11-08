@@ -5,7 +5,6 @@
 //  Created by Jules Morillon on 8.11.2024.
 //
 
-
 import SwiftUI
 
 struct SplashView: View {
@@ -14,7 +13,7 @@ struct SplashView: View {
     let accentColor: Color = Color(red: 0.6, green: 0.3, blue: 0.25)
     var body: some View {
         VStack(spacing: 100) {
-            Image(systemName: "chair.lounge.fill")
+            Image("mainchair")
                 .resizable()
                 .frame(width: 200, height: 200)
                 .padding(40)
@@ -25,24 +24,13 @@ struct SplashView: View {
                 .font(.system(size: 48, weight: .semibold))
                 .foregroundStyle(.white)
             
-            if existingAccount {
-                Button { isActive = true } label: {
-                    Text("Get in")
-                        .font(.system(size: 36, weight: .light))
-                        .foregroundStyle(.black)
-                        .padding()
-                        .background(.yellow)
-                        .cornerRadius(10)
-                }
-            } else {
-                Button { isActive = true } label: {
+            Button { isActive = true } label: {
                     Text("Get started")
                         .font(.system(size: 36, weight: .light))
                         .foregroundStyle(.black)
                         .padding()
                         .background(.yellow)
                         .cornerRadius(10)
-                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
