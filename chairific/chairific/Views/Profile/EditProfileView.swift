@@ -118,8 +118,8 @@ struct EmployeeProfileContentView: View{
     
     @Binding var isEditing: Bool
     
-    @State private var EmployeeName: String = "Jules"
-    @State private var EmployeeLastName: String = "Morillon"
+    @State private var EmployeeName: String = (UserManager.shared.userFirstName ?? "User")
+    @State private var EmployeeLastName: String = (UserManager.shared.userSecondName ?? "User")
     @State private var Employeeindustry: String = "Software development"
     
     
@@ -127,7 +127,7 @@ struct EmployeeProfileContentView: View{
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading) {
-                    Text("Name")
+                    Text(UserManager.shared.userFirstName ?? "User")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundStyle(.gray)
                         .padding(.leading, 20)

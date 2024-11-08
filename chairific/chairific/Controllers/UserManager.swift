@@ -15,7 +15,7 @@ class UserManager{
     var usersResponses: [String: Int] = [:]
     var hardSkills: [String] = []
     var hobbies: [String] = []
-    var userFirstName: String?
+    @Published var userFirstName: String?
     var userSecondName: String?
     
     func reset(){

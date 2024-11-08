@@ -19,14 +19,38 @@ class FirestoreManager {
     func addUser(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         var updatedData = data
         updatedData["timestamp"] = Timestamp(date: Date())
-        db.collection("users").document(uid).setData(updatedData) { error in
+        
+        let userDocument = db.collection("users").document(uid)
+        
+        // Check if the document exists
+        userDocument.getDocument { document, error in
             if let error = error {
                 completion(.failure(error))
+                return
+            }
+            
+            if document?.exists == true {
+                // If the document exists, update only specific fields
+                userDocument.updateData(updatedData) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
             } else {
-                completion(.success(()))
+                // If the document doesn't exist, create it with setData
+                userDocument.setData(updatedData) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
             }
         }
     }
+
     
     func fetchUser(fromId: String, completion: @escaping (Result<Dictionary<String, Any>, Error>) -> Void) {
         db.collection("users").document(fromId).getDocument { document, error in
