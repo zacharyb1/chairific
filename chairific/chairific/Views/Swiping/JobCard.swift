@@ -51,6 +51,10 @@ struct JobCard: Identifiable, View {
                 }
                 .padding(.bottom, 10)
                 
+                Text("Benefits")
+                    .font(.system(size: 30, weight: .semibold))
+                    .foregroundStyle(baseButtonColor)
+                
                 ForEach(self.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
                     Text("+ \(benefit)")
                         .font(.system(size: 20, weight: .regular))
