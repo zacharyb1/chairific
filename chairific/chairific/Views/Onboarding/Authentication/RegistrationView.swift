@@ -23,7 +23,6 @@ struct RegistrationView: View {
     @AppStorage("isSignedIn") private var isSignedIn: Bool = false
     @State private var isLoading = false
 
-    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -126,10 +125,7 @@ struct RegistrationView: View {
                         }
                     }
                 }
-
             }
-
-
         }
 
         .environment(\.colorScheme, .light)

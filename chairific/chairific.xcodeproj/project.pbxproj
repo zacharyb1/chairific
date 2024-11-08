@@ -30,9 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7F44C9322CDE6AED00001153 /* chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F44C9422CDE6AF000001153 /* chairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F44C9322CDE6AED00001153 /* Chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F44C9422CDE6AF000001153 /* ChairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F44C94C2CDE6AF000001153 /* ChairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,9 +95,9 @@
 		7F44C9332CDE6AED00001153 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7F44C9322CDE6AED00001153 /* chairific.app */,
-				7F44C9422CDE6AF000001153 /* chairificTests.xctest */,
-				7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */,
+				7F44C9322CDE6AED00001153 /* Chairific.app */,
+				7F44C9422CDE6AF000001153 /* ChairificTests.xctest */,
+				7F44C94C2CDE6AF000001153 /* ChairificUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,9 +105,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7F44C9312CDE6AED00001153 /* chairific */ = {
+		7F44C9312CDE6AED00001153 /* Chairific */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F44C9562CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairific" */;
+			buildConfigurationList = 7F44C9562CDE6AF000001153 /* Build configuration list for PBXNativeTarget "Chairific" */;
 			buildPhases = (
 				7F44C92E2CDE6AED00001153 /* Sources */,
 				7F44C92F2CDE6AED00001153 /* Frameworks */,
@@ -120,18 +120,18 @@
 			fileSystemSynchronizedGroups = (
 				7F44C9342CDE6AED00001153 /* chairific */,
 			);
-			name = chairific;
+			name = Chairific;
 			packageProductDependencies = (
 				7F44C9602CDE6BEA00001153 /* FirebaseAuth */,
 				7F44C9622CDE6BEA00001153 /* FirebaseFirestore */,
 			);
 			productName = chairific;
-			productReference = 7F44C9322CDE6AED00001153 /* chairific.app */;
+			productReference = 7F44C9322CDE6AED00001153 /* Chairific.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7F44C9412CDE6AF000001153 /* chairificTests */ = {
+		7F44C9412CDE6AF000001153 /* ChairificTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F44C9592CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairificTests" */;
+			buildConfigurationList = 7F44C9592CDE6AF000001153 /* Build configuration list for PBXNativeTarget "ChairificTests" */;
 			buildPhases = (
 				7F44C93E2CDE6AF000001153 /* Sources */,
 				7F44C93F2CDE6AF000001153 /* Frameworks */,
@@ -145,16 +145,16 @@
 			fileSystemSynchronizedGroups = (
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 			);
-			name = chairificTests;
+			name = ChairificTests;
 			packageProductDependencies = (
 			);
 			productName = chairificTests;
-			productReference = 7F44C9422CDE6AF000001153 /* chairificTests.xctest */;
+			productReference = 7F44C9422CDE6AF000001153 /* ChairificTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		7F44C94B2CDE6AF000001153 /* chairificUITests */ = {
+		7F44C94B2CDE6AF000001153 /* ChairificUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7F44C95C2CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairificUITests" */;
+			buildConfigurationList = 7F44C95C2CDE6AF000001153 /* Build configuration list for PBXNativeTarget "ChairificUITests" */;
 			buildPhases = (
 				7F44C9482CDE6AF000001153 /* Sources */,
 				7F44C9492CDE6AF000001153 /* Frameworks */,
@@ -168,11 +168,11 @@
 			fileSystemSynchronizedGroups = (
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
 			);
-			name = chairificUITests;
+			name = ChairificUITests;
 			packageProductDependencies = (
 			);
 			productName = chairificUITests;
-			productReference = 7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */;
+			productReference = 7F44C94C2CDE6AF000001153 /* ChairificUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -215,9 +215,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7F44C9312CDE6AED00001153 /* chairific */,
-				7F44C9412CDE6AF000001153 /* chairificTests */,
-				7F44C94B2CDE6AF000001153 /* chairificUITests */,
+				7F44C9312CDE6AED00001153 /* Chairific */,
+				7F44C9412CDE6AF000001153 /* ChairificTests */,
+				7F44C94B2CDE6AF000001153 /* ChairificUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -274,12 +274,12 @@
 /* Begin PBXTargetDependency section */
 		7F44C9442CDE6AF000001153 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7F44C9312CDE6AED00001153 /* chairific */;
+			target = 7F44C9312CDE6AED00001153 /* Chairific */;
 			targetProxy = 7F44C9432CDE6AF000001153 /* PBXContainerItemProxy */;
 		};
 		7F44C94E2CDE6AF000001153 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7F44C9312CDE6AED00001153 /* chairific */;
+			target = 7F44C9312CDE6AED00001153 /* Chairific */;
 			targetProxy = 7F44C94D2CDE6AF000001153 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -546,7 +546,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F44C9562CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairific" */ = {
+		7F44C9562CDE6AF000001153 /* Build configuration list for PBXNativeTarget "Chairific" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F44C9572CDE6AF000001153 /* Debug */,
@@ -555,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F44C9592CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairificTests" */ = {
+		7F44C9592CDE6AF000001153 /* Build configuration list for PBXNativeTarget "ChairificTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F44C95A2CDE6AF000001153 /* Debug */,
@@ -564,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7F44C95C2CDE6AF000001153 /* Build configuration list for PBXNativeTarget "chairificUITests" */ = {
+		7F44C95C2CDE6AF000001153 /* Build configuration list for PBXNativeTarget "ChairificUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7F44C95D2CDE6AF000001153 /* Debug */,
