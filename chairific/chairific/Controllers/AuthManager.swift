@@ -18,6 +18,14 @@ class AuthManager{
         return Auth.auth().currentUser
     }
     
+    func deleteAccount() async throws{
+        guard let user = getCurrentUser() else {
+            throw URLError(.badURL)
+        }
+        
+        try await user.delete()
+    }
+    
     func signOutUser(completion: @escaping (Result<Void, Error>) -> Void) {
         do {
             try Auth.auth().signOut()

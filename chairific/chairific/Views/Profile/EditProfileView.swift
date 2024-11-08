@@ -13,7 +13,10 @@ struct EditProfileView: View {
     @State private var showDocumentPicker = false
     @State private var isEmployee = true
     @State private var isEditing = false
-    
+    @State private var showAlert = false
+
+    @AppStorage("isSignedIn") private var isSignedIn: Bool = true
+    @AppStorage("isUserAnswers") private var isUserAnswers: Bool = true
     
     var body: some View {
         NavigationView {
@@ -99,13 +102,105 @@ struct EditProfileView: View {
                     } else {
                         NonEmployeeContentView(showDocumentPicker: $showDocumentPicker, isEditing: $isEditing)
                     }
+                    Spacer()
+                    VStack(alignment: .leading) {
+                        Text("Account Settings")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 20)
+            
+                        Button(action: {
+                            AuthManager.shared.signOutUser() { result in
+                                switch result {
+                                case .success:
+                                    // TO UPDATE
+                                    isSignedIn = false
+                                    isUserAnswers = false
+                                case .failure:
+                                    print("Fail to sign out")
+                                }
+                            }
+                        }) {
+                            HStack {
+
+                                Text("Log out")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 2))
+                        }
+                        .padding(.horizontal)
+                        Button(action: {
+                            showAlert = true
+                        }) {
+                            HStack {
+
+                                Text("Delete Account")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black, lineWidth: 2))
+                        }
+                        .padding(.horizontal)
+                    }
+                    .padding(.top, 15)
                 }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Are you sure?"),
+                        message: Text("This action will delete your account and cannot be undone."),
+                        primaryButton: .destructive(Text("Delete")) {
+                            Task {
+                                do {
+                                    try await deleteAccount()
+                                    isSignedIn = false
+                                    isUserAnswers = false
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+                .padding()
+                
                 Spacer()
             }
+            
             .background(Color("backgroundColor"))
         }
         .sheet(isPresented: $showDocumentPicker) {
             DocumentPicker(cvUrl: $cvUrl)
+        }
+
+        
+    }
+    
+    func deleteAccount() async throws{
+        guard let user = AuthManager.shared.getCurrentUser() else {
+            throw URLError(.badURL)
+        }
+        
+        do {
+//            try await FirestoreManager.shared.deleteUser(uid: user.uid)
+            
+            try await AuthManager.shared.deleteAccount()
+            
+            UserDefaults.standard.set(false, forKey: "isSignedIn")
+            
+            print("User account and document deleted successfully.")
+            
+        } catch {
+        
+            print("Failed to delete user account: \(error.localizedDescription)")
+            throw error
         }
         
     }
