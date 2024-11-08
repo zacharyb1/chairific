@@ -11,6 +11,9 @@ import FirebaseFirestore
 import FirebaseCore
 import Firebase
 
+let backgroundColor: Color = Color(.systemGray5)
+let baseButtonColor: Color = Color(.systemGray2)
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
