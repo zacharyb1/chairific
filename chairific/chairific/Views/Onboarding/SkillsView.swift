@@ -310,6 +310,8 @@ struct SkillsView: View {
         FirestoreManager.shared.addUser(uid: userID, data: userData) { result in
             switch result {
             case .success:
+                UserManager.shared.hardSkills = skillsData
+                UserManager.shared.hobbies = hobbiesData
                 print("User skills and hobbies successfully updated.")
                 completion(.success(()))
             case .failure(let error):
