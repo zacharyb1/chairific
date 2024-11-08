@@ -6,7 +6,7 @@
 //
 
 
-mport SwiftUI
+import SwiftUI
 struct MainView: View {
     @State private var selectedTab: Int = 1
     
