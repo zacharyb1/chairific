@@ -135,8 +135,51 @@ struct RegistrationView: View {
         .environment(\.colorScheme, .light)
     }
     
-    private func signUp(){
+    private func signUp() {
+        isLoading = true
+        if name.isEmpty{
+            errorMessage = "Field name is empty"
+            isLoading = false
+            return
+        }
+        if surname.isEmpty{
+            errorMessage = "Field surname is empty"
+            isLoading = false
+            return
+        }
+        if password != repeatPassword {
+            errorMessage = "Passwords do not match"
+            isLoading = false
+            return
+        }
         
+        AuthManager.shared.registerUser(email: email, password: password) { result in
+            switch result {
+            case .success(let authResult):
+                isRegistered = true
+                let currentDate = Date()
+                let userData: [String: Any] = [
+                    "name": name,
+                    "surname": surname,
+                ]
+                FirestoreManager.shared.addUser(uid: authResult.user.uid, data: userData) { firestoreResult in
+                    switch firestoreResult {
+                    case .success():
+                        isSignedIn = true
+                        isAddedUser = true
+                        isLoading = false
+                        print("Successfully added User")
+                    case .failure(let firestoreError):
+                        isLoading = false
+                        print("Errod while adding user \(firestoreError.localizedDescription)")
+                        errorMessage = firestoreError.localizedDescription
+                    }
+                }
+            case .failure(let error):
+                isLoading = false
+                errorMessage = error.localizedDescription
+            }
+        }
     }
 
 }
