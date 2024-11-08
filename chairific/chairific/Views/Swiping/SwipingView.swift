@@ -1,4 +1,3 @@
-:
 //  SwipingView.swift
 //  chairific
 //
