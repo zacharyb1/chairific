@@ -15,22 +15,22 @@ struct SplashView: View {
         VStack(spacing: 100) {
             Image("mainchair")
                 .resizable()
-                .frame(width: 200, height: 200)
-                .padding(40)
-                .background(Circle().fill(.white))
-                .foregroundStyle(accentColor)
+                .frame(width: 320, height: 320)
+                .clipShape(Circle())
             
             Text("Chair-ific")
                 .font(.system(size: 48, weight: .semibold))
                 .foregroundStyle(.white)
             
-            Button { isActive = true } label: {
+            if !existingAccount {
+                Button { isActive = true } label: {
                     Text("Get started")
                         .font(.system(size: 36, weight: .light))
                         .foregroundStyle(.black)
                         .padding()
                         .background(.yellow)
                         .cornerRadius(10)
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

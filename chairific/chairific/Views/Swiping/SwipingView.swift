@@ -5,25 +5,25 @@
 //  Created by Jules Morillon on 8.11.2024.
 //
 
-
 import SwiftUI
 
 struct SwipingView: View {
     @State private var currentIndex = 0
-    let sampleCards: [SwipeableCard] = [
-        SwipeableCard(id: "1", content: "Position 1", color: Color(.red)),
-        SwipeableCard(id: "2", content: "Position 2", color: Color(.pink)),
-        SwipeableCard(id: "3", content: "Position 3", color: Color(.blue))
-    ]
+    @State private var showApplyOverlay: Bool = false
+    @State private var showDenyOverlay: Bool = false
+    
+    @Binding var jobCards: [JobCard]
+    
+    let margin: Double = 40
     
     @State private var dragOffset: CGFloat = 0.0
     
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                if currentIndex < sampleCards.count {
-                    sampleCards[currentIndex]
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                if currentIndex < jobCards.count {
+                    jobCards[currentIndex]
+                        .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
                         .offset(x: dragOffset)
                         .gesture(
                             DragGesture()
@@ -45,7 +45,7 @@ struct SwipingView: View {
     }
     
     private func handleSwipe(_ gesture: DragGesture.Value) {
-        let swipeThreshold: CGFloat = 100
+        let swipeThreshold: CGFloat = 200
         
         if gesture.translation.width > swipeThreshold {
             // Swiped right
@@ -68,5 +68,5 @@ struct SwipingView: View {
 }
 
 #Preview {
-    SwipingView()
+    SwipingView(jobCards: .constant([]))
 }
