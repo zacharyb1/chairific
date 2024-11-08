@@ -1,0 +1,222 @@
+[
+    {
+        "id": "q1",
+        "question": "Dog comes into the office, what do you do:",
+        "answers": ["Adopt him", "Report to the police"]
+    },
+    {
+        "id": "q2",
+        "question": "What do you prefer:",
+        "answers": ["Complete chaos on my desk", "Only necessary stuff on my desk"]
+    },
+    {
+        "id": "q3",
+        "question": "If you hear colleagues chatting in the kitchen, you:",
+        "answers": ["Join them", "Enjoy silence in the office"]
+    },
+    {
+        "id": "q4",
+        "question": "Do you agree with the sentence: I always come up with stuff to do",
+        "answers": ["True", "False"]
+    },
+    {
+        "id": "q5",
+        "question": "When my boss yells at me I:",
+        "answers": ["Open LinkedIn and start looking for another job", "I listen and try to understand what he is trying to say"]
+    },
+    {
+        "id": "q6",
+        "question": "I like to gossip with my mates in the common space:",
+        "answers": ["True", "False"]
+    },
+    {
+        "id": "q7",
+        "question": "If there is a task that I am not able to solve:",
+        "answers": ["I bother my colleague until he helps me", "I will solve it eventually"]
+    },
+    {
+        "id": "q8",
+        "question": "Would you participate in lunch cooking activities with your team:",
+        "answers": ["Yes, I am so hungry all the time", "No, I am not sharing"]
+    },
+    {
+        "id": "q9",
+        "question": "After work:",
+        "answers": ["I cut off work communication and live my personal life", "I would enjoy to hang out with my colleagues after hours"]
+    },
+    {
+        "id": "q10",
+        "question": "Do you enjoy constantly learning new things:",
+        "answers": ["Yes, I will take any opportunity to learn", "No, are you crazy"]
+    },
+    {
+        "id": "q11",
+        "question": "My free time mostly consists of:",
+        "answers": ["Enjoying time with friends/family", "Doing chores"]
+    },
+    {
+        "id": "q12",
+        "question": "Colleague took your monitor without asking what do you do?",
+        "answers": ["Ask him politely to return it", "Break into his house and steal his whole computer setup"]
+    },
+    {
+        "id": "q13",
+        "question": "Wifi is acting weird in the office:",
+        "answers": ["You ask your superior what's up with the internet", "You start streaming Netflix"]
+    },
+    {
+        "id": "q14",
+        "question": "If you run out of tasks, what do you:",
+        "answers": ["Start watching Netflix that you just downloaded", "Ask if anyone needs your help"]
+    },
+    {
+        "id": "q15",
+        "question": "How do you approach new challenges?",
+        "answers": ["I dive right in and learn as I go", "I prefer to plan and prepare thoroughly before starting"]
+    },
+    {
+        "id": "q16",
+        "question": "What’s most important in your work environment?",
+        "answers": ["Having a supportive and collaborative team", "Having clear goals and the freedom to work independently"]
+    },
+    {
+        "id": "q17",
+        "question": "How would you describe your ideal workday?",
+        "answers": ["A fast-paced day with lots of interaction and variety", "A structured day with dedicated time to focus on specific tasks"]
+    },
+    {
+        "id": "q18",
+        "question": "What motivates you most at work?",
+        "answers": ["Opportunities for growth and advancement", "Feeling valued and making an impact in my role"]
+    },
+    {
+        "id": "q19",
+        "question": "How do you prefer to communicate with your team?",
+        "answers": ["I enjoy quick, casual chats to stay connected", "I prefer organized discussions with a clear agenda"]
+    },
+    {
+        "id": "q20",
+        "question": "What’s your preferred level of feedback?",
+        "answers": ["Regular check-ins and feedback to keep improving", "Feedback when necessary, but I value my independence"]
+    },
+    {
+        "id": "q21",
+        "question": "How would you describe your work style?",
+        "answers": ["Collaborative and team-oriented", "Independent and self-driven"]
+    },
+    {
+        "id": "q22",
+        "question": "How do you feel about change in the workplace?",
+        "answers": ["I thrive on new ideas and am adaptable", "I prefer stability and a predictable environment"]
+    },
+    {
+        "id": "q23",
+        "question": "What do you value most in a potential employer?",
+        "answers": ["Innovation and the drive to try new things", "Stability and a strong company culture"]
+    },
+    {
+        "id": "q24",
+        "question": "How do you typically handle stress at work?",
+        "answers": ["I stay focused and tackle tasks one by one", "I seek support or advice from my team"]
+    },
+    {
+        "id": "q25",
+        "question": "What kind of company culture do you prefer?",
+        "answers": ["A lively, social culture with team events and gatherings", "A calm, focused culture where each person has space to work"]
+    },
+    {
+        "id": "q26",
+        "question": "How do you approach problem-solving?",
+        "answers": ["I think creatively and try unconventional solutions", "I analyze the issue and take a logical, step-by-step approach"]
+    },
+    {
+        "id": "q27",
+        "question": "How would you describe your ideal manager?",
+        "answers": ["Someone who guides and mentors me closely", "Someone who trusts me and gives me freedom to work"]
+    },
+    {
+        "id": "q28",
+        "question": "What’s most appealing to you about your ideal job?",
+        "answers": ["The chance to be creative and make decisions", "Clear tasks with a focus on quality and precision"]
+    },
+    {
+        "id": "q29",
+        "question": "How do you feel about teamwork?",
+        "answers": ["I enjoy working with others and brainstorming together", "I prefer having my own tasks but will collaborate when needed"]
+    },
+    {
+        "id": "q30",
+        "question": "What’s your ideal work-life balance philosophy?",
+        "answers": ["Flexible hours – I like freedom with a dash of responsibility", "Set hours – once I’m out, I’m really out!"]
+    },
+    {
+        "id": "q31",
+        "question": "How do you feel about remote work?",
+        "answers": ["Love it – pajama meetings and snacks are unbeatable", "Prefer the office – I actually miss seeing real people!"]
+    },
+    {
+        "id": "q32",
+        "question": "Which benefit would make you happiest at work?",
+        "answers": ["Unlimited coffee and snacks – fuel for life", "Company-sponsored wellness retreats – I need my zen"]
+    },
+    {
+        "id": "q33",
+        "question": "What’s your dream team-building activity?",
+        "answers": ["Casual pizza parties – keep it simple and delicious", "A weekend retreat – let’s bond over something adventurous!"]
+    },
+    {
+        "id": "q34",
+        "question": "How do you prefer to celebrate work wins?",
+        "answers": ["Public shout-outs and team celebrations – let’s feel the hype!", "Low-key acknowledgment – a nice email or message is enough"]
+    },
+    {
+        "id": "q35",
+        "question": "How important are professional development opportunities?",
+        "answers": ["Very – I’m always looking to learn and grow", "Somewhat – as long as I can grow in my own way and pace"]
+    },
+    {
+        "id": "q36",
+        "question": "What’s your ideal office vibe?",
+        "answers": ["Buzzing and lively – teamwork makes the dream work!", "Quiet and focused – I’m a productivity ninja in silence"]
+    },
+    {
+        "id": "q37",
+        "question": "How do you feel about dress code policies?",
+        "answers": ["Casual attire – I want to be comfy and expressive", "Business casual – let’s keep it professional but not too strict"]
+    },
+    {
+        "id": "q38",
+        "question": "What’s your take on company-provided lunches?",
+        "answers": ["Love it – who wouldn’t want a free meal?", "I’m fine without – but a great coffee machine is a must"]
+    },
+    {
+        "id": "q39",
+        "question": "How much structure do you like in your workday?",
+        "answers": ["Flexible tasks – let me figure out what works best", "Clear schedules – I like knowing exactly what’s coming"]
+    },
+    {
+        "id": "q40",
+        "question": "What type of health and wellness benefits would you appreciate most?",
+        "answers": ["A full gym membership – I’m ready to pump some iron", "Mental health days – sometimes you just need a breather"]
+    },
+    {
+        "id": "q41",
+        "question": "What’s your ideal career growth path?",
+        "answers": ["A structured career ladder – clear steps to advance", "Open-ended opportunities – I like to find my own way"]
+    },
+    {
+        "id": "q42",
+        "question": "How would you like feedback to be handled in the workplace?",
+        "answers": ["Regular one-on-ones – I appreciate guidance along the way", "As-needed – I’m good with feedback when there’s something important to discuss"]
+    },
+    {
+        "id": "q43",
+        "question": "How do you feel about open-plan office spaces?",
+        "answers": ["Love them – so many chances for spontaneous brainstorming!", "Prefer private spaces – I get my best work done solo"]
+    },
+    {
+        "id": "q44",
+        "question": "What kind of employee recognition do you appreciate most?",
+        "answers": ["Formal recognition like awards – it feels meaningful", "Casual kudos in team meetings – a little acknowledgment goes a long way"]
+    }
+]

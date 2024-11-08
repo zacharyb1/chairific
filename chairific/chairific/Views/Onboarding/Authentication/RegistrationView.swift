@@ -128,6 +128,9 @@ struct RegistrationView: View {
                 }
 
             }
+            .navigationDestination(isPresented: $isAddedUser) {
+                EntryQuestionnaireView()
+            }
 
 
         }
