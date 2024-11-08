@@ -62,6 +62,16 @@ struct SwipingOverlay: View {
 }
 
 #Preview {
-    SwipingOverlay(card: JobCard(id: "0", position: [:], company: [:], responses: [:]), dragOffset: .constant(0), showMore: .constant(false))
+    SwipingOverlay(
+        card: JobCard(
+            id: "0",
+            position: [:],
+            company: [:],
+            responses: [:],
+            hardSkills: [] // Add an appropriate sample value here
+        ),
+        dragOffset: .constant(0),
+        showMore: .constant(false)
+    )
 }
 
