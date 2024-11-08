@@ -10,7 +10,6 @@ import SwiftUI
 
 // Step for managing the questionnaire flow
 enum QuestionnaireStep {
-    case welcome
     case intro
     case questions
     case complete
@@ -19,11 +18,10 @@ enum QuestionnaireStep {
 struct EntryQuestionnaireView: View {
     // State for current step and personal information
     @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
-    @State private var currentStep: QuestionnaireStep = .welcome
-    @State private var name = ""
-    @State private var surname = ""
-    @State private var city = ""
-    @State private var currentQuestionIndex = UserManager.shared.usersResponses.count
+
+    @State private var currentStep: QuestionnaireStep = .intro
+    @State private var currentQuestionIndex = 0
+
     @State private var isCurrentQuestionCompleted: Bool = false
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
     @State private var selectedAnswerIndex: Int? = nil
@@ -73,7 +71,6 @@ struct EntryQuestionnaireView: View {
     // Determines the title based on the current step
     private var titleForCurrentStep: String {
         switch currentStep {
-        case .welcome: return "Welcome to Chairific!"
         case .intro, .questions: return "Chairific Questions"
         case .complete: return "Thank you!"
         }
@@ -83,8 +80,6 @@ struct EntryQuestionnaireView: View {
     @ViewBuilder
     private var mainContent: some View {
         switch currentStep {
-        case .welcome:
-            welcomeView
         case .intro:
             introView
         case .questions:
@@ -92,36 +87,6 @@ struct EntryQuestionnaireView: View {
         case .complete:
             completeView
         }
-    }
-
-    // Welcome step view with personal information text fields
-    private var welcomeView: some View {
-        VStack(spacing: 20) {
-            TextField("First Name", text: $name)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-
-            TextField("Last Name", text: $surname)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-
-            TextField("City", text: $city)
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-
-            Button("Continue") {
-                currentStep = .intro
-            }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            .disabled(name.isEmpty || surname.isEmpty || city.isEmpty)
-        }
-        .padding(.horizontal)
     }
 
     // Introduction step view with introductory message and Start button

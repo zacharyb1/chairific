@@ -109,11 +109,12 @@ struct AuthenticationView: View {
                 
             }
             .navigationDestination(isPresented: $createAccount) {
-                RegistrationView()
+                OnboardingView()
             }
             .navigationDestination(isPresented: $navigateToMainScreen) {
                 MainView()
             }
+            .navigationBarBackButtonHidden()
  
         }
         .environment(\.colorScheme, .light)

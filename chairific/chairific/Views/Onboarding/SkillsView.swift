@@ -46,7 +46,7 @@ struct SkillsView: View {
     @State private var hobbies = [Hobby]()
     @State private var newHobby = ""
     private var maxNumberOfHobbies = 5
-    @State private var isAddingHobby = false
+    @State private var isAddingHobby = true
     @State private var navigateToQuestioner = false
     @State private var errorMessage = ""
     
@@ -90,7 +90,7 @@ struct SkillsView: View {
                         }
                     }
                     .padding(.bottom, 4)
-                    if isAddingHobby && hobbies.count < maxNumberOfHobbies{
+                    if hobbies.count < maxNumberOfHobbies{
                         HStack {
                             TextField("Enter a hobby", text: $newHobby)
                                 .padding(8)
@@ -111,23 +111,7 @@ struct SkillsView: View {
                         .padding(.top, 4)
                     }
                     
-                    if hobbies.count < maxNumberOfHobbies{
-                        
-                        
-                        Button(action: { isAddingHobby.toggle() }) {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "plus")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.gray)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(Color(.white))
-                            .cornerRadius(10)
-                        }
-                        
-                    }
+                    
                     
                     VStack(alignment: .leading) {
                         Text("Skills (\(selectedSkills.count)/\(maxNumberOfSkills)):")
