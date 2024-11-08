@@ -13,6 +13,8 @@ class UserManager{
     private init() {}
 
     var usersResponses: [String: Int] = [:]
+    var hardSkills: [String] = []
+    var hobbies: [String] = []
     var userFirstName: String?
     var userSecondName: String?
     
@@ -37,6 +39,18 @@ class UserManager{
                         print("user resp: \(self.usersResponses)")
                     } else {
                         print("No responses field found in user data")
+                    }
+                    
+                    if let responses = data["skills"] as? [String] {
+                        self.hardSkills = responses
+                    } else {
+                        print("No skills field found in user data")
+                    }
+                    
+                    if let responses = data["hobbies"] as? [String] {
+                        self.hobbies = responses
+                    } else {
+                        print("No hobbies field found in user data")
                     }
                     
                     if let name = data["name"] as? String, let surname = data["surname"] as? String {

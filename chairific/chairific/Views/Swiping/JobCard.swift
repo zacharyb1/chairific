@@ -13,6 +13,7 @@ struct JobCard: Identifiable, View {
     let company: Dictionary<String, Any>
     let responses: [String: Int]
     var similarity: Double?
+    var hardSkills: [String]
     // @State var matchingQuestions: Dictionary<String, Any> = [:]
     
     var body: some View {
@@ -78,8 +79,9 @@ struct JobCard: Identifiable, View {
             switch result {
             case .success(let company):
                 let responses = position["responses"] as? [String: Int] ?? [:]
+                let hardskills = position["skills"] as? [String] ?? []
 //                let similarity = calculateSimilarity(companyArray: responses, userArray: UserManager.shared.usersResponses)
-                completion(.success(JobCard(id: position["id"] as? String ?? "", position: position, company: company, responses: responses)))
+                completion(.success(JobCard(id: position["id"] as? String ?? "", position: position, company: company, responses: responses, hardSkills: hardskills)))
             case .failure(let error):
                 completion(.failure(error))
             }
@@ -89,5 +91,5 @@ struct JobCard: Identifiable, View {
 }
 
 #Preview {
-    JobCard(id: "0", position: [:], company: [:], responses: ["q1": 1], similarity: 100)
+    JobCard(id: "0", position: [:], company: [:], responses: ["q1": 1], similarity: 100, hardSkills: [])
 }
