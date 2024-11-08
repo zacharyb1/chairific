@@ -13,6 +13,7 @@ import Firebase
 
 let backgroundColor: Color = Color(.systemGray5)
 let baseButtonColor: Color = Color(.systemGray2)
+var currentUserId: String = ""
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -29,7 +30,6 @@ struct chairificApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    
     var body: some Scene {
         WindowGroup {
             SplashView()

@@ -26,7 +26,7 @@ struct JobCard: Identifiable, View {
                         .frame(width: 320, height: 320)
                     
                     Text("\(Int(similarity ?? 0))%")
-                        .font(.system(size: 40, weight: .bold))
+                        .font(.system(size: 69, weight: .bold))
                         .foregroundColor(.white)
                 }
                 

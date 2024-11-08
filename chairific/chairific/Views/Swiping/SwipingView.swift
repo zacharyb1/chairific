@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwipingView: View {
     @State private var currentIndex = 0
-    @State private var showApplyOverlay: Bool = false
+    @State private var showLikeOverlay: Bool = false
     @State private var showDenyOverlay: Bool = false
     @State private var showCardDetails: Bool = false
     @State private var mainCardOpacity: Double = 1.0
@@ -28,7 +28,7 @@ struct SwipingView: View {
                 if currentIndex + 1 < jobCards.count {
                     jobCards[currentIndex + 1]
                         .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
-                        .opacity(Double(2*abs(dragOffset)) / Double(geometry.size.width))
+                        .opacity(Double(2 * abs(dragOffset)) / Double(geometry.size.width))
                 }
                 
                 // Show the current card on top
@@ -42,16 +42,16 @@ struct SwipingView: View {
                                 .onChanged { gesture in
                                     dragOffset = gesture.translation.width
                                     if gesture.translation.width > swipeThreshold {
-                                        showApplyOverlay = true
+                                        showLikeOverlay = true
                                     } else if gesture.translation.width < -swipeThreshold {
                                         showDenyOverlay = true
                                     } else {
-                                        showApplyOverlay = false
+                                        showLikeOverlay = false
                                         showDenyOverlay = false
                                     }
                                 }
                                 .onEnded { gesture in
-                                    handleSwipe(gesture, geometry: geometry)
+                                    handleSwipe(dragOffset, geometry: geometry)
                                 }
                         )
                         .animation(.spring(), value: dragOffset)
@@ -63,7 +63,12 @@ struct SwipingView: View {
                 }
                 
                 if currentIndex < jobCards.count {
-                    SwipingOverlay(card: jobCards[currentIndex], dragOffset: $dragOffset, showMore: $showCardDetails)
+                    SwipingOverlay(card: jobCards[currentIndex],
+                                   dragOffset: $dragOffset,
+                                   showMore: $showCardDetails,
+                                   handleSwipe: { offset in handleSwipe(offset, geometry: geometry) }
+                    )
+                    .opacity(1 - Double(abs(dragOffset)) / Double(geometry.size.width * 4))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -73,9 +78,9 @@ struct SwipingView: View {
         }
     }
     
-    private func handleSwipe(_ gesture: DragGesture.Value, geometry: GeometryProxy) {
-        // Animation isnt fully functional
-        if gesture.translation.width > swipeThreshold {
+    private func handleSwipe(_ offset: CGFloat, geometry: GeometryProxy) {
+        if offset > swipeThreshold {
+            UserManager.shared.likePosition(jobCards[currentIndex].position)
             withAnimation(.easeOut(duration: 0.5)) {
                 dragOffset = geometry.size.width * 2
             }
@@ -85,7 +90,7 @@ struct SwipingView: View {
                 currentIndex += 1
                 mainCardOpacity = 1
             }
-        } else if gesture.translation.width < -swipeThreshold {
+        } else if offset < -swipeThreshold {
             withAnimation(.easeOut(duration: 0.5)) {
                 dragOffset = geometry.size.width * -2
             }
@@ -96,12 +101,8 @@ struct SwipingView: View {
                 mainCardOpacity = 1
             }
         } else {
-            // Reset position if swipe was too small
             dragOffset = 0
         }
     }
 }
 
-#Preview {
-    SwipingView(jobCards: .constant([]))
-}

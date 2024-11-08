@@ -116,8 +116,7 @@ class FirestoreManager {
     
     
     func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)], completion: @escaping (Error?) -> Void) {
-        guard let userID = AuthManager.shared.getCurrentUser()?.uid else {
-            
+        guard currentUserId != "" else {
             return
         }
         
@@ -125,8 +124,7 @@ class FirestoreManager {
             result[answer.questionID] = answer.answerIndex
         }
 
-
-        let userRef = db.collection("users").document(userID)
+        let userRef = db.collection("users").document(currentUserId)
 
         userRef.setData(["responses": answersDictionary], merge: true) { error in
             if let error = error {

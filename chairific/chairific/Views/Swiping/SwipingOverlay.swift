@@ -12,6 +12,8 @@ struct SwipingOverlay: View {
     @Binding var dragOffset: CGFloat
     @Binding var showMore: Bool
     
+    var handleSwipe: (CGFloat) -> Void
+    
     var body: some View {
         VStack {
             Spacer()
@@ -19,14 +21,14 @@ struct SwipingOverlay: View {
             HStack {
                 Spacer()
                 Button(action: {
-                    dragOffset = -UIScreen.main.bounds.width * 2 // Swipes card to the left
+                    handleSwipe(-UIScreen.main.bounds.width * 2)
                 }) {
                     Image(systemName: "xmark")
                         .resizable()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 38, height: 38)
                         .foregroundColor(.red)
                         .padding()
-                        .background(Circle().fill(Color(.systemGray4)))
+                        .background(Circle().fill(Color(.systemGray5)))
                 }
                 Spacer()
                 Button(action: {
@@ -34,25 +36,27 @@ struct SwipingOverlay: View {
                 }) {
                     HStack {
                         Text("More")
-                            .font(.headline)
+                            .font(.system(size: 26, weight: .semibold))
                             .foregroundColor(Color(.systemGray2))
+                        
                         Image(systemName: "chevron.up.2")
-                            .foregroundColor(Color(.systemGray2))
+                            .foregroundColor(baseButtonColor)
                     }
                     .frame(width: 100, height: 40)
-                    .background(Rectangle().fill(Color(.systemGray4)))
+                    .padding(6)
+                    .background(Rectangle().fill(Color(.systemGray5)))
                     .cornerRadius(10)
                 }
                 Spacer()
                 Button(action: {
-                    dragOffset = UIScreen.main.bounds.width * 2
+                    handleSwipe(UIScreen.main.bounds.width * 2)
                 }) {
                     Image(systemName: "heart.fill")
                         .resizable()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 38, height: 38)
                         .foregroundColor(Color("lightorange"))
                         .padding()
-                        .background(Circle().fill(Color(.systemGray4)))
+                        .background(Circle().fill(Color(.systemGray5)))
                 }
                 Spacer()
             }
@@ -60,8 +64,3 @@ struct SwipingOverlay: View {
         }
     }
 }
-
-#Preview {
-    SwipingOverlay(card: JobCard(id: "0", position: [:], company: [:], responses: [:]), dragOffset: .constant(0), showMore: .constant(false))
-}
-
