@@ -11,6 +11,7 @@ import FirebaseAuth
 class AuthManager{
     static let shared = AuthManager()
 
+    
     private init() {}
     
     func getCurrentUser() -> User? {

@@ -29,7 +29,7 @@ struct chairificApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RegistrationView()
         }
     }
 }
