@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 struct ProfileSetupView: View {
     @State private var firstName = ""
     @State private var lastName = ""
@@ -91,6 +92,8 @@ struct ProfileSetupView: View {
         .edgesIgnoringSafeArea(.all)
     }
 }
+
+
 #Preview {
     ProfileSetupView()
 }

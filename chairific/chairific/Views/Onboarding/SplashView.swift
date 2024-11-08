@@ -11,6 +11,15 @@ struct SplashView: View {
     @State var isActive: Bool = false
     @State var existingAccount: Bool = false
     let accentColor: Color = Color(red: 0.6, green: 0.3, blue: 0.25)
+    @AppStorage("isSignedIn") private var isSignedIn: Bool = false
+    @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
+
+    init() {
+        UserManager.shared.fetchUserResponses(){
+            
+        }
+    }
+
     var body: some View {
         VStack(spacing: 100) {
             Image("mainchair")
@@ -35,11 +44,16 @@ struct SplashView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.orange)
+        .onAppear() {
+//            UserManager.shared.fetchUserResponses(){
+//
+//            }
+        }
         .fullScreenCover(isPresented: $isActive) {
-            if existingAccount {
+            if isSignedIn && isUserAnswers {
                 MainView()
             } else {
-                EntryQuestionnaireView()
+                AuthenticationView()
                     .onDisappear() {
                         existingAccount = true
                         isActive = true
@@ -47,6 +61,8 @@ struct SplashView: View {
             }
         }
     }
+    
+
 }
 
 #Preview {

@@ -18,25 +18,22 @@ enum QuestionnaireStep {
 
 struct EntryQuestionnaireView: View {
     // State for current step and personal information
+    @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
     @State private var currentStep: QuestionnaireStep = .welcome
     @State private var name = ""
     @State private var surname = ""
     @State private var city = ""
     @State private var currentQuestionIndex = 0
     @State private var isCurrentQuestionCompleted: Bool = false
+    @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
+    @State private var selectedAnswerIndex: Int? = nil
+    
+    @State private var questions: [QuestionView] = []
+    private var numberOfMendatoryQuestions: Int = 10
+    
     @Environment(\.dismiss) var dismiss
     
-    // Questions for the questionnaire
-    private var questions: [QuestionView] {
-        [
-            QuestionView(question: "Does the office location matter?", options: ["Yes", "No"], isCompleted: $isCurrentQuestionCompleted),
-            QuestionView(question: "How comfortable are you with remote work?", options: ["Very comfortable", "Somewhat comfortable", "Not comfortable"], isCompleted: $isCurrentQuestionCompleted),
-            QuestionView(question: "How important is work-life balance?", options: ["Very important", "Somewhat important", "Not important"], isCompleted: $isCurrentQuestionCompleted),
-            QuestionView(question: "How often do you prefer meetings?", options: ["Daily", "Weekly", "Monthly"], isCompleted: $isCurrentQuestionCompleted),
-            QuestionView(question: "Do you value flexible working hours?", options: ["Yes", "No"], isCompleted: $isCurrentQuestionCompleted)
-        ]
-    }
-    
+
     var body: some View {
         VStack {
             VStack {
@@ -44,15 +41,20 @@ struct EntryQuestionnaireView: View {
                     .font(.largeTitle)
                     .padding(.bottom, currentStep == .questions ? 4 : 20)
                 if currentStep == .questions {
-                    ProgressView(value: Double(currentQuestionIndex) * 0.2)
+                    ProgressView(value: Double(currentQuestionIndex) * 1/Double(numberOfMendatoryQuestions))
                         .padding(.horizontal)
                 }
             }
             .padding()
+
             // Main content area based on the current step
             mainContent
         }
+        .onAppear {
+            loadQuestions()
+        }
         .padding()
+        .navigationBarBackButtonHidden(true)
     }
     
     // Determines the title based on the current step
@@ -63,7 +65,7 @@ struct EntryQuestionnaireView: View {
         case .complete: return "Thank you!"
         }
     }
-    
+
     // Main content view based on the current step
     @ViewBuilder
     private var mainContent: some View {
@@ -78,7 +80,7 @@ struct EntryQuestionnaireView: View {
             completeView
         }
     }
-    
+
     // Welcome step view with personal information text fields
     private var welcomeView: some View {
         VStack(spacing: 20) {
@@ -86,14 +88,17 @@ struct EntryQuestionnaireView: View {
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
+
             TextField("Last Name", text: $surname)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
+
             TextField("City", text: $city)
                 .padding()
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
+
             Button("Continue") {
                 currentStep = .intro
             }
@@ -105,7 +110,7 @@ struct EntryQuestionnaireView: View {
         }
         .padding(.horizontal)
     }
-    
+
     // Introduction step view with introductory message and Start button
     private var introView: some View {
         VStack(spacing: 20) {
@@ -123,29 +128,38 @@ struct EntryQuestionnaireView: View {
             .cornerRadius(10)
         }
     }
-    
+
     // Questions step view with navigation controls
     private var questionsView: some View {
         VStack(spacing: 20) {
-            questions[currentQuestionIndex]
-            
-            Button("Next") {
-                if currentQuestionIndex < questions.count - 1 {
-                    currentQuestionIndex += 1
-                    isCurrentQuestionCompleted = false // Reset for the next question
-                } else {
-                    currentStep = .complete
+            if !questions.isEmpty {
+                questions[currentQuestionIndex]
+                HStack{
+                    Button("Next") {
+                        saveAnswer(answerIndex: selectedAnswerIndex)
+                        UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                        selectedAnswerIndex = nil
+                        if currentQuestionIndex < numberOfMendatoryQuestions {
+                            currentQuestionIndex += 1
+                            isCurrentQuestionCompleted = false // Reset for the next question
+                        } else {
+                            
+                            isUserAnswers = true
+                            currentStep = .complete
+                            saveAnswersToDatabase()
+                        }
+                    }
+                    .padding()
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .disabled(!isCurrentQuestionCompleted)
                 }
             }
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-            .disabled(!isCurrentQuestionCompleted)
         }
         .padding(.horizontal)
     }
-    
+
     // Completion view after finishing the questionnaire
     private var completeView: some View {
         VStack(spacing: 20) {
@@ -164,7 +178,37 @@ struct EntryQuestionnaireView: View {
                     .foregroundStyle(.black)
                     .padding()
                     .background(.yellow)
-                    .cornerRadius(10)
+                    .cornerRadius(10)            }
+        }
+    }
+    
+    private func saveAnswer(answerIndex: Int?) {
+        guard let index = answerIndex else { return }
+        let questionID = questions[currentQuestionIndex].id
+        collectedAnswers.append((questionID: questionID, answerIndex: index))
+    }
+    
+    private func saveAnswersToDatabase() {
+        FirestoreManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers) { error in
+            if let error = error {
+                print("Failed to upload responses: \(error.localizedDescription)")
+            } else {
+                print("Successfully uploaded responses")
+            }
+        }
+    }
+    
+    
+    private func loadQuestions(){
+        QuestionsManager.shared.loadQuestionsFromJSON { loadedQuestions in
+            questions = loadedQuestions.map { questionView in
+                QuestionView(
+                    id: questionView.id,
+                    question: questionView.question,
+                    options: questionView.options,
+                    isCompleted: $isCurrentQuestionCompleted,
+                    selectedAnswerIndex: $selectedAnswerIndex
+                )
             }
         }
     }

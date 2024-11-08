@@ -129,14 +129,14 @@ struct RegistrationView: View {
 
             }
             .navigationDestination(isPresented: $isAddedUser) {
-                EntryQuestionnaireView()
+                SkillsView()
             }
-
 
         }
 
         .environment(\.colorScheme, .light)
     }
+    
     
     private func signUp() {
         isLoading = true
@@ -184,11 +184,13 @@ struct RegistrationView: View {
             }
         }
     }
-
 }
 
 
 #Preview {
     RegistrationView()
 }
+
+
+
 
