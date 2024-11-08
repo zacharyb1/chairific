@@ -32,7 +32,7 @@ struct chairificApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView()
+            SplashView()
         }
     }
 }
