@@ -124,7 +124,11 @@ struct AuthenticationView: View {
         AuthManager.shared.signInUser(email: email, password: password) { result in
             switch result {
             case .success(let authResult):
-                isLoading = false
+                UserManager.shared.usersResponses.removeAll()
+                UserManager.shared.fetchUserResponses(){
+                    isLoading = false
+                }
+                
                 isSignedIn = true
                 isUserAnswers = true
                 navigateToMainScreen = true

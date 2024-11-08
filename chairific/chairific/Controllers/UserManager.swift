@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserManager{
+class UserManager: ObservableObject {
     static let shared = UserManager()
     
     private init() {}
@@ -16,7 +16,7 @@ class UserManager{
     var hardSkills: [String] = []
     var hobbies: [String] = []
     @Published var userFirstName: String?
-    var userSecondName: String?
+    @Published var userSecondName: String?
     
     func reset(){
         usersResponses = [:]

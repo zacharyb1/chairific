@@ -21,12 +21,12 @@ struct EditProfileView: View {
             VStack(spacing: 20) {
                 HStack {
                     Button(action: {
-                        dismiss()
+                        
                     }) {
                         HStack {
-                            Image(systemName: "chevron.left")
-                                .font(.headline)
-                                .foregroundColor(.gray)
+//                            Image(systemName: "chevron.left")
+//                                .font(.headline)
+//                                .foregroundColor(.gray)
                             Text("Your throne")
                                 .font(.system(size: 24, weight: .semibold))
                                 .foregroundColor(.gray)
@@ -49,7 +49,7 @@ struct EditProfileView: View {
                 }
                 .padding(.horizontal)
                 
-                Image(.defaultpp)
+                Image(.mainchair)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 120, height: 120)
@@ -118,6 +118,8 @@ struct EmployeeProfileContentView: View{
     
     @Binding var isEditing: Bool
     
+    @ObservedObject var userManager = UserManager.shared
+
     @State private var EmployeeName: String = (UserManager.shared.userFirstName ?? "User")
     @State private var EmployeeLastName: String = (UserManager.shared.userSecondName ?? "User")
     @State private var Employeeindustry: String = "Software development"
@@ -127,7 +129,7 @@ struct EmployeeProfileContentView: View{
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading) {
-                    Text(UserManager.shared.userFirstName ?? "User")
+                    Text("Name")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundStyle(.gray)
                         .padding(.leading, 20)
@@ -142,7 +144,7 @@ struct EmployeeProfileContentView: View{
                             .cornerRadius(10)
                             .padding(.horizontal, 20)
                     } else {
-                        Text(EmployeeName)
+                        Text(UserManager.shared.userFirstName ?? "UserFirstName")
                             .padding()
                             .font(.system(size: 24, weight: .semibold))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -169,7 +171,7 @@ struct EmployeeProfileContentView: View{
                             .cornerRadius(10)
                             .padding(.horizontal, 20)
                     } else {
-                        Text(EmployeeLastName)
+                        Text(userManager.userSecondName ?? "UserSecondName")
                             .padding()
                             .font(.system(size: 24, weight: .semibold))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -180,32 +182,32 @@ struct EmployeeProfileContentView: View{
                     }
                 }
                 
-                VStack(alignment: .leading) {
-                    Text("Industry")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundStyle(.gray)
-                        .padding(.leading, 20)
-                    
-                    if isEditing {
-                        TextField("Industry", text: $Employeeindustry)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    } else {
-                        Text(Employeeindustry)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color("FigmaGrey"))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    }
-                }
+//                VStack(alignment: .leading) {
+//                    Text("Industry")
+//                        .font(.system(size: 24, weight: .semibold))
+//                        .foregroundStyle(.gray)
+//                        .padding(.leading, 20)
+//                    
+//                    if isEditing {
+//                        TextField("Industry", text: $Employeeindustry)
+//                            .padding()
+//                            .font(.system(size: 24, weight: .semibold))
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .frame(height: 50)
+//                            .background(Color(.systemGray5))
+//                            .cornerRadius(10)
+//                            .padding(.horizontal, 20)
+//                    } else {
+//                        Text(Employeeindustry)
+//                            .padding()
+//                            .font(.system(size: 24, weight: .semibold))
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .frame(height: 50)
+//                            .background(Color("FigmaGrey"))
+//                            .cornerRadius(10)
+//                            .padding(.horizontal, 20)
+//                    }
+//                }
             }
             VStack(alignment: .leading) {
                 Text("CV")

@@ -168,9 +168,12 @@ struct RegistrationView: View {
                 FirestoreManager.shared.addUser(uid: authResult.user.uid, data: userData) { firestoreResult in
                     switch firestoreResult {
                     case .success():
+                        UserManager.shared.usersResponses.removeAll()
                         isSignedIn = true
                         isAddedUser = true
                         isLoading = false
+                        UserManager.shared.userFirstName = name
+                        UserManager.shared.userSecondName = surname
                         print("Successfully added User")
                     case .failure(let firestoreError):
                         isLoading = false
