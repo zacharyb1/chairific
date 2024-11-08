@@ -27,4 +27,17 @@ class FirestoreManager{
         }
     }
     
+    func fetchCompany(fromId: String, completion: @escaping (Result<Dictionary<String, Any>, Error>) -> Void) {
+        db.collection("companies").document(fromId).getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let document = document, document.exists {
+                completion(.success(document.data() ?? [:]))
+            } else {
+                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Event not found"])
+                completion(.failure(error))
+            }
+        }
+    }
+    
 }
