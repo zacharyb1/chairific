@@ -15,9 +15,8 @@ struct SplashView: View {
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
 
     init() {
-        UserManager.shared.fetchUserResponses(){
-            
-        }
+        AuthManager.shared.initUser()
+        UserManager.shared.fetchUserResponses(){}
     }
 
     var body: some View {

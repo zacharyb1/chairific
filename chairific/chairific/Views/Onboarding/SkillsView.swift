@@ -275,23 +275,19 @@ struct SkillsView: View {
     
     private func uploadUserSkillsAndHobbies(selectedSkills: Set<Skill>, hobbies: [Hobby], completion: @escaping (Result<Void, Error>) -> Void) {
         
-        guard let userID = AuthManager.shared.getCurrentUser()?.uid else {
-            
+        guard currentUserId != "" else {
             return
         }
         
         let skillsData = selectedSkills.map { $0.name }
         let hobbiesData = hobbies.map { $0.name }
         
-        
-
-        
         let userData: [String: Any] = [
             "skills": skillsData,
             "hobbies": hobbiesData
         ]
         
-        FirestoreManager.shared.addUser(uid: userID, data: userData) { result in
+        FirestoreManager.shared.addUser(uid: currentUserId, data: userData) { result in
             switch result {
             case .success:
                 UserManager.shared.hardSkills = skillsData

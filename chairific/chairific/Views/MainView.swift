@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MainView: View {
     @State private var selectedTab: Int = 1

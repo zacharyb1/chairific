@@ -10,12 +10,13 @@ import FirebaseAuth
 
 class AuthManager{
     static let shared = AuthManager()
-
     
     private init() {}
     
-    func getCurrentUser() -> User? {
-        return Auth.auth().currentUser
+    func initUser() {
+        if let currentUser = Auth.auth().currentUser {
+            currentUserId = currentUser.uid
+        }
     }
     
     func deleteAccount() async throws{

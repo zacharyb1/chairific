@@ -24,14 +24,14 @@ class UserManager: ObservableObject {
         userSecondName = nil
     }
     
+    
     func fetchUserResponses(completion: @escaping () -> Void) {
-
+        guard currentUserId != "" else {
+            return
+        }
+        
         if self.usersResponses.isEmpty {
-            guard let userID = AuthManager.shared.getCurrentUser()?.uid else {
-                return
-            }
-            
-            FirestoreManager.shared.fetchUser(fromId: userID) { result in
+            FirestoreManager.shared.fetchUser(fromId: currentUserId) { result in
                 switch result {
                 case .success(let data):
                     if let responses = data["responses"] as? [String: Int] {
@@ -72,4 +72,19 @@ class UserManager: ObservableObject {
         }
     }
     
+    func likePosition(_ position: Dictionary<String, Any>) {
+        guard currentUserId != "" else {
+            return
+        }
+        var updatedLikes: [String] = position["likes"] as? [String] ?? []
+        updatedLikes.append(currentUserId)
+        FirestoreManager.shared.updatePosition(fromId: position["id"] as? String ?? "", data: ["likes":updatedLikes]) { result in
+            switch result {
+            case .success:
+                print("Successfully liked position")
+            case .failure:
+                print("Error liking position")
+            }
+        }
+    }
 }
