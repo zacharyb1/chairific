@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9602CDE6BEA00001153 /* FirebaseAuth */; };
+		7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9622CDE6BEA00001153 /* FirebaseFirestore */; };
+		7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		7F44C9432CDE6AF000001153 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,7 @@
 		7F44C9322CDE6AED00001153 /* chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C9422CDE6AF000001153 /* chairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */,
+				7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +84,7 @@
 		7F44C9292CDE6AED00001153 = {
 			isa = PBXGroup;
 			children = (
+				7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */,
 				7F44C9342CDE6AED00001153 /* chairific */,
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
@@ -112,6 +122,8 @@
 			);
 			name = chairific;
 			packageProductDependencies = (
+				7F44C9602CDE6BEA00001153 /* FirebaseAuth */,
+				7F44C9622CDE6BEA00001153 /* FirebaseFirestore */,
 			);
 			productName = chairific;
 			productReference = 7F44C9322CDE6AED00001153 /* chairific.app */;
@@ -195,6 +207,9 @@
 			);
 			mainGroup = 7F44C9292CDE6AED00001153;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F44C9332CDE6AED00001153 /* Products */;
 			projectDirPath = "";
@@ -212,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,12 +420,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = chairific.chairific;
+				PRODUCT_BUNDLE_IDENTIFIER = mamaqat.Chairific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -433,12 +450,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = chairific.chairific;
+				PRODUCT_BUNDLE_IDENTIFIER = mamaqat.Chairific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -558,6 +576,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7F44C9602CDE6BEA00001153 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		7F44C9622CDE6BEA00001153 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F44C92A2CDE6AED00001153 /* Project object */;
 }
