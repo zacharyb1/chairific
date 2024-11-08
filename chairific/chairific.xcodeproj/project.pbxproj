@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9602CDE6BEA00001153 /* FirebaseAuth */; };
 		7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9622CDE6BEA00001153 /* FirebaseFirestore */; };
+		7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		7F44C9322CDE6AED00001153 /* chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C9422CDE6AF000001153 /* chairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -82,6 +84,7 @@
 		7F44C9292CDE6AED00001153 = {
 			isa = PBXGroup;
 			children = (
+				7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */,
 				7F44C9342CDE6AED00001153 /* chairific */,
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
@@ -224,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

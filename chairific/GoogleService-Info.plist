@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>702205713422-ahpge7aaq6enbh6be5m5n9s70tfqskvp.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.702205713422-ahpge7aaq6enbh6be5m5n9s70tfqskvp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyASXXq0LvPZovieSJ9uuIZVOlYvWaF6SHE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>702205713422</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mimiqit.mimiqit-ios-5</string>
+	<key>PROJECT_ID</key>
+	<string>tetsprojnew</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tetsprojnew.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:702205713422:ios:02a7612e22f9500a37b05f</string>
+</dict>
+</plist>
