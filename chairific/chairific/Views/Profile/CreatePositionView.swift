@@ -14,7 +14,7 @@ struct CreatePositionView: View {
     @State private var positionName = ""
     @State private var positionDescription = ""
     @State private var isDropdownOpen = false
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
 
     // Properties for skills section
     @State private var skills: [String] = [
@@ -172,19 +172,17 @@ struct CreatePositionView: View {
                         }
                     }
                 }
-            }
-            .navigationDestination(isPresented: $navigateToPositionsList) {
-                // TO DO
-                PositionsListView()
-            }
-            .navigationDestination(isPresented: $navigateToQuestionnaire) {
-                CompanyQuestionnaireView(firstLogin: true)
-            }
-            .padding(.horizontal, 25)
-            .navigationBarBackButtonHidden(isFirstPositions)
-
-
+            }.padding(.horizontal, 25)
         }
+        .navigationDestination(isPresented: $navigateToPositionsList) {
+            // TO DO
+            PositionsListView()
+        }
+        .navigationDestination(isPresented: $navigateToQuestionnaire) {
+            CompanyQuestionnaireView(firstLogin: true)
+        }
+        
+        .navigationBarBackButtonHidden(isFirstPositions)
     }
     
     private var filteredSkills: [String] {
@@ -212,7 +210,7 @@ struct CreatePositionView: View {
                 if isFirstPositions {
                     navigateToQuestionnaire = true
                 } else {
-                    dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }
             case .failure(let error):
                 print(error)
