@@ -15,7 +15,7 @@ enum QuestionnaireStep {
     case complete
 }
 
-struct EntryQuestionnaireView: View {
+struct QuestionnaireView: View {
     // State for current step and personal information
     @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
 

@@ -174,5 +174,5 @@ struct CompanyQuestionnaireView: View {
 }
 
 //#Preview {
-//    EntryQuestionnaireView(firstLogin: false)
+//    QuestionnaireView(firstLogin: false)
 //}

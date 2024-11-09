@@ -14,6 +14,7 @@ struct MainView: View {
     let baseColor: Color = Color.white
     let tabSize: CGFloat = 30
     @State private var jobCards: [JobCard] = []
+    @State private var matchList: [JobCard] = []
 
     init() {
         UITabBar.appearance().backgroundColor = UIColor.figmaGrey
@@ -30,7 +31,7 @@ struct MainView: View {
                     }
                     .tag(1)
                 
-                SeatsView()
+                SeatsView(matches: $matchList)
                     .tabItem {
                         Image(systemName: "message.fill")
                             .font(.title)
@@ -48,13 +49,11 @@ struct MainView: View {
             }
             .accentColor(accentColor)
             .onAppear {
-                if UserManager.shared.usersResponses.isEmpty{
-                    UserManager.shared.fetchUserResponses(){
-                        fetchPositions()
-                    }
-                }else{
-                    fetchPositions()
+                if UserManager.shared.usersResponses.isEmpty {
+                    UserManager.shared.fetchUserResponses() {}
                 }
+                fetchPositions()
+                fetchMatches()
                 UITabBar.appearance().unselectedItemTintColor = UIColor(baseColor)
             }
         }
@@ -69,8 +68,6 @@ struct MainView: View {
         guard currentUserId != "" else {
             return
         }
-        
-        
         FirestoreManager.shared.fetchAllPositions { result in
             switch result {
             case .success(let positions):
@@ -99,7 +96,33 @@ struct MainView: View {
         }
     }
     
+    private func fetchMatches(){
+        guard currentUserId != "" else {
+            return
+        }
+        
+        FirestoreManager.shared.fetchMatches { result in
+            switch result {
+            case .success(let positions):
+                for position in positions {
+                    let positionHardSkills = position["skills"] as? [String] ?? []
 
+                    JobCard.generateJobCard(position: position) { result in
+                        switch result {
+                        case .success(var jobcard):
+                            jobcard.similarity = calculateSimilarity(companyArray: jobcard.responses, userArray: UserManager.shared.usersResponses, positionHardskills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills).similarity
+                            
+                            self.matchList.append(jobcard)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
     
     private func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int], positionHardskills: [String], userHardSkills: [String]) -> (similarity: Double, matchingKeys: [String]) {
 
