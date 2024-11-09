@@ -243,7 +243,7 @@ struct EmployeeProfileContentView: View{
     
     
     var body: some View {
-        NavigationView{
+//        NavigationView{
             VStack(alignment: .leading, spacing: 20) {
                 VStack(alignment: .leading, spacing: 20) {
                     VStack(alignment: .leading) {
@@ -351,7 +351,7 @@ struct EmployeeProfileContentView: View{
                     .padding(.horizontal)
                 }
             }
-        }
+//        }
     }
 }
 
@@ -360,7 +360,7 @@ struct NonEmployeeContentView: View{
     @State private var openChairs: [String] = []
     @State private var companyName = (CompanyManager.shared.companyName ?? "Mamaqat")
     @State private var industry = (CompanyManager.shared.companyIndustry ?? "entertainment")
-    @State private var website = "mamaqat.com"
+//    @State private var website = "mamaqat.com"
     @Binding var isEditing: Bool
     @State private var addNewPosition: Bool = false
     
