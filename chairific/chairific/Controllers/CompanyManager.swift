@@ -23,6 +23,8 @@ class CompanyManager: ObservableObject {
         companyResponses = [:]
         companyName = nil
         companyIndustry = nil
+        benefits = []
+        culture = []
     }
     
     func fetchUserResponses(completion: @escaping () -> Void) {

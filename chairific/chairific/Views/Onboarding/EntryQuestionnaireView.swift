@@ -21,22 +21,23 @@ struct EntryQuestionnaireView: View {
 
     @State private var currentStep: QuestionnaireStep = .intro
     @State private var currentQuestionIndex = 0
+    @AppStorage("isEmployee") private var isEmployee: Bool = false
 
     @State private var isCurrentQuestionCompleted: Bool = false
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
     @State private var selectedAnswerIndex: Int? = nil
     
     @State private var questions: [QuestionView] = []
-    private var numberOfMendatoryQuestions: Int = 10
+    @State private var numberOfMendatoryQuestions: Int = 10
     @State var firstLogin: Bool
 
     // Custom initializer
     init(firstLogin: Bool) {
         self._firstLogin = State(initialValue: firstLogin)
-        if !firstLogin{
-            numberOfMendatoryQuestions = 44
-//            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
-        }
+//        if !firstLogin{
+//            numberOfMendatoryQuestions = 44
+////            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
+//        }
     }
     
     @Environment(\.dismiss) var dismiss
@@ -59,15 +60,20 @@ struct EntryQuestionnaireView: View {
             mainContent
         }
         .onAppear {
-            loadQuestions()
+
+            loadQuestions(isEmployee: isEmployee)
             if !firstLogin{
+                self.numberOfMendatoryQuestions = questions.count
                 currentStep = .questions
-                for (questionID, answerIndex) in UserManager.shared.usersResponses {
+                
+                let responses = isEmployee ? UserManager.shared.usersResponses : CompanyManager.shared.companyResponses
+
+                for (questionID, answerIndex) in responses {
                     collectedAnswers.append((questionID: questionID, answerIndex: answerIndex))
                 }
             }
-            currentQuestionIndex = UserManager.shared.usersResponses.count
-            
+            currentQuestionIndex = isEmployee ? UserManager.shared.usersResponses.count : CompanyManager.shared.companyResponses.count
+
         }
         .padding()
         .navigationBarBackButtonHidden(true)
@@ -123,12 +129,19 @@ struct EntryQuestionnaireView: View {
                     if !firstLogin{
                         Button("Finish") {
                             saveAnswer(answerIndex: selectedAnswerIndex)
-                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            
+                            if isEmployee {
+                                UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                            } else {
+                                CompanyManager.shared.companyResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                CompanyManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                            }
+                            
                             selectedAnswerIndex = nil
                             isUserAnswers = true
                             currentStep = .complete
 
-                            UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
 
                         }
                         .padding()
@@ -139,7 +152,13 @@ struct EntryQuestionnaireView: View {
                     if currentQuestionIndex < questions.count{
                         Button("Next") {
                             saveAnswer(answerIndex: selectedAnswerIndex)
-                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            
+                            if isEmployee {
+                                UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            } else {
+                                CompanyManager.shared.companyResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            }
+                            
                             selectedAnswerIndex = nil
                             if currentQuestionIndex < numberOfMendatoryQuestions - 1{
                                 currentQuestionIndex += 1
@@ -148,7 +167,12 @@ struct EntryQuestionnaireView: View {
                                 
                                 isUserAnswers = true
                                 currentStep = .complete
-                                UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                                
+                                if isEmployee {
+                                    UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                                } else {
+                                    CompanyManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                                }
                             }
                         }
                         .padding()
@@ -210,8 +234,8 @@ struct EntryQuestionnaireView: View {
         collectedAnswers.append((questionID: questionID, answerIndex: index))
     }
     
-    private func loadQuestions(){
-        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: true) { loadedQuestions in
+    private func loadQuestions(isEmployee: Bool){
+        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: isEmployee) { loadedQuestions in
             questions = loadedQuestions.map { questionView in
                 QuestionView(
                     id: questionView.id,

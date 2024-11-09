@@ -22,6 +22,7 @@ struct RegistrationView: View {
     @State private var repeatPassword = ""
     @AppStorage("isSignedIn") private var isSignedIn: Bool = false
     @State private var isLoading = false
+    @AppStorage("isEmployee") private var isEmployee: Bool = false
 
     
     var body: some View {
@@ -156,6 +157,7 @@ struct RegistrationView: View {
             switch result {
             case .success(let authResult):
                 isRegistered = true
+                isEmployee = true
                 let currentDate = Date()
                 let userData: [String: Any] = [
                     "name": name,

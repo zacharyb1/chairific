@@ -22,6 +22,7 @@ struct CompanyRegistrationView: View {
     @State private var repeatPassword = ""
     @AppStorage("isSignedIn") private var isSignedIn: Bool = false
     @State private var isLoading = false
+    @AppStorage("isEmployee") private var isEmployee: Bool = false
 
     
     var body: some View {
@@ -168,6 +169,7 @@ struct CompanyRegistrationView: View {
                     "uid": authResult.user.uid,
                     "industry": industry,
                 ]
+                isEmployee = true
                 FirestoreManager.shared.addCompany(id: companyname, data: companyData) { firestoreResult in
                     switch firestoreResult {
                     case .success():

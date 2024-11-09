@@ -22,6 +22,8 @@ class UserManager: ObservableObject {
         usersResponses = [:]
         userFirstName = nil
         userSecondName = nil
+        hardSkills = []
+        hobbies = []
     }
     
     
