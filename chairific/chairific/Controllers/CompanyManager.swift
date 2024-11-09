@@ -26,12 +26,14 @@ class CompanyManager: ObservableObject {
     }
     
     func fetchUserResponses(completion: @escaping () -> Void) {
-        guard currentUserId != "" else {
+        guard let currentUserId = AuthManager.shared.getCurrentUser()?.uid  else {
             return
         }
+//        let currentUserId = "Dhdhdhdh"
+ 
         
         if self.companyResponses.isEmpty {
-            FirestoreManager.shared.fetchUser(fromId: currentUserId) { result in
+            FirestoreManager.shared.fetchCompanies(withUid: currentUserId) { result in
                 switch result {
                 case .success(let data):
                     if let responses = data["responses"] as? [String: Int] {

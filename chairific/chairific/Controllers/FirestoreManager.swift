@@ -65,6 +65,26 @@ class FirestoreManager {
         }
     }
     
+    func fetchCompanies(withUid uid: String, completion: @escaping (Result<Dictionary<String, Any>, Error>) -> Void) {
+        db.collection("companies").whereField("uid", isEqualTo: uid).getDocuments { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot, !snapshot.isEmpty {
+                // Assuming we only need the first matching document
+                if let document = snapshot.documents.first {
+                    completion(.success(document.data()))
+                } else {
+                    let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not found"])
+                    completion(.failure(error))
+                }
+            } else {
+                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "User not found"])
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     func updateUser(fromId: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         db.collection("users").document(fromId).updateData(data) { error in
             if let error = error {
@@ -220,6 +240,26 @@ class FirestoreManager {
             }
         }
     }
+    
+    
+    func fetchPositions(forCompanyId companyId: String, completion: @escaping (Result<[Dictionary<String, Any>], Error>) -> Void) {
+        db.collection("positions").whereField("companyId", isEqualTo: companyId).getDocuments { snapshot, error in
+            var documents: [Dictionary<String, Any>] = []
+            
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                for document in snapshot.documents {
+                    documents.append(document.data())
+                }
+                completion(.success(documents))
+            } else {
+                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No positions found for the specified companyId"])
+                completion(.failure(error))
+            }
+        }
+    }
+
     
 
 }

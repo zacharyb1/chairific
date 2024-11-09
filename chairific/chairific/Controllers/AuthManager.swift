@@ -19,6 +19,10 @@ class AuthManager{
         }
     }
     
+    func getCurrentUser() -> User? {
+        return Auth.auth().currentUser
+    }
+    
     func deleteAccount() async throws{
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)

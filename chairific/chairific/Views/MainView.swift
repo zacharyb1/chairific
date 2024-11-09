@@ -124,30 +124,7 @@ struct MainView: View {
         return (averageSimilarity, matchingKeys)
 
     }
-    
-    
-//        func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int]) -> (similarity: Double, matchingKeys: [String]) {
-//            // Determine the keys common to both arrays
-//            let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
-//            let totalKeys = min(companyArray.count, userArray.count) // Use the longer array length for a comprehensive comparison
-//    
-//            // Initialize variables to count matches
-//            var matches = 0
-//            var matchingKeys = [String]()
-//    
-//            // Iterate over the common keys and check for matching values
-//            for key in commonKeys {
-//                if companyArray[key] == userArray[key] {
-//                    matches += 1
-//                    matchingKeys.append(key)
-//                }
-//            }
-//    
-//            // Calculate similarity as a percentage, scaled to the longer dictionary
-//            let similarity = (Double(matches) / Double(totalKeys)) * 100
-//    
-//            return (similarity, matchingKeys)
-//        }
+
     
 }
 
