@@ -35,30 +35,45 @@ struct RegistrationView: View {
                             .padding(.bottom, 10)
 
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Name")
-                                .font(.headline)
-                                .foregroundColor(Color.gray.opacity(0.8))
-                                .padding(.bottom, 10)
+                            VStack(alignment: .leading){
+                                Text("Name")
+                                    .font(.headline)
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                Text("(Potential employers will not see it)")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                    .padding(.bottom, 10)
+                            }
                             TextField("", text: $name)
                                 .padding()
                                 .background(Color(.systemGray6))
                                 .cornerRadius(10)
                         }
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Surname")
-                                .font(.headline)
-                                .foregroundColor(Color.gray.opacity(0.8))
-                                .padding(.bottom, 10)
+                            VStack(alignment: .leading){
+                                Text("Last name")
+                                    .font(.headline)
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                Text("(Potential employers will not see it)")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                    .padding(.bottom, 10)
+                            }
                             TextField("", text: $surname)
                                 .padding()
                                 .background(Color(.systemGray6))
                                 .cornerRadius(10)
                         }
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Email")
-                                .font(.headline)
-                                .foregroundColor(Color.gray.opacity(0.8))
-                                .padding(.bottom, 10)
+                            VStack(alignment: .leading){
+                                Text("Email")
+                                    .font(.headline)
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                Text("(Potential employers will not see it)")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                    .padding(.bottom, 10)
+                            }
                             TextField("", text: $email)
                                 .padding()
                                 .background(Color(.systemGray6))
