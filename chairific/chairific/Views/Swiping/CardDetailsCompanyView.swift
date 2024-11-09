@@ -103,27 +103,27 @@ struct CardDetailsCompanyView: View {
 
                     
                     // Matching Questions Section
-//                    VStack(alignment: .leading, spacing: 10) {
-//                        Text("Matching Choices")
-//                            .font(.system(size: 30, weight: .semibold))
-//                            .foregroundColor(.primary)
-//                        
-//                        ForEach(matchingQuestionViews, id: \.id) { questionView in
-//                            VStack(alignment: .leading, spacing: 5) {
-//                                Text("Q: \(questionView.question)")
-//                                    .font(.system(size: 20, weight: .semibold))
-//                                    .foregroundColor(.primary)
-//                                
-//                                if let selectedAnswerIndex = jobCard.responses[questionView.id] {
-//                                    Text("A: \(questionView.options[selectedAnswerIndex])")
-//                                        .font(.system(size: 18, weight: .regular))
-//                                        .foregroundColor(.secondary)
-//                                }
-//                            }
-//                            .padding(.bottom, 10)
-//                        }
-//                    }
-//                    .padding(.bottom, 20)
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Matching Choices")
+                            .font(.system(size: 30, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        ForEach(matchingQuestionViews, id: \.id) { questionView in
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Q: \(questionView.question)")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                if let selectedAnswerIndex = jobCard.responses[questionView.id] {
+                                    Text("A: \(questionView.options[selectedAnswerIndex])")
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.bottom, 10)
+                        }
+                    }
+                    .padding(.bottom, 20)
                 }
                 .padding()
             }
@@ -132,29 +132,29 @@ struct CardDetailsCompanyView: View {
         .background(Color.white)
         .navigationBarTitle("Job Details", displayMode: .inline)
         .onAppear {
-//            loadQuestionViews()
+            loadQuestionViews()
         }
     }
     
     // Filter to get only matching question views based on company responses
-//    private var matchingQuestionViews: [QuestionView] {
-//        questionViews.filter { questionView in
-//            // Cast company responses to [String: Int] and match with user responses
-//            if let companyResponses = jobCard.company["responses"] as? [String: Int],
-//               let companyResponse = companyResponses[questionView.id],
-//               let userResponse = UserManager.shared.usersResponses[questionView.id] {
-//                return companyResponse == userResponse
-//            }
-//            return false
-//        }
-//    }
-//    
-//    // Load questions from JSON and convert to QuestionView
-//    private func loadQuestionViews() {
-//        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: true) { loadedQuestionViews in
-//            self.questionViews = loadedQuestionViews
-//        }
-//    }
+    private var matchingQuestionViews: [QuestionView] {
+        questionViews.filter { questionView in
+            // Cast company responses to [String: Int] and match with user responses
+            if let employeeResponses = jobCard.employeeDetails["responses"] as? [String: Int],
+               let employeeResponse = employeeResponses[questionView.id],
+               let companyResponse = CompanyManager.shared.companyResponses[questionView.id] {
+                return employeeResponse == companyResponse
+            }
+            return false
+        }
+    }
+    
+    // Load questions from JSON and convert to QuestionView
+    private func loadQuestionViews() {
+        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: false) { loadedQuestionViews in
+            self.questionViews = loadedQuestionViews
+        }
+    }
 }
 
 //

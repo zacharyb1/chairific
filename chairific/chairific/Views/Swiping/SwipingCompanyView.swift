@@ -82,6 +82,7 @@ struct SwipingCompanyView: View {
     
     private func handleSwipe(_ offset: CGFloat, geometry: GeometryProxy) {
         if offset > swipeThreshold {
+            CompanyManager.shared.likePosition(jobCards[currentIndex].positionInfo, userUid: jobCards[currentIndex].id)
 //            UserManager.shared.likePosition(jobCards[currentIndex].position)
             withAnimation(.easeOut(duration: 0.5)) {
                 dragOffset = geometry.size.width * 2

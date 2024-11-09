@@ -12,6 +12,7 @@ struct EmployeeCard: Identifiable, View {
     let position: String
     let employeeDetails: Dictionary<String, Any>
     let responses: [String: Int]
+    let positionInfo: [String : Any]
     var similarity: Double?
     var emplyeeHardSkills: [String]
     var positionHardSkills: [String]
@@ -87,11 +88,11 @@ struct EmployeeCard: Identifiable, View {
         }
     }
     
-    static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, postionHardSkills: [String], completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
+    static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, postionHardSkills: [String], postionInfo: [String : Any], completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
 
                 let responses = employeeDetails["responses"] as? [String: Int] ?? [:]
                 let hardskills = employeeDetails["skills"] as? [String] ?? []
-        completion(.success(EmployeeCard(id: employeeUid, position: positionName, employeeDetails: employeeDetails, responses:responses, emplyeeHardSkills: hardskills, positionHardSkills: postionHardSkills)))
+        completion(.success(EmployeeCard(id: employeeUid, position: positionName, employeeDetails: employeeDetails, responses:responses, positionInfo: postionInfo, emplyeeHardSkills: hardskills, positionHardSkills: postionHardSkills)))
 
     }
 

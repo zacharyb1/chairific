@@ -72,21 +72,30 @@ struct CompanyMainView: View {
             case .success(let positions):
                 for position in positions {
                     let likes = position["likes"] as? [String] ?? []
+                    let usersLikesByCompany = position["usersLikesByCompany"] as? [String] ?? []
                     let hardSkills = position["skills"] as? [String] ?? []
                     let positionName = position["position"] as? String ?? "No name"
-                    for userUid in likes {
+                    
+//                    let usersLikesByCompany = position["usersLikesByCompany"] as? [String] ?? []
+//                    let likes = position["likes"] as? [String] ?? []
+
+                    let uniqueLikes = likes.filter { !usersLikesByCompany.contains($0) }
+                    
+                    for userUid in uniqueLikes {
                         FirestoreManager.shared.fetchUser(fromId: userUid) { result in
                             switch result {
                             case .success(let data):
                                 print("")
 //                                let userResponses = data["responses"] as? [String] ?? []
                                 print("data \(data)")
-                                EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid, postionHardSkills: hardSkills) { result in
+                                EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid, postionHardSkills: hardSkills, postionInfo: position) { result in
                                     switch result {
                                     case .success(var employeeCard):
                                         employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.emplyeeHardSkills, userHardSkills: hardSkills).similarity
                                         self.jobCards.append(employeeCard)
-                                    case .failure(let error):
+                                        self.jobCards.sort {
+                                            ($0.similarity ?? 0.0) > ($1.similarity ?? 0.0)
+                                        }                                    case .failure(let error):
                                         print("Failt to generate employee card \(error)")
                                     }
                                 }
