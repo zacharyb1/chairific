@@ -18,7 +18,7 @@ struct EditProfileView: View {
     @AppStorage("isSignedIn") private var isSignedIn: Bool = true
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = true
     @State private var navigateToQuestionnaire = false  // State to manage navigation
-
+    @ObservedObject var userManager = UserManager.shared
     
     var body: some View {
         NavigationView {
@@ -67,7 +67,7 @@ struct EditProfileView: View {
                         .foregroundColor(.gray)
                         .padding(.bottom)
                     
-                    ProgressView(value: 0.3)
+                    ProgressView(value: Double(UserManager.shared.usersResponses.count) / 44.0)
                         .progressViewStyle(LinearProgressViewStyle(tint: .orange))
                         .padding(.horizontal)
                         .padding(.horizontal)
@@ -76,10 +76,10 @@ struct EditProfileView: View {
                         Text("0")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.gray)
-                        Text("50")
+                        Text("22")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.gray)
-                        Text("500+")
+                        Text("44+")
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.gray)
                     }

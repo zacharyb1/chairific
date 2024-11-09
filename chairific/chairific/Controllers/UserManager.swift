@@ -12,7 +12,7 @@ class UserManager: ObservableObject {
     
     private init() {}
 
-    var usersResponses: [String: Int] = [:]
+    @Published var usersResponses: [String: Int] = [:]
     var hardSkills: [String] = []
     var hobbies: [String] = []
     @Published var userFirstName: String?

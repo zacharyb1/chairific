@@ -144,6 +144,8 @@ class FirestoreManager {
             return
         }
         
+    
+        
         let answersDictionary = collectedAnswers.reduce(into: [String: Int]()) { result, answer in
             result[answer.questionID] = answer.answerIndex
         }

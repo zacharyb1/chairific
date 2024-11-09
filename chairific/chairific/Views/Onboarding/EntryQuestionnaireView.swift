@@ -62,7 +62,9 @@ struct EntryQuestionnaireView: View {
             loadQuestions()
             if !firstLogin{
                 currentStep = .questions
-//                collectedAnswers =
+                for (questionID, answerIndex) in UserManager.shared.usersResponses {
+                    collectedAnswers.append((questionID: questionID, answerIndex: answerIndex))
+                }
             }
             currentQuestionIndex = UserManager.shared.usersResponses.count
             
@@ -114,28 +116,66 @@ struct EntryQuestionnaireView: View {
     private var questionsView: some View {
         VStack(spacing: 20) {
             if !questions.isEmpty {
-                questions[currentQuestionIndex]
+                if currentQuestionIndex < questions.count{
+                    questions[currentQuestionIndex]
+                }
                 HStack{
-                    Button("Next") {
-                        saveAnswer(answerIndex: selectedAnswerIndex)
-                        UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
-                        selectedAnswerIndex = nil
-                        if currentQuestionIndex < numberOfMendatoryQuestions {
-                            currentQuestionIndex += 1
-                            isCurrentQuestionCompleted = false // Reset for the next question
-                        } else {
-                            
+                    if !firstLogin{
+                        Button("Finish") {
+                            saveAnswer(answerIndex: selectedAnswerIndex)
+                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            selectedAnswerIndex = nil
                             isUserAnswers = true
                             currentStep = .complete
                             saveAnswersToDatabase()
+                            
                         }
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                     }
-                    .padding()
-                    .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .disabled(!isCurrentQuestionCompleted)
+                    if currentQuestionIndex < questions.count{
+                        Button("Next") {
+                            saveAnswer(answerIndex: selectedAnswerIndex)
+                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                            selectedAnswerIndex = nil
+                            if currentQuestionIndex < numberOfMendatoryQuestions - 1{
+                                currentQuestionIndex += 1
+                                isCurrentQuestionCompleted = false // Reset for the next question
+                            } else {
+                                
+                                isUserAnswers = true
+                                currentStep = .complete
+                                saveAnswersToDatabase()
+                            }
+                        }
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .disabled(!isCurrentQuestionCompleted)
+                    }
+
                 }
+//                if !firstLogin{
+//
+//                    HStack{
+//                        Button("Finish") {
+//                            saveAnswer(answerIndex: selectedAnswerIndex)
+//                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+//                            selectedAnswerIndex = nil
+//                            isUserAnswers = true
+//                            currentStep = .complete
+//                            saveAnswersToDatabase()
+//                            
+//                        }
+//                        .padding()
+//                        .background(Color.orange)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(10)
+//                    }
+//                }
             }
         }
         .padding(.horizontal)
