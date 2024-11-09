@@ -11,7 +11,7 @@ struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @State private var cvUrl: URL?
     @State private var showDocumentPicker = false
-    @State private var isEmployee = true
+    let isEmployee: Bool
     @State private var isEditing = false
     @State private var showAlert = false
 
@@ -19,6 +19,7 @@ struct EditProfileView: View {
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = true
     @State private var navigateToQuestionnaire = false  // State to manage navigation
     @ObservedObject var userManager = UserManager.shared
+    @ObservedObject var companyManager = CompanyManager.shared
     
     var body: some View {
         NavigationView {
@@ -354,9 +355,9 @@ struct EmployeeProfileContentView: View{
 
 struct NonEmployeeContentView: View{
     @Binding var showDocumentPicker: Bool
-    let openChairs = ["Software Development", "Market Researcher"]
-    @State private var companyName = "Mamaqat"
-    @State private var industry = "Entertainment"
+    @State private var openChairs: [String] = []
+    @State private var companyName = (CompanyManager.shared.companyName ?? "Mamaqat")
+    @State private var industry = (CompanyManager.shared.companyIndustry ?? "entertainment")
     @State private var website = "mamaqat.com"
     @Binding var isEditing: Bool
     
@@ -493,8 +494,27 @@ struct NonEmployeeContentView: View{
                     }
                 }
             }
+        
+        .onAppear {
+                fetchOpenChairs()
+            }
+        }
+        
+    private func fetchOpenChairs() {
+        FirestoreManager.shared.fetchPositions(forCompanyId: companyName) { result in
+            switch result {
+            case .success(let positionsDict):
+                openChairs = positionsDict.compactMap { position in
+                    position["position"] as? String
+                }
+            case .failure(let error):
+                print("Failed to fetch positions: \(error.localizedDescription)")
+            }
         }
     }
+
+    }
+    
 
 struct DocumentPicker: UIViewControllerRepresentable {
     @Binding var cvUrl: URL?
@@ -529,7 +549,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
 
 
 #Preview {
-    EditProfileView()
+    EditProfileView(isEmployee: true)
 }
 
 

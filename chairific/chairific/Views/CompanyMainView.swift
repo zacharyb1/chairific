@@ -38,7 +38,7 @@ struct CompanyMainView: View {
                     }
                     .tag(0)
                 
-                EditProfileView()
+                EditProfileView(isEmployee: false)
                     .tabItem {
                         Image(systemName: "person.crop.circle.fill")
                             .font(.title)
