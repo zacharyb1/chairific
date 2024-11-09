@@ -81,10 +81,10 @@ struct CompanyMainView: View {
                                 print("")
 //                                let userResponses = data["responses"] as? [String] ?? []
                                 print("data \(data)")
-                                EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid) { result in
+                                EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid, postionHardSkills: hardSkills) { result in
                                     switch result {
                                     case .success(var employeeCard):
-                                        employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.hardSkills, userHardSkills: hardSkills).similarity
+                                        employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.emplyeeHardSkills, userHardSkills: hardSkills).similarity
                                         self.jobCards.append(employeeCard)
                                     case .failure(let error):
                                         print("Failt to generate employee card \(error)")

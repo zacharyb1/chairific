@@ -14,6 +14,7 @@ struct CreatePositionView: View {
     @State private var positionName = ""
     @State private var positionDescription = ""
     @State private var isDropdownOpen = false
+    @Environment(\.dismiss) var dismiss
 
     // Properties for skills section
     @State private var skills: [String] = [
@@ -198,7 +199,7 @@ struct CreatePositionView: View {
                 if isFirstPositions {
                     navigateToQuestionnaire = true
                 } else {
-                    navigateToPositionsList = true
+                    dismiss()
                 }
             case .failure(let error):
                 print(error)
