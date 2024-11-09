@@ -5,17 +5,9 @@
 //  Created by Jules Morillon on 8.11.2024.
 //
 
-
 import SwiftUI
 
-// Step for managing the questionnaire flow
-enum QuestionnaireStep {
-    case intro
-    case questions
-    case complete
-}
-
-struct EntryQuestionnaireView: View {
+struct CompanyQuestionnaireView: View {
     // State for current step and personal information
     @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
 
@@ -35,12 +27,10 @@ struct EntryQuestionnaireView: View {
         self._firstLogin = State(initialValue: firstLogin)
         if !firstLogin{
             numberOfMendatoryQuestions = 44
-//            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
         }
     }
     
     @Environment(\.dismiss) var dismiss
-    
 
     var body: some View {
         VStack {
@@ -124,10 +114,9 @@ struct EntryQuestionnaireView: View {
                             currentQuestionIndex += 1
                             isCurrentQuestionCompleted = false // Reset for the next question
                         } else {
-                            
                             isUserAnswers = true
                             currentStep = .complete
-                            UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
+                            CompanyManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
                         }
                     }
                     .padding()
@@ -170,7 +159,7 @@ struct EntryQuestionnaireView: View {
     }
     
     private func loadQuestions(){
-        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: true) { loadedQuestions in
+        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: false) { loadedQuestions in
             questions = loadedQuestions.map { questionView in
                 QuestionView(
                     id: questionView.id,

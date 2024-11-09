@@ -87,4 +87,23 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)]) {
+        guard currentUserId != "" else {
+            return
+        }
+        
+        let answersDictionary = collectedAnswers.reduce(into: [String: Int]()) { result, answer in
+            result[answer.questionID] = answer.answerIndex
+        }
+
+        FirestoreManager.shared.updateUser(fromId: currentUserId, data:["responses": answersDictionary]) { result in
+            switch result {
+            case .success:
+                print("Responses successfully uploaded")
+            case .failure(let error):
+                print("Error uploading responses: \(error.localizedDescription)")
+            }
+        }
+    }
 }

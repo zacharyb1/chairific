@@ -138,10 +138,11 @@ struct CreatePositionView: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToPositionsList) {
-                CompanyQuestionnaireView()
+                // TO DO
+                PositionsListView()
             }
             .navigationDestination(isPresented: $navigateToQuestionnaire) {
-                PositionsListView()
+                CompanyQuestionnaireView(firstLogin: true)
             }
             .navigationBarBackButtonHidden(isFirstPositions)
 
@@ -179,11 +180,21 @@ struct CreatePositionView: View {
             "companyId": CompanyManager.shared.companyName!,
             "position": positionName,
             "description": positionDescription,
-            "skills": selectedSkills,
+            "skills": Array(selectedSkills),
         ]
         
-        FirestoreManager.shared.addPosition(data: positionData) {
-            
+        FirestoreManager.shared.addPosition(data: positionData) { result in
+            switch result {
+            case .success():
+                print("Successfully created new position")
+                if isFirstPositions {
+                    navigateToQuestionnaire = true
+                } else {
+                    navigateToPositionsList = true
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }

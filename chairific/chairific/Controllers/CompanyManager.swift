@@ -72,7 +72,8 @@ class CompanyManager: ObservableObject {
         }
     }
     
-    func likePosition(_ position: Dictionary<String, Any>) {
+    // Convert to matchEmployee
+    /*func likePosition(_ position: Dictionary<String, Any>) {
         guard currentUserId != "" else {
             return
         }
@@ -84,6 +85,25 @@ class CompanyManager: ObservableObject {
                 print("Successfully liked position")
             case .failure:
                 print("Error liking position")
+            }
+        }
+    }*/
+    
+    func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)]) {
+        guard let id = companyName else {
+            return
+        }
+        
+        let answersDictionary = collectedAnswers.reduce(into: [String: Int]()) { result, answer in
+            result[answer.questionID] = answer.answerIndex
+        }
+
+        FirestoreManager.shared.updateCompany(fromId: id, data: ["responses": answersDictionary]) { result in
+            switch result {
+            case .success:
+                print("Responses successfully uploaded")
+            case .failure(let error):
+                print("Error uploading responses: \(error.localizedDescription)")
             }
         }
     }

@@ -40,7 +40,7 @@ class FirestoreManager {
                 }
             } else {
                 // If the document doesn't exist, create it with setData
-                userDocument.setData(updatedData) { error in
+                userDocument.setData(updatedData, merge: true) { error in
                     if let error = error {
                         completion(.failure(error))
                     } else {
@@ -176,29 +176,6 @@ class FirestoreManager {
     }
     
     func removePosition(fromId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-    }
-    
-    
-    func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)], completion: @escaping (Error?) -> Void) {
-        guard currentUserId != "" else {
-            return
-        }
-        
-        let answersDictionary = collectedAnswers.reduce(into: [String: Int]()) { result, answer in
-            result[answer.questionID] = answer.answerIndex
-        }
-
-        let userRef = db.collection("users").document(currentUserId)
-
-        userRef.setData(["responses": answersDictionary], merge: true) { error in
-            if let error = error {
-                print("Error uploading responses: \(error.localizedDescription)")
-                completion(error)
-            } else {
-                print("Responses successfully uploaded")
-                completion(nil)
-            }
-        }
     }
 
     func fetchAllPositions(completion: @escaping (Result<[Dictionary<String, Any>], Error>) -> Void) {
