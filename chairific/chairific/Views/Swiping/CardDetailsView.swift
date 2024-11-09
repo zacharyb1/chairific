@@ -104,7 +104,7 @@ struct CardDetailsView: View {
                     
                     // Matching Questions Section
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Matching Questions")
+                        Text("Matching Choices")
                             .font(.system(size: 30, weight: .semibold))
                             .foregroundColor(.primary)
                         
