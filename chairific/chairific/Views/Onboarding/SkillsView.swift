@@ -169,7 +169,7 @@ struct SkillsView: View {
                             ScrollView {
                                 VStack(alignment: .leading) {
                                     ForEach(filteredSkills, id: \.self) { skill in
-                                        SkillRow(skill: skill, isSelected: selectedSkills.contains(skill)) {
+                                        SkillRow(skill: skill.name, isSelected: selectedSkills.contains(skill)) {
                                             if !selectedSkills.contains(skill) && selectedSkills.count < 5 {
                                                 selectedSkills.insert(skill)
                                                 isDropdownOpen = false // close dropdown after selection
@@ -303,14 +303,14 @@ struct SkillsView: View {
 }
 
 struct SkillRow: View {
-    let skill: Skill
+    let skill: String
     let isSelected: Bool
     let onToggle: () -> Void
     
     var body: some View {
         Button(action: onToggle) {
             HStack {
-                Text(skill.name)
+                Text(skill)
                     .foregroundColor(.primary)
                 Spacer()
                 if isSelected {

@@ -131,9 +131,7 @@ struct RegistrationView: View {
             .navigationDestination(isPresented: $isAddedUser) {
                 SkillsView()
             }
-
         }
-
         .environment(\.colorScheme, .light)
     }
     
