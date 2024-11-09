@@ -5,17 +5,9 @@
 //  Created by Jules Morillon on 8.11.2024.
 //
 
-
 import SwiftUI
 
-// Step for managing the questionnaire flow
-enum QuestionnaireStep {
-    case intro
-    case questions
-    case complete
-}
-
-struct EntryQuestionnaireView: View {
+struct CompanyQuestionnaireView: View {
     // State for current step and personal information
     @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
 
@@ -35,12 +27,10 @@ struct EntryQuestionnaireView: View {
         self._firstLogin = State(initialValue: firstLogin)
         if !firstLogin{
             numberOfMendatoryQuestions = 44
-//            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
         }
     }
     
     @Environment(\.dismiss) var dismiss
-    
 
     var body: some View {
         VStack {
@@ -62,9 +52,7 @@ struct EntryQuestionnaireView: View {
             loadQuestions()
             if !firstLogin{
                 currentStep = .questions
-                for (questionID, answerIndex) in UserManager.shared.usersResponses {
-                    collectedAnswers.append((questionID: questionID, answerIndex: answerIndex))
-                }
+//                collectedAnswers =
             }
             currentQuestionIndex = UserManager.shared.usersResponses.count
             
@@ -116,67 +104,27 @@ struct EntryQuestionnaireView: View {
     private var questionsView: some View {
         VStack(spacing: 20) {
             if !questions.isEmpty {
-                if currentQuestionIndex < questions.count{
-                    questions[currentQuestionIndex]
-                }
+                questions[currentQuestionIndex]
                 HStack{
-                    if !firstLogin{
-                        Button("Finish") {
-                            saveAnswer(answerIndex: selectedAnswerIndex)
-                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
-                            selectedAnswerIndex = nil
+                    Button("Next") {
+                        saveAnswer(answerIndex: selectedAnswerIndex)
+                        UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                        selectedAnswerIndex = nil
+                        if currentQuestionIndex < numberOfMendatoryQuestions {
+                            currentQuestionIndex += 1
+                            isCurrentQuestionCompleted = false // Reset for the next question
+                        } else {
                             isUserAnswers = true
                             currentStep = .complete
-
-                            UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
-
+                            CompanyManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
                         }
-                        .padding()
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                     }
-                    if currentQuestionIndex < questions.count{
-                        Button("Next") {
-                            saveAnswer(answerIndex: selectedAnswerIndex)
-                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
-                            selectedAnswerIndex = nil
-                            if currentQuestionIndex < numberOfMendatoryQuestions - 1{
-                                currentQuestionIndex += 1
-                                isCurrentQuestionCompleted = false // Reset for the next question
-                            } else {
-                                
-                                isUserAnswers = true
-                                currentStep = .complete
-                                UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
-                            }
-                        }
-                        .padding()
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .disabled(!isCurrentQuestionCompleted)
-                    }
-
+                    .padding()
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .disabled(!isCurrentQuestionCompleted)
                 }
-//                if !firstLogin{
-//
-//                    HStack{
-//                        Button("Finish") {
-//                            saveAnswer(answerIndex: selectedAnswerIndex)
-//                            UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
-//                            selectedAnswerIndex = nil
-//                            isUserAnswers = true
-//                            currentStep = .complete
-//                            saveAnswersToDatabase()
-//                            
-//                        }
-//                        .padding()
-//                        .background(Color.orange)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(10)
-//                    }
-//                }
             }
         }
         .padding(.horizontal)
@@ -211,7 +159,7 @@ struct EntryQuestionnaireView: View {
     }
     
     private func loadQuestions(){
-        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: true) { loadedQuestions in
+        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: false) { loadedQuestions in
             questions = loadedQuestions.map { questionView in
                 QuestionView(
                     id: questionView.id,

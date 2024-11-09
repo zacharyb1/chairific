@@ -40,7 +40,7 @@ class FirestoreManager {
                 }
             } else {
                 // If the document doesn't exist, create it with setData
-                userDocument.setData(updatedData) { error in
+                userDocument.setData(updatedData, merge: true) { error in
                     if let error = error {
                         completion(.failure(error))
                     } else {
@@ -79,7 +79,39 @@ class FirestoreManager {
     }
     
     // MARK: COMPANY MANAGEMENT
-    func addCompany(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+    func addCompany(id: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        var updatedData = data
+        updatedData["timestamp"] = Timestamp(date: Date())
+        
+        let userDocument = db.collection("companies").document(id)
+        
+        // Check if the document exists
+        userDocument.getDocument { document, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if document?.exists == true {
+                // If the document exists, update only specific fields
+                userDocument.updateData(updatedData) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            } else {
+                // If the document doesn't exist, create it with setData
+                userDocument.setData(updatedData) { error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        completion(.success(()))
+                    }
+                }
+            }
+        }
     }
     
     func fetchCompany(fromId: String, completion: @escaping (Result<Dictionary<String, Any>, Error>) -> Void) {
@@ -109,7 +141,15 @@ class FirestoreManager {
     }
     
     // MARK: POSITION MANAGEMENT
-    func addPosition(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+    func addPosition(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        let userDocument = db.collection("positions").addDocument(data: data)
+        userDocument.updateData(["id": userDocument.documentID]) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
     
     func fetchPosition(fromId: String, completion: @escaping (Result<Dictionary<String, Any>, Error>) -> Void) {
@@ -135,8 +175,8 @@ class FirestoreManager {
         }
     }
     
-    func removePosition(fromId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-    }
+
+
     
     
     func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)], completion: @escaping (Error?) -> Void) {
@@ -162,6 +202,7 @@ class FirestoreManager {
             }
         }
     }
+
 
     func fetchAllPositions(completion: @escaping (Result<[Dictionary<String, Any>], Error>) -> Void) {
         var documents: [Dictionary<String, Any>] = []

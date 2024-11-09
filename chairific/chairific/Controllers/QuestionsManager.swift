@@ -16,27 +16,49 @@ class QuestionsManager {
 
     }
     
-    func loadQuestionsFromJSON(completion: @escaping ([QuestionView]) -> Void) {
-        if let url = Bundle.main.url(forResource: "employee_questions", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decodedQuestions = try JSONDecoder().decode([QuestionnaireQuestion].self, from: data)
-                let questions = decodedQuestions.map { question in
-                    QuestionView(
-                        id: question.id,
-                        question: question.question,
-                        options: question.answers,
-                        isCompleted: Binding.constant(false),
-                        selectedAnswerIndex: Binding.constant(nil)
-                    )
+    func loadQuestionsFromJSON(isEmployee: Bool, completion: @escaping ([QuestionView]) -> Void) {
+        if isEmployee {
+            if let url = Bundle.main.url(forResource: "employee_questions", withExtension: "json") {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let decodedQuestions = try JSONDecoder().decode([QuestionnaireQuestion].self, from: data)
+                    let questions = decodedQuestions.map { question in
+                        QuestionView(
+                            id: question.id,
+                            question: question.question,
+                            options: question.answers,
+                            isCompleted: Binding.constant(false),
+                            selectedAnswerIndex: Binding.constant(nil)
+                        )
+                    }
+                    completion(questions)
+                } catch {
+                    print("Failed to load or decode questions: \(error)")
                 }
-                completion(questions)
-            } catch {
-                print("Failed to load or decode questions: \(error)")
+            } else {
+                print("JSON file not found.")
             }
         } else {
-            print("JSON file not found.")
+            if let url = Bundle.main.url(forResource: "employer_questions", withExtension: "json") {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let decodedQuestions = try JSONDecoder().decode([QuestionnaireQuestion].self, from: data)
+                    let questions = decodedQuestions.map { question in
+                        QuestionView(
+                            id: question.id,
+                            question: question.question,
+                            options: question.answers,
+                            isCompleted: Binding.constant(false),
+                            selectedAnswerIndex: Binding.constant(nil)
+                        )
+                    }
+                    completion(questions)
+                } catch {
+                    print("Failed to load or decode questions: \(error)")
+                }
+            } else {
+                print("JSON file not found.")
+            }
         }
     }
-
 }

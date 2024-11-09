@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F21477E2CDF0C5C0025DD1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */; };
 		7F2147812CDF0D0E0025DD1F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */; };
 		7F2147832CDF0D130025DD1F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147822CDF0D130025DD1F /* FirebaseAnalytics */; };
 		7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9602CDE6BEA00001153 /* FirebaseAuth */; };
@@ -32,7 +31,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F44C9322CDE6AED00001153 /* chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C9422CDE6AF000001153 /* chairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +106,6 @@
 		7F44C9292CDE6AED00001153 = {
 			isa = PBXGroup;
 			children = (
-				7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */,
 				7F44C9342CDE6AED00001153 /* chairific */,
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
@@ -254,7 +251,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F21477E2CDF0C5C0025DD1F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

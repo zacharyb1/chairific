@@ -13,6 +13,7 @@ struct SplashView: View {
     let accentColor: Color = Color(red: 0.6, green: 0.3, blue: 0.25)
     @AppStorage("isSignedIn") private var isSignedIn: Bool = false
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
+    @AppStorage("isEmployee") private var isEmployee: Bool = false
 
     init() {
         AuthManager.shared.initUser()
@@ -50,7 +51,11 @@ struct SplashView: View {
         }
         .fullScreenCover(isPresented: $isActive) {
             if isSignedIn && isUserAnswers {
-                MainView()
+                if isEmployee {
+                    MainView()
+                } else {
+                    CompanyMainView()
+                }
             } else {
                 AuthenticationView()
                     .onDisappear() {

@@ -130,7 +130,7 @@ struct CardDetailsView: View {
     
     // Load questions from JSON and convert to QuestionView
     private func loadQuestionViews() {
-        QuestionsManager.shared.loadQuestionsFromJSON { loadedQuestionViews in
+        QuestionsManager.shared.loadQuestionsFromJSON(isEmployee: true) { loadedQuestionViews in
             self.questionViews = loadedQuestionViews
         }
     }

@@ -4,19 +4,19 @@
 //
 //  Created by Benoit Pennaneach on 8.11.2024.
 //
+
 import SwiftUI
 
 struct CreatePositionView: View {
+    
     // Properties for position details
+    let isFirstPositions: Bool
     @State private var positionName = ""
     @State private var positionDescription = ""
-    @State private var newCulture = ""
-    @State private var culture = [Hobby]()
-    @State private var benefits = ""
-    @State private var isAddingCulture = false
+    @State private var isDropdownOpen = false
 
     // Properties for skills section
-    @State private var skills = [
+    @State private var skills: [String] = [
         "Develop", "Maintain", "Debug", "Test", "Computer Programs", "Programming", "Programmer",
         "Microsoft", "Microsoft Excel", "MS Excel", "Microsoft Office", "MS Office", "Software Development",
         "HTML", "Retention", "SQL", "Modeling", "Modelling", "Analytics", "Apache", "Apache Airflow",
@@ -32,12 +32,15 @@ struct CreatePositionView: View {
         "Machine Learning", "Data Analysis", "Regression", "k-means", "Bayesian Estimation", "Random Forest",
         "Decision Tree", "Principal Component Analysis", "Gradient Descent", "AWS", "MacOS", "Linux",
         "SwiftUI", "iOS Development"
-    ].map { Skill(name: $0) }
+    ]
     
-    @State private var selectedSkills = Set<Skill>()
+    @State private var selectedSkills = Set<String>()
     @State private var searchText = ""
-    @State private var isDropdownOpen = false
-    private var maxNumberOfSkills = 5
+    var maxNumberOfSkills = 3
+    
+    // Navigation
+    @State private var navigateToQuestionnaire: Bool = false
+    @State private var navigateToPositionsList: Bool = false
 
     var body: some View {
         ZStack {
@@ -68,7 +71,7 @@ struct CreatePositionView: View {
                             .background(Color(.systemGray5))
                             .cornerRadius(8)
                     }
-
+                    
                     // Skills Section
                     VStack(alignment: .leading) {
                         Text("Skills (\(selectedSkills.count)/\(maxNumberOfSkills)):")
@@ -77,7 +80,7 @@ struct CreatePositionView: View {
                         
                         ForEach(Array(selectedSkills), id: \.self) { skill in
                             HStack {
-                                Text("+ \(skill.name)")
+                                Text("+ \(skill)")
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 15)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -95,22 +98,9 @@ struct CreatePositionView: View {
                             )
                         }
                         
-                        if selectedSkills.count < maxNumberOfSkills {
-                            Button(action: { isDropdownOpen.toggle() }) {
-                                HStack {
-                                    Spacer()
-                                    Image(systemName: "plus")
-                                        .font(.system(size: 20))
-                                        .foregroundColor(.gray)
-                                    Spacer()
-                                }
-                                .padding()
-                                .background(Color(.white))
-                                .cornerRadius(10)
-                            }
-                        }
-                        
-                        if isDropdownOpen {
+                        if selectedSkills.count < maxNumberOfSkills && isDropdownOpen{
+
+                            
                             VStack {
                                 TextField("Search skills", text: $searchText)
                                     .padding(8)
@@ -124,7 +114,6 @@ struct CreatePositionView: View {
                                             SkillRow(skill: skill, isSelected: selectedSkills.contains(skill)) {
                                                 if !selectedSkills.contains(skill) && selectedSkills.count < maxNumberOfSkills {
                                                     selectedSkills.insert(skill)
-                                                    isDropdownOpen = false // close dropdown after selection
                                                 }
                                             }
                                         }
@@ -137,95 +126,88 @@ struct CreatePositionView: View {
                             .cornerRadius(8)
                             .padding(.top, 4)
                         }
-                    }
-
-                    // Culture Section
-                    VStack(alignment: .leading) {
-                        Text("Culture")
-                            .foregroundColor(.gray)
-                        ForEach(culture, id: \.self) { hobby in
-                            HStack {
-                                Text("+ \(hobby.name)")
-                                    .foregroundColor(.gray)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 15)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Button(action: { culture.removeAll { $0.id == hobby.id } }) {
-                                    Image(systemName: "trash.fill")
-                                        .foregroundColor(.red)
-                                }
-                            }
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 0.5))
-                        }
                         
-                        HStack {
-                            TextField("Enter a culture point", text: $newCulture)
-                                .padding()
-                                .background(Color(.systemGray5))
-                                .cornerRadius(8)
-                            Button(action: addCulture) {
-                                Text("Add")
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal)
-                                    .background(Color.orange)
-                                    .cornerRadius(8)
+                        Button(action: { isDropdownOpen.toggle() }) {
+                            HStack {
+                                Spacer()
+                                Image(systemName: "plus")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.gray)
+                                Spacer()
+                            }
+                            .padding()
+                            .background(Color(.white))
+                            .cornerRadius(10)
+                            
+                        }
+                        VStack {
+                            Spacer()
+                            HStack {
+                                Spacer()
+                                Button(action: createPosition) {
+                                    Text("Continue")
+                                        .padding()
+                                        .frame(width: 200, height: 50)
+                                        .background(Color.orange)
+                                        .foregroundColor(.black)
+                                        .cornerRadius(10)
+                                }
+                                .padding(.trailing, 20)
+                                .padding(.bottom, 20)
                             }
                         }
                     }
-
-                    // Benefits Section
-                    VStack(alignment: .leading) {
-                        Text("Benefits")
-                            .foregroundColor(.gray)
-                        TextField("", text: $benefits)
-                            .padding()
-                            .background(Color(.systemGray5))
-                            .cornerRadius(8)
-                    }
-                }
-                .padding(.horizontal, 25)
-                
-                // Continue Button
-                
-            }
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(action: {}) {
-                        Text("Continue")
-                            .padding()
-                            .frame(width: 200, height: 50)
-                            .background(Color.orange)
-                            .foregroundColor(.black)
-                            .cornerRadius(10)
-                    }
-                    .padding(.trailing, 20)
-                    .padding(.bottom, 20)
                 }
             }
+            .navigationDestination(isPresented: $navigateToPositionsList) {
+                // TO DO
+                PositionsListView()
+            }
+            .navigationDestination(isPresented: $navigateToQuestionnaire) {
+                CompanyQuestionnaireView(firstLogin: true)
+            }
+            .padding(.horizontal, 25)
+            .navigationBarBackButtonHidden(isFirstPositions)
+
+
         }
     }
-
-    private func addCulture() {
-        let trimmedCulture = newCulture.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !trimmedCulture.isEmpty {
-            culture.append(Hobby(name: trimmedCulture))
-            newCulture = ""
-        }
-    }
-
-    private var filteredSkills: [Skill] {
+    
+    private var filteredSkills: [String] {
         if searchText.isEmpty {
             return skills.filter { !selectedSkills.contains($0) }
         } else {
-            return skills.filter { $0.name.lowercased().contains(searchText.lowercased()) && !selectedSkills.contains($0) }
+            return skills.filter { $0.lowercased().contains(searchText.lowercased()) && !selectedSkills.contains($0) }
+        }
+    }
+    
+    private func createPosition() {
+        guard !selectedSkills.isEmpty else { return }
+        
+        let positionData: [String: Any] = [
+            "companyId": CompanyManager.shared.companyName!,
+            "position": positionName,
+            "description": positionDescription,
+            "skills": Array(selectedSkills),
+        ]
+        
+        FirestoreManager.shared.addPosition(data: positionData) { result in
+            switch result {
+            case .success():
+                print("Successfully created new position")
+                if isFirstPositions {
+                    navigateToQuestionnaire = true
+                } else {
+                    navigateToPositionsList = true
+                }
+            case .failure(let error):
+                print(error)
+            }
         }
     }
 }
 
 
 #Preview {
-    CreatePositionView()
+    CreatePositionView(isFirstPositions: false)
 }
