@@ -10,6 +10,7 @@ import SwiftUI
 struct CardDetailsView: View {
     let jobCard: JobCard
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
+    @State private var questionViews: [QuestionView] = []
     
     var body: some View {
         VStack {
@@ -80,6 +81,29 @@ struct CardDetailsView: View {
                         }
                     }
                     .padding(.bottom, 20)
+
+                    // Matching Questions Section
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Matching Questions")
+                            .font(.system(size: 30, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        ForEach(matchingQuestionViews, id: \.id) { questionView in
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Q: \(questionView.question)")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                if let selectedAnswerIndex = jobCard.responses[questionView.id] {
+                                    Text("A: \(questionView.options[selectedAnswerIndex])")
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .padding(.bottom, 10)
+                        }
+                    }
+                    .padding(.bottom, 20)
                 }
                 .padding()
             }
@@ -87,23 +111,33 @@ struct CardDetailsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
         .navigationBarTitle("Job Details", displayMode: .inline)
+        .onAppear {
+            loadQuestionViews()
+        }
+    }
+    
+    // Filter to get only matching question views
+    private var matchingQuestionViews: [QuestionView] {
+        questionViews.filter { questionView in
+            // Check if both jobCard and user responses exist and match for the question
+            if let jobResponse = jobCard.responses[questionView.id],
+               let userResponse = UserManager.shared.usersResponses[questionView.id] {
+                return jobResponse == userResponse
+            }
+            return false
+        }
+    }
+    
+    // Load questions from JSON and convert to QuestionView
+    private func loadQuestionViews() {
+        QuestionsManager.shared.loadQuestionsFromJSON { loadedQuestionViews in
+            self.questionViews = loadedQuestionViews
+        }
     }
 }
 
-struct CardDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardDetailsView(
-            jobCard: JobCard(
-                id: "0",
-                position: ["position": "Software Developer"],
-                company: ["industry": "Entertainment", "culture": ["Cooking lunch together", "Living together", "Private rooms separated by curtains", "Cult tendencies"], "benefits": ["Shopping trips", "Saunas", "Company-provided lunch"]],
-                responses: ["q1": 1],
-                similarity: 69,
-                hardSkills: []
-            )
-        )
-    }
-}
+
+
 
 
 

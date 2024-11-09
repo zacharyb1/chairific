@@ -77,6 +77,8 @@ struct MainView: View {
                             switch result {
                             case .success(var jobcard):
                                 jobcard.similarity = calculateSimilarity(companyArray: jobcard.responses, userArray: UserManager.shared.usersResponses, positionHardskills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills).similarity
+                                
+                                var responses  = calculateSimilarity(companyArray: jobcard.responses, userArray: UserManager.shared.usersResponses, positionHardskills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills).matchingKeys
                                 self.jobCards.append(jobcard)
                                 print("responses: \(jobcard.responses)")
                             case .failure(let error):
