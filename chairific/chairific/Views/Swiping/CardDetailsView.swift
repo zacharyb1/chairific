@@ -10,7 +10,7 @@ import SwiftUI
 struct CardDetailsView: View {
     let jobCard: JobCard
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
-    
+
     var body: some View {
         VStack {
             // Close button at the top right
@@ -80,6 +80,22 @@ struct CardDetailsView: View {
                         }
                     }
                     .padding(.bottom, 20)
+
+                    // Matching Questions Section
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Matching Questions")
+                            .font(.system(size: 30, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        ForEach(jobCard.responses.keys.sorted(), id: \.self) { questionID in
+                            if let matchLevel = jobCard.responses[questionID], matchLevel == 1 {
+                                Text("• \(getQuestionText(for: questionID))")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+                    .padding(.bottom, 20)
                 }
                 .padding()
             }
@@ -88,22 +104,15 @@ struct CardDetailsView: View {
         .background(Color.white)
         .navigationBarTitle("Job Details", displayMode: .inline)
     }
-}
-
-struct CardDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardDetailsView(
-            jobCard: JobCard(
-                id: "0",
-                position: ["position": "Software Developer"],
-                company: ["industry": "Entertainment", "culture": ["Cooking lunch together", "Living together", "Private rooms separated by curtains", "Cult tendencies"], "benefits": ["Shopping trips", "Saunas", "Company-provided lunch"]],
-                responses: ["q1": 1],
-                similarity: 69,
-                hardSkills: []
-            )
-        )
+    
+    // Helper function to get question text based on ID
+    private func getQuestionText(for questionID: String) -> String {
+        // Replace with actual logic to retrieve question text based on questionID
+        // This is a placeholder example; you'll need a way to map question IDs to actual text.
+        return "Sample question text for \(questionID)"
     }
 }
+
 
 
 
