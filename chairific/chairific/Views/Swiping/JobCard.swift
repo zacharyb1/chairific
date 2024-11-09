@@ -39,27 +39,32 @@ struct JobCard: Identifiable, View {
                     .foregroundStyle(baseButtonColor)
                     .padding(.bottom, 10)
                 
-                Text("Culture")
-                    .font(.system(size: 30, weight: .semibold))
-                    .foregroundStyle(baseButtonColor)
-                
-                ForEach(self.company["culture"] as? [String] ?? [], id: \.self) { point in
-                    Text("+ \(point)")
-                        .font(.system(size: 20, weight: .regular))
+                if let culture = self.company["culture"] as? [String], !culture.isEmpty {
+                    Text("Culture")
+                        .font(.system(size: 30, weight: .semibold))
                         .foregroundStyle(baseButtonColor)
+                    
+                    ForEach(culture, id: \.self) { point in
+                        Text("+ \(point)")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundStyle(baseButtonColor)
+                    }
+                    .padding(.bottom, 10)
                 }
-                .padding(.bottom, 10)
+
                 
-                Text("Benefits")
-                    .font(.system(size: 30, weight: .semibold))
-                    .foregroundStyle(baseButtonColor)
-                
-                ForEach(self.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
-                    Text("+ \(benefit)")
-                        .font(.system(size: 20, weight: .regular))
+                if let benefits = self.company["benefits"] as? [String], !benefits.isEmpty {
+                    Text("Benefits")
+                        .font(.system(size: 30, weight: .semibold))
                         .foregroundStyle(baseButtonColor)
+                    
+                    ForEach(benefits, id: \.self) { benefit in
+                        Text("+ \(benefit)")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundStyle(baseButtonColor)
+                    }
+                    .padding(.bottom, 10)
                 }
-                .padding(.bottom, 10)
                 
                 
                 

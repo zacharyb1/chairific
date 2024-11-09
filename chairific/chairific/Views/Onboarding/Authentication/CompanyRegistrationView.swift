@@ -30,16 +30,21 @@ struct CompanyRegistrationView: View {
                 ScrollView {
                     
                     VStack(alignment: .leading, spacing: 20) {
-                        Text("Registration")
-                            .font(.largeTitle)
-                            .foregroundColor(Color.gray.opacity(0.8))
-                            .padding(.bottom, 10)
-
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Company name")
-                                .font(.headline)
+                            Text("Registration")
+                                .font(.largeTitle)
                                 .foregroundColor(Color.gray.opacity(0.8))
                                 .padding(.bottom, 10)
+
+                            VStack(alignment: .leading, spacing: 2) {
+                                VStack(alignment: .leading){
+                                    Text("Company name")
+                                        .font(.headline)
+                                        .foregroundColor(Color.gray.opacity(0.8))
+                                    Text("(Potential employees will not see it)")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(Color.gray.opacity(0.8))
+                                        .padding(.bottom, 10)
+                                }
                             TextField("", text: $companyname)
                                 .padding()
                                 .background(Color(.systemGray6))
@@ -56,10 +61,15 @@ struct CompanyRegistrationView: View {
                                 .cornerRadius(10)
                         }
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Email")
-                                .font(.headline)
-                                .foregroundColor(Color.gray.opacity(0.8))
-                                .padding(.bottom, 10)
+                            VStack(alignment: .leading){
+                                Text("Email")
+                                    .font(.headline)
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                Text("(Potential employees will not see it)")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(Color.gray.opacity(0.8))
+                                    .padding(.bottom, 10)
+                            }
                             TextField("", text: $email)
                                 .padding()
                                 .background(Color(.systemGray6))

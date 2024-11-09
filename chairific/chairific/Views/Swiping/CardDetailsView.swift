@@ -60,32 +60,38 @@ struct CardDetailsView: View {
                     // Sections Grid with Left Alignment
                     LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 20) {
                         // Culture Section
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Culture")
-                                .font(.system(size: 30, weight: .semibold))
-                                .foregroundColor(.primary)
-                            
-                            ForEach(jobCard.company["culture"] as? [String] ?? [], id: \.self) { point in
-                                Text("+ \(point)")
-                                    .font(.system(size: 20, weight: .regular))
-                                    .foregroundColor(.secondary)
+                        if let culture = jobCard.company["culture"] as? [String], !culture.isEmpty {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Culture")
+                                    .font(.system(size: 30, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                ForEach(culture, id: \.self) { point in
+                                    Text("+ \(point)")
+                                        .font(.system(size: 20, weight: .regular))
+                                        .foregroundColor(.secondary)
+                                }
                             }
+                            .padding(.bottom, 10)
                         }
-                        .padding(.bottom, 10)
+
                         
                         // Benefits Section
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Benefits")
-                                .font(.system(size: 30, weight: .semibold))
-                                .foregroundColor(.primary)
-                            
-                            ForEach(jobCard.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
-                                Text("+ \(benefit)")
-                                    .font(.system(size: 20, weight: .regular))
-                                    .foregroundColor(.secondary)
+                        if let benefits = jobCard.company["benefits"] as? [String], !benefits.isEmpty {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Benefits")
+                                    .font(.system(size: 30, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                ForEach(benefits, id: \.self) { benefit in
+                                    Text("+ \(benefit)")
+                                        .font(.system(size: 20, weight: .regular))
+                                        .foregroundColor(.secondary)
+                                }
                             }
+                            .padding(.bottom, 10)
                         }
-                        .padding(.bottom, 10)
+
                         
                         // Glassdoor Score Section
                         if let glassdoorScore = jobCard.company["glassdoor"] as? Double {
