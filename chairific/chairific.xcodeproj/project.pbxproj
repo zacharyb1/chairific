@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F21477E2CDF0C5C0025DD1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */; };
+		7F2147812CDF0D0E0025DD1F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */; };
+		7F2147832CDF0D130025DD1F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147822CDF0D130025DD1F /* FirebaseAnalytics */; };
 		7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9602CDE6BEA00001153 /* FirebaseAuth */; };
 		7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9622CDE6BEA00001153 /* FirebaseFirestore */; };
-		7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,10 +32,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7F44C9322CDE6AED00001153 /* chairific.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chairific.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C9422CDE6AF000001153 /* chairificTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -59,7 +61,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F2147812CDF0D0E0025DD1F /* FirebaseMessaging in Frameworks */,
 				7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */,
+				7F2147832CDF0D130025DD1F /* FirebaseAnalytics in Frameworks */,
 				7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,13 +85,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F21477F2CDF0D0E0025DD1F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7F44C9292CDE6AED00001153 = {
 			isa = PBXGroup;
 			children = (
-				7F44C9642CDE6CEA00001153 /* GoogleService-Info.plist */,
+				7F21477D2CDF0C5C0025DD1F /* GoogleService-Info.plist */,
 				7F44C9342CDE6AED00001153 /* chairific */,
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
+				7F21477F2CDF0D0E0025DD1F /* Frameworks */,
 				7F44C9332CDE6AED00001153 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +136,8 @@
 			packageProductDependencies = (
 				7F44C9602CDE6BEA00001153 /* FirebaseAuth */,
 				7F44C9622CDE6BEA00001153 /* FirebaseFirestore */,
+				7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */,
+				7F2147822CDF0D130025DD1F /* FirebaseAnalytics */,
 			);
 			productName = chairific;
 			productReference = 7F44C9322CDE6AED00001153 /* chairific.app */;
@@ -227,7 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F44C9652CDE6CED00001153 /* GoogleService-Info.plist in Resources */,
+				7F21477E2CDF0C5C0025DD1F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -601,6 +615,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		7F2147822CDF0D130025DD1F /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
 		7F44C9602CDE6BEA00001153 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
