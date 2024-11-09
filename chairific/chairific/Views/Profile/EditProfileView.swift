@@ -85,7 +85,7 @@ struct EditProfileView: View {
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(.gray)
                     }
-                    NavigationLink(destination: EntryQuestionnaireView(firstLogin: false), isActive: $navigateToQuestionnaire) {
+                    NavigationLink(destination: QuestionnaireView(firstLogin: false), isActive: $navigateToQuestionnaire) {
                         
                         Button(action: {
                             navigateToQuestionnaire = true

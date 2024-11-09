@@ -15,7 +15,7 @@ struct SwipingCompanyView: View {
     @State private var showCardDetails: Bool = false
     @State private var mainCardOpacity: Double = 1.0
     
-    @Binding var jobCards: [EmployeeCard]
+    @Binding var employeeCards: [EmployeeCard]
     
     let margin: Double = 40
     let swipeThreshold: CGFloat = 200
@@ -26,15 +26,15 @@ struct SwipingCompanyView: View {
         GeometryReader { geometry in
             ZStack {
                 // Show the next card in the background
-                if currentIndex + 1 < jobCards.count {
-                    jobCards[currentIndex + 1]
+                if currentIndex + 1 < employeeCards.count {
+                    employeeCards[currentIndex + 1]
                         .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
                         .opacity(Double(2 * abs(dragOffset)) / Double(geometry.size.width))
                 }
                 
                 // Show the current card on top
-                if currentIndex < jobCards.count {
-                    jobCards[currentIndex]
+                if currentIndex < employeeCards.count {
+                    employeeCards[currentIndex]
                         .frame(width: geometry.size.width - margin, height: geometry.size.height - (margin * 9/16))
                         .offset(x: dragOffset)
                         .opacity(mainCardOpacity)
@@ -63,8 +63,8 @@ struct SwipingCompanyView: View {
                         .foregroundColor(.gray)
                 }
                 
-                if currentIndex < jobCards.count {
-                    SwipingCompanyOverlay(card: jobCards[currentIndex],
+                if currentIndex < employeeCards.count {
+                    SwipingCompanyOverlay(card: employeeCards[currentIndex],
                                    dragOffset: $dragOffset,
                                    showMore: $showCardDetails,
                                    handleSwipe: { offset in handleSwipe(offset, geometry: geometry) }
@@ -74,7 +74,7 @@ struct SwipingCompanyView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .fullScreenCover(isPresented: $showCardDetails) {
-                CardDetailsCompanyView(jobCard: jobCards[currentIndex])
+                CardDetailsCompanyView(jobCard: employeeCards[currentIndex])
             }
 
         }
@@ -82,8 +82,8 @@ struct SwipingCompanyView: View {
     
     private func handleSwipe(_ offset: CGFloat, geometry: GeometryProxy) {
         if offset > swipeThreshold {
-            CompanyManager.shared.likePosition(jobCards[currentIndex].positionInfo, userUid: jobCards[currentIndex].id)
-//            UserManager.shared.likePosition(jobCards[currentIndex].position)
+            CompanyManager.shared.likePosition(employeeCards[currentIndex].positionInfo, userUid: employeeCards[currentIndex].id)
+//            UserManager.shared.likePosition(employeeCards[currentIndex].position)
             withAnimation(.easeOut(duration: 0.5)) {
                 dragOffset = geometry.size.width * 2
             }

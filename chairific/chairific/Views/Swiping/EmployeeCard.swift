@@ -88,7 +88,7 @@ struct EmployeeCard: Identifiable, View {
         }
     }
     
-    static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, postionHardSkills: [String], postionInfo: [String : Any], completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
+    static func generateEmployeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, postionHardSkills: [String], postionInfo: [String : Any], completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
 
                 let responses = employeeDetails["responses"] as? [String: Int] ?? [:]
                 let hardskills = employeeDetails["skills"] as? [String] ?? []

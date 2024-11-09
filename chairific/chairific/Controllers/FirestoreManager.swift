@@ -204,8 +204,6 @@ class FirestoreManager {
             return
         }
         
-    
-        
         let answersDictionary = collectedAnswers.reduce(into: [String: Int]()) { result, answer in
             result[answer.questionID] = answer.answerIndex
         }
@@ -260,6 +258,55 @@ class FirestoreManager {
         }
     }
 
+    func fetchMatches(forCompanyId companyId: String, completion: @escaping (Result<[Dictionary<String, Any>], Error>) -> Void) {
+        var matchedUsers: [Dictionary<String, Any>] = []
+        
+        fetchPositions(forCompanyId: companyId) { result in
+            switch result {
+            case .success(let documents):
+                for position in documents {
+                    let matchedUserIds: [String] = position["matchedUsers"] as? [String] ?? []
+                    
+                    for userId in matchedUserIds {
+                        self.fetchUser(fromId: userId) { result in
+                            switch result {
+                            case .success(let user):
+                                matchedUsers.append(user)
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                        }
+                    }
+                }
+                completion(.success(matchedUsers))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
     
-
+    func fetchMatches(completion: @escaping (Result<[Dictionary<String, Any>], Error>) -> Void) {
+        guard currentUserId != "" else {
+            return
+        }
+        
+        var matchedPositions: [Dictionary<String, Any>] = []
+        
+        fetchAllPositions { result in
+            switch result {
+            case .success(let documents):
+                for position in documents {
+                    let matchedUserIds: [String] = position["matchedUsers"] as? [String] ?? []
+                    
+                    if matchedUserIds.contains(where: { $0 == currentUserId }) {
+                        matchedPositions.append(position)
+                    }
+                }
+                completion(.success(matchedPositions))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
