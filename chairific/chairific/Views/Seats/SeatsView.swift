@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 struct SeatsView: View {
     let seats = [
         PositionItem(percentage: "69%", title: "Software development", industry: "entertainment"),
@@ -17,7 +18,7 @@ struct SeatsView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Position Matches")
+                Text("Your Position Matches")
                     .font(.system(size: 32, weight: .semibold))
                     .foregroundColor(.gray)
                     .padding([.top, .leading])
@@ -35,6 +36,7 @@ struct SeatsView: View {
         }
     }
 }
+
 struct SeatRowView: View {
     let seat: PositionItem
     
@@ -61,17 +63,10 @@ struct SeatRowView: View {
             
             Spacer()
             
-            ZStack(alignment: .topTrailing) {
-                Image(systemName: "message")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.orange)
-                
-                Circle()
-                    .fill(Color.red)
-                    .frame(width: 6, height: 6)
-                    .offset(x: 5, y: -5)
-            }
+            // Replacing the message icon with "Reveal the Company" text
+            Text("Reveal & Finalize")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.orange)
         }
         .padding()
         .background(Color("backgroundColor"))
@@ -79,14 +74,17 @@ struct SeatRowView: View {
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
     }
 }
+
 struct PositionItem: Identifiable {
     let id = UUID()
     let percentage: String
     let title: String
     let industry: String
 }
+
 struct SeatsView_Previews: PreviewProvider {
     static var previews: some View {
         SeatsView()
     }
 }
+
