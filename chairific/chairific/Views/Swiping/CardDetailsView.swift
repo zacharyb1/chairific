@@ -10,7 +10,8 @@ import SwiftUI
 struct CardDetailsView: View {
     let jobCard: JobCard
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
-
+    @State private var questionViews: [QuestionView] = []
+    
     var body: some View {
         VStack {
             // Close button at the top right
@@ -87,12 +88,19 @@ struct CardDetailsView: View {
                             .font(.system(size: 30, weight: .semibold))
                             .foregroundColor(.primary)
                         
-                        ForEach(jobCard.responses.keys.sorted(), id: \.self) { questionID in
-                            if let matchLevel = jobCard.responses[questionID], matchLevel == 1 {
-                                Text("• \(getQuestionText(for: questionID))")
-                                    .font(.system(size: 20, weight: .regular))
-                                    .foregroundColor(.secondary)
+                        ForEach(matchingQuestionViews, id: \.id) { questionView in
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text("Q: \(questionView.question)")
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                if let selectedAnswerIndex = jobCard.responses[questionView.id] {
+                                    Text("A: \(questionView.options[selectedAnswerIndex])")
+                                        .font(.system(size: 18, weight: .regular))
+                                        .foregroundColor(.secondary)
+                                }
                             }
+                            .padding(.bottom, 10)
                         }
                     }
                     .padding(.bottom, 20)
@@ -103,15 +111,24 @@ struct CardDetailsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.white)
         .navigationBarTitle("Job Details", displayMode: .inline)
+        .onAppear {
+            loadQuestionViews()
+        }
     }
     
-    // Helper function to get question text based on ID
-    private func getQuestionText(for questionID: String) -> String {
-        // Replace with actual logic to retrieve question text based on questionID
-        // This is a placeholder example; you'll need a way to map question IDs to actual text.
-        return "Sample question text for \(questionID)"
+    // Filter to get only matching question views
+    private var matchingQuestionViews: [QuestionView] {
+        questionViews.filter { jobCard.responses.keys.contains($0.id) }
+    }
+    
+    // Load questions from JSON and convert to QuestionView
+    private func loadQuestionViews() {
+        QuestionsManager.shared.loadQuestionsFromJSON { loadedQuestionViews in
+            self.questionViews = loadedQuestionViews
+        }
     }
 }
+
 
 
 
