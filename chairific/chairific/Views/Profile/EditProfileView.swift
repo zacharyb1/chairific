@@ -123,6 +123,8 @@ struct EditProfileView: View {
                                 switch result {
                                 case .success:
                                     // TO UPDATE
+                                    CompanyManager.shared.reset()
+                                    UserManager.shared.reset()
                                     isSignedIn = false
                                     isUserAnswers = false
                                 case .failure:
