@@ -118,7 +118,14 @@ struct CardDetailsView: View {
     
     // Filter to get only matching question views
     private var matchingQuestionViews: [QuestionView] {
-        questionViews.filter { jobCard.responses.keys.contains($0.id) }
+        questionViews.filter { questionView in
+            // Check if both jobCard and user responses exist and match for the question
+            if let jobResponse = jobCard.responses[questionView.id],
+               let userResponse = UserManager.shared.usersResponses[questionView.id] {
+                return jobResponse == userResponse
+            }
+            return false
+        }
     }
     
     // Load questions from JSON and convert to QuestionView
@@ -128,6 +135,7 @@ struct CardDetailsView: View {
         }
     }
 }
+
 
 
 
