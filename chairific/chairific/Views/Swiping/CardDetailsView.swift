@@ -82,6 +82,20 @@ struct CardDetailsView: View {
                     }
                     .padding(.bottom, 20)
 
+                    // Glassdoor Score Section
+                    if let glassdoorScore = jobCard.company["glassdoor"] as? Double {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Glassdoor Score")
+                                .font(.system(size: 30, weight: .semibold))
+                                .foregroundColor(.primary)
+                            
+                            Text(String(format: "%.1f", glassdoorScore))
+                                .font(.system(size: 20, weight: .regular))
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.bottom, 20)
+                    }
+
                     // Matching Questions Section
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Matching Questions")
@@ -135,6 +149,7 @@ struct CardDetailsView: View {
         }
     }
 }
+
 
 
 
