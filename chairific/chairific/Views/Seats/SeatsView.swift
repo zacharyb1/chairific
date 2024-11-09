@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SeatsView: View {
     // State variable to hold fetched position matches (currently empty)
-    @State private var seats: [PositionItem] = []
+    @Binding var matches: [JobCard]
     
     var body: some View {
         NavigationView {
@@ -21,11 +21,10 @@ struct SeatsView: View {
                 
                 Spacer()
                 
-                if seats.isEmpty {
-                    // Centered message when there are no matches
+                if matches.isEmpty {
                     VStack {
                         Spacer()
-                        Text("Companies haven't swiped back on your profile yet")
+                        Text("You don't have any match yet")
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
@@ -35,8 +34,8 @@ struct SeatsView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     ScrollView {
-                        ForEach(seats) { seat in
-                            SeatRowView(seat: seat)
+                        ForEach(matches) { match in
+                            SeatRowView(match: match)
                                 .padding(.horizontal)
                         }
                     }
@@ -48,7 +47,7 @@ struct SeatsView: View {
 }
 
 struct SeatRowView: View {
-    let seat: PositionItem
+    let match: JobCard
     
     var body: some View {
         HStack {
@@ -56,17 +55,17 @@ struct SeatRowView: View {
                 Circle()
                     .fill(Color.orange)
                     .frame(width: 50, height: 50)
-                Text(seat.percentage)
+                Text("\(Int((match.similarity?.isFinite == true ? match.similarity! : 0)))%")
                     .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
             }
             
             VStack(alignment: .leading) {
-                Text(seat.title)
+                Text(match.position["position"] as? String ?? "")
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.gray)
                 
-                Text("in \(seat.industry)")
+                Text("in \(match.company["industry"] as? String ?? "")")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
             }
@@ -84,17 +83,9 @@ struct SeatRowView: View {
     }
 }
 
-// Model for position item
-struct PositionItem: Identifiable {
-    let id = UUID()
-    let percentage: String
-    let title: String
-    let industry: String
-}
-
 struct SeatsView_Previews: PreviewProvider {
     static var previews: some View {
-        SeatsView()
+        SeatsView(matches: .constant([]))
     }
 }
 

@@ -19,22 +19,36 @@ struct Hobby: Identifiable, Hashable {
 
 struct SkillsView: View {
     @State private var skills = [
-        "Develop", "Maintain", "Debug", "Test", "Computer Programs", "Programming", "Programmer",
-        "Microsoft", "Microsoft Excel", "MS Excel", "Microsoft Office", "MS Office", "Software Development",
-        "HTML", "Retention", "SQL", "Modeling", "Modelling", "Analytics", "Apache", "Apache Airflow",
-        "Apache Impala", "Apache Drill", "Apache Hadoop", "Data", "Certification", "Data Collection",
-        "Datasets", "Business Requirements", "Data Mining", "Data Science", "Visualization",
-        "Technical Guidance", "Client Analytics", "Programming Skills", "SQL Server", "Computer Science",
-        "Statistical Modeling", "Applied Data Science", "Hiring", "Technical", "Database", "Education",
-        "R", "C", "C++", "C#", "Ruby", "Ruby on Rails", "Weka", "Matlab", "Django", "NetBeans",
-        "IDE", "Stochastic", "Marketing", "Mining", "Mathematics", "Forecasts", "Statistics",
-        "Programming", "Python", "Microsoft SQL Server", "NoSQL", "Hadoop", "Spark", "Java", "Algorithms",
-        "Databases", "Numpy", "Pandas", "scikit-learn", "Clustering", "Classification", "Neural Networks",
-        "TensorFlow", "PyTorch", "Theano", "Keras", "Pig", "AdaBoost", "Statistical Analysis",
-        "Machine Learning", "Data Analysis", "Regression", "k-means", "Bayesian Estimation", "Random Forest",
-        "Decision Tree", "Principal Component Analysis", "Gradient Descent", "AWS", "MacOS", "Linux",
-        "SwiftUI", "iOS Development"
-    ].map { Skill(name: $0) }
+        "Develop", "Maintain", "Analyze", "Evaluate", "Project Management", "Data Analysis", "Reporting",
+        "Research", "Team Collaboration", "Client Management", "Microsoft Office", "Excel", "Documentation",
+        "Communication", "Strategy", "Problem Solving", "Creativity", "Innovation", "Process Improvement",
+        "Leadership", "Critical Thinking", "Negotiation", "Public Speaking", "Time Management", "Presentation Skills",
+        "Sales", "Marketing", "Customer Service", "Client Relations", "Social Media", "Networking",
+        "Writing", "Editing", "Content Creation", "Design", "Branding", "Creativity", "SEO", "Market Research",
+        "Financial Analysis", "Budgeting", "Forecasting", "Risk Management", "Data Entry", "Compliance",
+        "Policy Development", "Operations", "Supply Chain", "Inventory Management", "Quality Assurance",
+        "Training", "Mentoring", "Instruction", "Education", "Scheduling", "Documentation", "Process Mapping",
+        "Technical Writing", "Health & Safety", "Project Planning", "Resource Management", "Human Resources",
+        "Conflict Resolution", "Employee Relations", "Hiring", "Onboarding", "Customer Satisfaction", "Feedback",
+        "Strategic Planning", "Decision Making", "Goal Setting", "Quality Control", "Legal Compliance",
+        "Auditing", "Financial Reporting", "Taxation", "Customer Experience", "Event Planning", "Public Relations",
+        "Survey Design", "Data Collection", "Organizational Skills", "Product Development", "Trend Analysis",
+        "Data Visualization", "Presentation", "Documentation", "Report Writing", "Negotiation", "Process Design",
+        "Digital Marketing", "Advertising", "Campaign Management", "CRM", "Supply Chain Management",
+        "Procurement", "Vendor Management", "Scheduling", "Project Coordination", "Stakeholder Management",
+        "Proposal Writing", "Policy Analysis", "Customer Engagement", "Relationship Building", "Brand Strategy",
+        "Corporate Social Responsibility", "Environmental Awareness", "Sustainability", "Change Management",
+        "Risk Assessment", "Cultural Competence", "Diversity & Inclusion", "Employee Development",
+        "Business Intelligence", "Analytics", "KPI Tracking", "Data Interpretation", "Market Analysis",
+        "Forecasting", "Investment Analysis", "Budget Planning", "Resource Allocation", "Cross-Functional Teamwork",
+        "Technical Support", "Client Training", "Process Optimization", "Workflow Improvement", "Team Building",
+        "Employee Coaching", "Industry Knowledge", "Ethics", "Customer Insights", "Behavioral Analysis",
+        "Innovation Management", "Project Execution", "Event Management", "Strategic Marketing",
+        "Brand Management", "Learning & Development", "Customer Loyalty", "Client Services", "Product Lifecycle",
+        "Business Strategy", "Value Proposition", "Operational Efficiency", "Process Innovation", "Technology Adoption",
+        "Goal Alignment", "Talent Management", "Financial Strategy", "Community Engagement", "Resource Development"
+    ]
+.map { Skill(name: $0) }
     
     @State private var showError = false
     
@@ -233,7 +247,7 @@ struct SkillsView: View {
             
 
             .navigationDestination(isPresented: $navigateToQuestioner) {
-                EntryQuestionnaireView(firstLogin: true)
+                QuestionnaireView(firstLogin: true)
             }
             .padding(.horizontal, 25)
             .navigationBarBackButtonHidden(true)

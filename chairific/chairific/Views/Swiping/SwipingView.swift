@@ -106,3 +106,6 @@ struct SwipingView: View {
     }
 }
 
+#Preview{
+    SwipingView(jobCards: .constant([]))
+}

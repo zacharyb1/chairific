@@ -13,7 +13,8 @@ struct CompanyMainView: View {
     let accentColor: Color = Color.orange
     let baseColor: Color = Color.white
     let tabSize: CGFloat = 30
-    @State private var jobCards: [EmployeeCard] = []
+    @State private var employeeCards: [EmployeeCard] = []
+    @State private var matchList: [EmployeeCard] = []
 
     init() {
         UITabBar.appearance().backgroundColor = UIColor.figmaGrey
@@ -23,14 +24,15 @@ struct CompanyMainView: View {
     var body: some View {
         VStack {
             TabView(selection: $selectedTab) {
-                SwipingCompanyView(jobCards: $jobCards)
+                SwipingCompanyView(employeeCards: $employeeCards)
                     .tabItem {
                         Image(systemName: "chair.fill")
                             .font(.title)
                     }
                     .tag(1)
                 
-                SeatsView()
+                // CompanyMatchesView(matches: $matchList)
+                Text("")
                     .tabItem {
                         Image(systemName: "message.fill")
                             .font(.title)
@@ -72,14 +74,14 @@ struct CompanyMainView: View {
             case .success(let positions):
                 for position in positions {
                     let likes = position["likes"] as? [String] ?? []
-                    let usersLikesByCompany = position["usersLikesByCompany"] as? [String] ?? []
+                    let matchedUsers = position["matchedUsers"] as? [String] ?? []
                     let hardSkills = position["skills"] as? [String] ?? []
                     let positionName = position["position"] as? String ?? "No name"
                     
-//                    let usersLikesByCompany = position["usersLikesByCompany"] as? [String] ?? []
+//                    let matchedUsers = position["matchedUsers"] as? [String] ?? []
 //                    let likes = position["likes"] as? [String] ?? []
 
-                    let uniqueLikes = likes.filter { !usersLikesByCompany.contains($0) }
+                    let uniqueLikes = likes.filter { !matchedUsers.contains($0) }
                     
                     for userUid in uniqueLikes {
                         FirestoreManager.shared.fetchUser(fromId: userUid) { result in
@@ -88,15 +90,15 @@ struct CompanyMainView: View {
                                 print("")
 //                                let userResponses = data["responses"] as? [String] ?? []
                                 print("data \(data)")
-                                EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid, postionHardSkills: hardSkills, postionInfo: position) { result in
+                                EmployeeCard.generateEmployeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid, postionHardSkills: hardSkills, postionInfo: position) { result in
                                     switch result {
                                     case .success(var employeeCard):
                                         employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.emplyeeHardSkills, userHardSkills: hardSkills).similarity
-                                        self.jobCards.append(employeeCard)
-                                        self.jobCards.sort {
+                                        self.employeeCards.append(employeeCard)
+                                        self.employeeCards.sort {
                                             ($0.similarity ?? 0.0) > ($1.similarity ?? 0.0)
                                         }                                    case .failure(let error):
-                                        print("Failt to generate employee card \(error)")
+                                        print("Failed to generate employee card \(error)")
                                     }
                                 }
                                 

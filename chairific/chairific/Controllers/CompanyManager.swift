@@ -76,9 +76,9 @@ class CompanyManager: ObservableObject {
     
     func likePosition(_ position: [String: Any], userUid: String) {
 
-        var updatedLikes: [String] = position["usersLikesByCompany"] as? [String] ?? []
+        var updatedLikes: [String] = position["matchedUsers"] as? [String] ?? []
         updatedLikes.append(userUid)
-        FirestoreManager.shared.updatePosition(fromId: position["id"] as? String ?? "", data: ["usersLikesByCompany":updatedLikes]) { result in
+        FirestoreManager.shared.updatePosition(fromId: position["id"] as? String ?? "", data: ["matchedUsers":updatedLikes]) { result in
             switch result {
             case .success:
                 print("Successfully liked position")

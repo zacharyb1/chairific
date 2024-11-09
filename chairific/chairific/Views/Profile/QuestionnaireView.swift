@@ -15,7 +15,7 @@ enum QuestionnaireStep {
     case complete
 }
 
-struct EntryQuestionnaireView: View {
+struct QuestionnaireView: View {
     // State for current step and personal information
     @State private var collectedAnswers: [(questionID: String, answerIndex: Int)] = []
 
@@ -34,10 +34,10 @@ struct EntryQuestionnaireView: View {
     // Custom initializer
     init(firstLogin: Bool) {
         self._firstLogin = State(initialValue: firstLogin)
-//        if !firstLogin{
-//            numberOfMendatoryQuestions = 44
-////            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
-//        }
+        if !firstLogin{
+            numberOfMendatoryQuestions = 44
+//            currentQuestionIndex = UserManager.shared.usersResponses.count + 1
+        }
     }
     
     @Environment(\.dismiss) var dismiss
@@ -63,7 +63,7 @@ struct EntryQuestionnaireView: View {
 
             loadQuestions(isEmployee: isEmployee)
             if !firstLogin{
-                self.numberOfMendatoryQuestions = questions.count
+//                self.numberOfMendatoryQuestions = questions.count
                 currentStep = .questions
                 
                 let responses = isEmployee ? UserManager.shared.usersResponses : CompanyManager.shared.companyResponses
@@ -131,10 +131,14 @@ struct EntryQuestionnaireView: View {
                             saveAnswer(answerIndex: selectedAnswerIndex)
                             
                             if isEmployee {
-                                UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                let uniqueCollectedAnswers = Dictionary(collectedAnswers.map { ($0.questionID, $0.answerIndex) }, uniquingKeysWith: { first, _ in first })
+                                UserManager.shared.usersResponses = uniqueCollectedAnswers
+
                                 UserManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
                             } else {
-                                CompanyManager.shared.companyResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                let uniqueCollectedAnswers = Dictionary(collectedAnswers.map { ($0.questionID, $0.answerIndex) }, uniquingKeysWith: { first, _ in first })
+                                CompanyManager.shared.companyResponses = uniqueCollectedAnswers
+
                                 CompanyManager.shared.uploadCollectedAnswers(collectedAnswers: collectedAnswers)
                             }
                             
@@ -154,9 +158,11 @@ struct EntryQuestionnaireView: View {
                             saveAnswer(answerIndex: selectedAnswerIndex)
                             
                             if isEmployee {
-                                UserManager.shared.usersResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                let uniqueCollectedAnswers = Dictionary(collectedAnswers.map { ($0.questionID, $0.answerIndex) }, uniquingKeysWith: { first, _ in first })
+                                UserManager.shared.usersResponses = uniqueCollectedAnswers
                             } else {
-                                CompanyManager.shared.companyResponses = Dictionary(uniqueKeysWithValues: collectedAnswers)
+                                let uniqueCollectedAnswers = Dictionary(collectedAnswers.map { ($0.questionID, $0.answerIndex) }, uniquingKeysWith: { first, _ in first })
+                                CompanyManager.shared.companyResponses = uniqueCollectedAnswers
                             }
                             
                             selectedAnswerIndex = nil
@@ -193,7 +199,7 @@ struct EntryQuestionnaireView: View {
 //                            isUserAnswers = true
 //                            currentStep = .complete
 //                            saveAnswersToDatabase()
-//                            
+//
 //                        }
 //                        .padding()
 //                        .background(Color.orange)
