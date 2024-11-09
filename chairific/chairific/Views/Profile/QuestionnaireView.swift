@@ -63,7 +63,7 @@ struct QuestionnaireView: View {
 
             loadQuestions(isEmployee: isEmployee)
             if !firstLogin{
-//                self.numberOfMendatoryQuestions = questions.count
+                self.numberOfMendatoryQuestions =  44
                 currentStep = .questions
                 
                 let responses = isEmployee ? UserManager.shared.usersResponses : CompanyManager.shared.companyResponses

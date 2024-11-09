@@ -9,7 +9,7 @@
 //
 //struct SeatsCompanyView: View {
 //    // State variable to hold fetched position matches (currently empty)
-//    @Binding var matches: [JobCard]
+//    @Binding var matches: [EmployeeCard]
 //    
 //    var body: some View {
 //        NavigationView {
@@ -46,8 +46,8 @@
 //    }
 //}
 //
-//struct SeatRowView: View {
-//    let match: JobCard
+//struct SeatRowCompanyView: View {
+//    let match: EmployeeCard
 //    
 //    var body: some View {
 //        HStack {
@@ -61,13 +61,10 @@
 //            }
 //            
 //            VStack(alignment: .leading) {
-//                Text(match.position["position"] as? String ?? "")
+//                Text(match.position as? String ?? "")
 //                    .font(.system(size: 18, weight: .semibold))
 //                    .foregroundColor(.gray)
 //                
-//                Text("in \(match.company["industry"] as? String ?? "")")
-//                    .font(.system(size: 14))
-//                    .foregroundColor(.gray)
 //            }
 //            
 //            Spacer()
@@ -83,6 +80,6 @@
 //    }
 //}
 //
-//#Preview {
-//    SeatsCompanyView()
-//}
+////#Preview {
+////    SeatsCompanyView()
+////}
