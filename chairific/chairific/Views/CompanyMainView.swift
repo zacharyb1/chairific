@@ -75,25 +75,18 @@ struct CompanyMainView: View {
                     let positionName = position["position"] as? String ?? "No name"
                     for userUid in likes {
                         FirestoreManager.shared.fetchUser(fromId: userUid) { result in
-                            switch result{
+                            switch result {
                             case .success(let data):
                                 print("")
-                                let userResponses = data["responses"] as? [String] ?? []
+//                                let userResponses = data["responses"] as? [String] ?? []
+                                print("data \(data)")
                                 EmployeeCard.generateEmplyeeCard(employeeDetails: data, positionName: positionName, employeeUid: userUid) { result in
                                     switch result {
                                     case .success(var employeeCard):
-                                        calculateSimilarity(
-                                            companyArray: employeeCard.responses,
-                                            userArray: CompanyManager.shared.companyResponses,
-                                            positionHardskills: employeeCard.hardSkills,
-                                            userHardSkills: hardSkills
-                                        ) { similarity, matchingKeys in
-                                            employeeCard.similarity = similarity
-//                                            employeeCard.matchingKeys = matchingKeys
-                                            self.jobCards.append(employeeCard)
-                                        }
+                                        employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.hardSkills, userHardSkills: hardSkills).similarity
+                                        self.jobCards.append(employeeCard)
                                     case .failure(let error):
-                                        print(error)
+                                        print("Failt to generate employee card \(error)")
                                     }
                                 }
                                 
@@ -112,43 +105,34 @@ struct CompanyMainView: View {
     
 
     
-    private func calculateSimilarity(
-        companyArray: [String: Int],
-        userArray: [String: Int],
-        positionHardskills: [String],
-        userHardSkills: [String],
-        completion: @escaping (Double, [String]) -> Void
-    ) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
-            let totalKeys = min(companyArray.count, userArray.count)
-            
-            var matches = 0
-            var matchingKeys = [String]()
-            
-            for key in commonKeys {
-                if companyArray[key] == userArray[key] {
-                    matches += 1
-                    matchingKeys.append(key)
-                }
-            }
-            
-            let responsesSimilarity = (Double(matches) / Double(totalKeys)) * 100
-            
-            // Calculate similarity for positionHardskills vs. userHardSkills
-            let commonHardSkills = Set(positionHardskills).intersection(Set(userHardSkills))
-            let totalHardSkills = min(positionHardskills.count, userHardSkills.count)
-            
-            let hardSkillsSimilarity = (Double(commonHardSkills.count) / Double(totalHardSkills)) * 100
-            
-            // Calculate the average similarity score
-            let averageSimilarity = (responsesSimilarity + hardSkillsSimilarity) / 2.0
-            
-            DispatchQueue.main.async {
-                completion(averageSimilarity, matchingKeys)
+    private func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int], positionHardskills: [String], userHardSkills: [String]) -> (similarity: Double, matchingKeys: [String]) {
+
+        let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
+        let totalKeys = min(companyArray.count, userArray.count)
+
+        var matches = 0
+        var matchingKeys = [String]()
+
+        for key in commonKeys {
+            if companyArray[key] == userArray[key] {
+                matches += 1
+                matchingKeys.append(key)
             }
         }
+
+        let responsesSimilarity = (Double(matches) / Double(totalKeys)) * 100
+
+        // Calculate similarity for positionHardskills vs. userHardSkills
+        let commonHardSkills = Set(positionHardskills).intersection(Set(userHardSkills))
+        let totalHardSkills = min(positionHardskills.count, userHardSkills.count)
+
+        let hardSkillsSimilarity = (Double(commonHardSkills.count) / Double(totalHardSkills)) * 100
+
+        // Calculate the average similarity score
+        let averageSimilarity = (responsesSimilarity + hardSkillsSimilarity) / 2.0
+
+        return (averageSimilarity, matchingKeys)
+
     }
 
     

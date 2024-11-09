@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SwipingCompanyOverlay: View {
-    let card: EmployeeCard
+    let card: JobCard
     @Binding var dragOffset: CGFloat
     @Binding var showMore: Bool
     
