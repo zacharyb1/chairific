@@ -8,16 +8,11 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.702205713422-91giara9eil76ktqsck0hl41f2pl1ucb</string>
-			</array>
+			<array/>
 		</dict>
+		<dict/>
 	</array>
 	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>remote-notification</string>
-		<string>processing</string>
-	</array>
+	<array/>
 </dict>
 </plist>
