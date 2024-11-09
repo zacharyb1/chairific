@@ -20,7 +20,7 @@ class AuthManager{
     }
     
     func deleteAccount() async throws{
-        guard let user = getCurrentUser() else {
+        guard let user = Auth.auth().currentUser else {
             throw URLError(.badURL)
         }
         

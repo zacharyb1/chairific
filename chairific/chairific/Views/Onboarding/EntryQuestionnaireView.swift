@@ -62,7 +62,10 @@ struct EntryQuestionnaireView: View {
             loadQuestions()
             if !firstLogin{
                 currentStep = .questions
+//                collectedAnswers =
             }
+            currentQuestionIndex = UserManager.shared.usersResponses.count
+            
         }
         .padding()
         .navigationBarBackButtonHidden(true)

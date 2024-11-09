@@ -1,4 +1,3 @@
-//
 //  SwipingView.swift
 //  chairific
 //
@@ -73,8 +72,9 @@ struct SwipingView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .fullScreenCover(isPresented: $showCardDetails) {
-                // CardDetailsView() (@Zach)
+                CardDetailsView(jobCard: jobCards[currentIndex])
             }
+
         }
     }
     

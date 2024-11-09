@@ -205,7 +205,7 @@ struct EditProfileView: View {
     }
     
     func deleteAccount() async throws{
-        guard let user = AuthManager.shared.getCurrentUser() else {
+        guard currentUserId != "" else {
             throw URLError(.badURL)
         }
         

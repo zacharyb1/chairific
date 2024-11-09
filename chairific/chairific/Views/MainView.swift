@@ -76,7 +76,7 @@ struct MainView: View {
                         JobCard.generateJobCard(position: position) { result in
                             switch result {
                             case .success(var jobcard):
-                                jobcard.similarity = calculateSimilarity(companyArray: jobcard.responses, userArray: UserManager.shared.usersResponses, positionHardskills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills)
+                                jobcard.similarity = calculateSimilarity(companyArray: jobcard.responses, userArray: UserManager.shared.usersResponses, positionHardskills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills).similarity
                                 self.jobCards.append(jobcard)
                                 print("responses: \(jobcard.responses)")
                             case .failure(let error):
@@ -93,7 +93,7 @@ struct MainView: View {
     
 
     
-    private func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int], positionHardskills: [String], userHardSkills: [String]) -> Double {
+    private func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int], positionHardskills: [String], userHardSkills: [String]) -> (similarity: Double, matchingKeys: [String]) {
 
         let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
         let totalKeys = min(companyArray.count, userArray.count)
@@ -119,32 +119,33 @@ struct MainView: View {
         // Calculate the average similarity score
         let averageSimilarity = (responsesSimilarity + hardSkillsSimilarity) / 2.0
 
-        return averageSimilarity
+        return (averageSimilarity, matchingKeys)
+
     }
     
     
-    //    func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int]) -> (similarity: Double, matchingKeys: [String]) {
-    //        // Determine the keys common to both arrays
-    //        let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
-    //        let totalKeys = min(companyArray.count, userArray.count) // Use the longer array length for a comprehensive comparison
-    //
-    //        // Initialize variables to count matches
-    //        var matches = 0
-    //        var matchingKeys = [String]()
-    //
-    //        // Iterate over the common keys and check for matching values
-    //        for key in commonKeys {
-    //            if companyArray[key] == userArray[key] {
-    //                matches += 1
-    //                matchingKeys.append(key)
-    //            }
-    //        }
-    //
-    //        // Calculate similarity as a percentage, scaled to the longer dictionary
-    //        let similarity = (Double(matches) / Double(totalKeys)) * 100
-    //
-    //        return (similarity, matchingKeys)
-    //    }
+//        func calculateSimilarity(companyArray: [String: Int], userArray: [String: Int]) -> (similarity: Double, matchingKeys: [String]) {
+//            // Determine the keys common to both arrays
+//            let commonKeys = Set(companyArray.keys).intersection(Set(userArray.keys))
+//            let totalKeys = min(companyArray.count, userArray.count) // Use the longer array length for a comprehensive comparison
+//    
+//            // Initialize variables to count matches
+//            var matches = 0
+//            var matchingKeys = [String]()
+//    
+//            // Iterate over the common keys and check for matching values
+//            for key in commonKeys {
+//                if companyArray[key] == userArray[key] {
+//                    matches += 1
+//                    matchingKeys.append(key)
+//                }
+//            }
+//    
+//            // Calculate similarity as a percentage, scaled to the longer dictionary
+//            let similarity = (Double(matches) / Double(totalKeys)) * 100
+//    
+//            return (similarity, matchingKeys)
+//        }
     
 }
 
