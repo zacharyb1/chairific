@@ -12,6 +12,9 @@ struct CardDetailsView: View {
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     @State private var questionViews: [QuestionView] = []
     
+    // Define grid layout with a single flexible column for left alignment
+    private let gridLayout = [GridItem(.flexible())]
+    
     var body: some View {
         VStack {
             // Close button at the top right
@@ -54,37 +57,54 @@ struct CardDetailsView: View {
                     }
                     .padding(.bottom, 10)
                     
-                    // Culture Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Culture")
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundColor(.primary)
+                    // Sections Grid with Left Alignment
+                    LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 20) {
+                        // Culture Section
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Culture")
+                                .font(.system(size: 30, weight: .semibold))
+                                .foregroundColor(.primary)
+                            
+                            ForEach(jobCard.company["culture"] as? [String] ?? [], id: \.self) { point in
+                                Text("+ \(point)")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.bottom, 10)
                         
-                        ForEach(jobCard.company["culture"] as? [String] ?? [], id: \.self) { point in
-                            Text("+ \(point)")
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.secondary)
+                        // Benefits Section
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Benefits")
+                                .font(.system(size: 30, weight: .semibold))
+                                .foregroundColor(.primary)
+                            
+                            ForEach(jobCard.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
+                                Text("+ \(benefit)")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.bottom, 10)
+                        
+                        // Glassdoor Score Section
+                        if let glassdoorScore = jobCard.company["glassdoor"] as? Double {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Glassdoor Score")
+                                    .font(.system(size: 30, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                Text(String(format: "%.1f", glassdoorScore))
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.bottom, 10)
                         }
                     }
-                    .padding(.bottom, 20)
                     
-                    // Benefits Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Benefits")
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundColor(.primary)
-                        
-                        ForEach(jobCard.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
-                            Text("+ \(benefit)")
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.bottom, 20)
-
                     // Matching Questions Section
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("Matching Questions")
+                        Text("Matching Choices")
                             .font(.system(size: 30, weight: .semibold))
                             .foregroundColor(.primary)
                         
@@ -116,13 +136,14 @@ struct CardDetailsView: View {
         }
     }
     
-    // Filter to get only matching question views
+    // Filter to get only matching question views based on company responses
     private var matchingQuestionViews: [QuestionView] {
         questionViews.filter { questionView in
-            // Check if both jobCard and user responses exist and match for the question
-            if let jobResponse = jobCard.responses[questionView.id],
+            // Cast company responses to [String: Int] and match with user responses
+            if let companyResponses = jobCard.company["responses"] as? [String: Int],
+               let companyResponse = companyResponses[questionView.id],
                let userResponse = UserManager.shared.usersResponses[questionView.id] {
-                return jobResponse == userResponse
+                return companyResponse == userResponse
             }
             return false
         }
@@ -135,9 +156,3 @@ struct CardDetailsView: View {
         }
     }
 }
-
-
-
-
-
-
