@@ -11,10 +11,9 @@ struct JobCard: Identifiable, View {
     let id: String
     let position: Dictionary<String, Any>
     let company: Dictionary<String, Any>
-    let responses: [String: Int]
+    let responses: [String: Int] // Responses will now come from company instead of position
     var similarity: Double?
     var hardSkills: [String]
-    // @State var matchingQuestions: Dictionary<String, Any> = [:]
     
     var body: some View {
         ScrollView(.vertical) {
@@ -62,35 +61,38 @@ struct JobCard: Identifiable, View {
                 }
                 .padding(.bottom, 10)
                 
-                /*ForEach(self.matchingQuestions as Dictionary<String, Any>, id: \.self) { point in
-                    Text("+ \(point)")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(baseButtonColor)
+                // Display Matching Questions Section
+                ForEach(self.responses.keys.sorted(), id: \.self) { questionId in
+                    if let answerIndex = self.responses[questionId] {
+                        Text("Q: \(questionId) - A: \(answerIndex)")
+                            .font(.system(size: 20, weight: .regular))
+                            .foregroundStyle(baseButtonColor)
+                    }
                 }
-                .padding(.bottom, 10) */
+                .padding(.bottom, 10)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .border(.orange)
         .background(.white)
-        .onAppear() {
-            // fetchMatchingQuestions(positionId: self.id)
-        }
     }
+
+
     
     static func generateJobCard(position: Dictionary<String, Any>, completion: @escaping (Result<JobCard, Error>) -> Void) {
         FirestoreManager.shared.fetchCompany(fromId: position["companyId"] as? String ?? "") { result in
             switch result {
             case .success(let company):
-                let responses = position["responses"] as? [String: Int] ?? [:]
+                // Fetch responses from the company data instead of the position data
+                let responses = company["responses"] as? [String: Int] ?? [:]
                 let hardskills = position["skills"] as? [String] ?? []
-//                let similarity = calculateSimilarity(companyArray: responses, userArray: UserManager.shared.usersResponses)
                 completion(.success(JobCard(id: position["id"] as? String ?? "", position: position, company: company, responses: responses, hardSkills: hardskills)))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
+
 
 }
 
