@@ -169,7 +169,7 @@ struct CompanyRegistrationView: View {
                     "uid": authResult.user.uid,
                     "industry": industry,
                 ]
-                isEmployee = true
+                isEmployee = false
                 FirestoreManager.shared.addCompany(id: companyname, data: companyData) { firestoreResult in
                     switch firestoreResult {
                     case .success():

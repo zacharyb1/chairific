@@ -68,9 +68,10 @@ struct EditProfileView: View {
                         .foregroundColor(.gray)
                         .padding(.bottom)
                     
-                    ProgressView(value: Double(UserManager.shared.usersResponses.count) / 44.0)
+                    let progressCount = isEmployee ? userManager.usersResponses.count : companyManager.companyResponses.count
+
+                    ProgressView(value: Double(progressCount) / 44.0)
                         .progressViewStyle(LinearProgressViewStyle(tint: .orange))
-                        .padding(.horizontal)
                         .padding(.horizontal)
                     
                     HStack(spacing: 120) {
@@ -329,6 +330,47 @@ struct EmployeeProfileContentView: View{
                     //                    }
                     //                }
                 }
+                
+                if !userManager.hardSkills.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Skills")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 20)
+                        
+                        ForEach(userManager.hardSkills, id: \.self) { skill in
+                            Text("+ \(skill)")
+                                .padding()
+                                .font(.system(size: 18))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color("FigmaGrey"))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                    }
+                }
+                if !userManager.hobbies.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Hobbies")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 20)
+                        
+                        ForEach(userManager.hobbies, id: \.self) { hobby in
+                            Text("+ \(hobby)")
+                                .padding()
+                                .font(.system(size: 18))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color("FigmaGrey"))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                    }
+                }
+                
+                
                 VStack(alignment: .leading) {
                     Text("CV")
                         .font(.system(size: 24, weight: .semibold))
@@ -365,6 +407,7 @@ struct NonEmployeeContentView: View{
 //    @State private var website = "mamaqat.com"
     @Binding var isEditing: Bool
     @State private var addNewPosition: Bool = false
+    @ObservedObject var companyManager = CompanyManager.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -473,6 +516,45 @@ struct NonEmployeeContentView: View{
                             .padding(.horizontal, 20)
                     }
                 }
+            
+            if !companyManager.benefits.isEmpty {
+                VStack(alignment: .leading) {
+                    Text("Benefits")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(.gray)
+                        .padding(.leading, 20)
+                    
+                    ForEach(companyManager.benefits, id: \.self) { benefit in
+                        Text("+ \(benefit)")
+                            .padding()
+                            .font(.system(size: 18))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 50)
+                            .background(Color("FigmaGrey"))
+                            .cornerRadius(10)
+                            .padding(.horizontal, 20)
+                    }
+                }
+            }
+            if !companyManager.culture.isEmpty {
+                VStack(alignment: .leading) {
+                    Text("Culture")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(.gray)
+                        .padding(.leading, 20)
+                    
+                    ForEach(companyManager.culture, id: \.self) { cult in
+                        Text("+ \(cult)")
+                            .padding()
+                            .font(.system(size: 18))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .frame(height: 50)
+                            .background(Color("FigmaGrey"))
+                            .cornerRadius(10)
+                            .padding(.horizontal, 20)
+                    }
+                }
+            }
 //                VStack(alignment: .leading) {
 //                    Text("Website")
 //                        .font(.system(size: 24, weight: .semibold))
@@ -519,7 +601,7 @@ struct NonEmployeeContentView: View{
         }
     }
 
-    }
+}
     
 
 struct DocumentPicker: UIViewControllerRepresentable {

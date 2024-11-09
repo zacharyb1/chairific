@@ -58,6 +58,7 @@ struct MainView: View {
                 UITabBar.appearance().unselectedItemTintColor = UIColor(baseColor)
             }
         }
+        .environment(\.colorScheme, .light)
     }
     
     func hasAtLeastTwoMatches(positionHardSkills: [String], userHardSkills: [String]) -> Bool {

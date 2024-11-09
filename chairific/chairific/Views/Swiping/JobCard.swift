@@ -61,6 +61,8 @@ struct JobCard: Identifiable, View {
                 }
                 .padding(.bottom, 10)
                 
+                
+                
                 // Display Matching Questions Section
 //                ForEach(self.responses.keys.sorted(), id: \.self) { questionId in
 //                    if let answerIndex = self.responses[questionId] {
