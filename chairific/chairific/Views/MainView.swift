@@ -66,13 +66,19 @@ struct MainView: View {
     }
     
     private func fetchPositions(){
+        guard currentUserId != "" else {
+            return
+        }
+        
+        
         FirestoreManager.shared.fetchAllPositions { result in
             switch result {
             case .success(let positions):
                 for position in positions {
                     let positionHardSkills = position["skills"] as? [String] ?? []
+                    let likesOnThePosition = position["likes"] as? [String] ?? []
                     let showJobCard = hasAtLeastTwoMatches(positionHardSkills: positionHardSkills, userHardSkills: UserManager.shared.hardSkills)
-                    if showJobCard{
+                    if showJobCard && !likesOnThePosition.contains(currentUserId){
                         JobCard.generateJobCard(position: position) { result in
                             switch result {
                             case .success(var jobcard):

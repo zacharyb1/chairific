@@ -19,6 +19,7 @@ struct AuthenticationView: View {
     @State private var createAccount = false
     @State private var errorMessage = ""
     @AppStorage("isUserAnswers") private var isUserAnswers: Bool = false
+    @AppStorage("isEmployee") private var isEmployee: Bool = false
     @State var navigateToMainScreen = false
     @State private var isLoading = false
     
@@ -131,9 +132,17 @@ struct AuthenticationView: View {
                     isLoading = false
                 }
                 
-                isSignedIn = true
-                isUserAnswers = true
-                navigateToMainScreen = true
+                checkIfIsEmployee(uid: authResult.user.uid) { value in
+                    if value{
+                        isEmployee = true
+                    }else{
+                        isEmployee = false
+                    }
+
+                    isSignedIn = true
+                    isUserAnswers = true
+                    navigateToMainScreen = true
+                }
             case .failure(let error):
                 isLoading = false
                 errorMessage = error.localizedDescription
@@ -141,6 +150,19 @@ struct AuthenticationView: View {
         }
     }
     
+    
+    private func checkIfIsEmployee(uid: String, completion: @escaping (Bool) -> Void) {
+        FirestoreManager.shared.fetchUser(fromId: uid) { result in
+            switch result {
+            case .success(let _):
+                print("Employee")
+                completion(true)  // Return true if successful
+            case .failure(let error):
+                print("Fail to fetch user, user is not employee \(error.localizedDescription)")
+                completion(false) // Return false if there’s an error
+            }
+        }
+    }
     
 }
 

@@ -12,8 +12,10 @@ struct EmployeeCard: Identifiable, View {
     let position: String
     let employeeDetails: Dictionary<String, Any>
     let responses: [String: Int]
+    let positionInfo: [String : Any]
     var similarity: Double?
-    var hardSkills: [String]
+    var emplyeeHardSkills: [String]
+    var positionHardSkills: [String]
     // @State var matchingQuestions: Dictionary<String, Any> = [:]
     
     var body: some View {
@@ -34,14 +36,32 @@ struct EmployeeCard: Identifiable, View {
                 Text(position)
                     .font(.system(size: 30, weight: .semibold))
                     .foregroundStyle(baseButtonColor)
-
+                    .padding(.bottom, 10)
                 
                 
-                ForEach(hardSkills, id: \.self) { point in
-                    Text("+ \(point)")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundStyle(baseButtonColor)
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(spacing: 10) {
+                        ForEach(positionHardSkills, id: \.self) { skill in
+                            Text(skill)
+                                .font(.system(size: 20, weight: .regular))
+                                .lineLimit(1) // Ensure text stays on one line
+                                .minimumScaleFactor(0.5) // Scale down to 50% of the original size if needed
+                                .padding(10)
+                                .background(
+                                    emplyeeHardSkills.contains(skill) ? Color.orange.opacity(0.6) : Color.clear
+                                )
+                                .cornerRadius(20)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(
+                                            emplyeeHardSkills.contains(skill) ? Color.orange : Color.primary.opacity(0.2),
+                                            lineWidth: 2
+                                        )
+                                )
+                        }
+                    }
                 }
+                .padding(.horizontal, 10)
                 .padding(.bottom, 10)
                 
                 
@@ -68,11 +88,11 @@ struct EmployeeCard: Identifiable, View {
         }
     }
     
-    static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
+    static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, postionHardSkills: [String], postionInfo: [String : Any], completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
 
                 let responses = employeeDetails["responses"] as? [String: Int] ?? [:]
                 let hardskills = employeeDetails["skills"] as? [String] ?? []
-                completion(.success(EmployeeCard(id: employeeUid, position: positionName, employeeDetails: employeeDetails, responses:responses, hardSkills: hardskills)))
+        completion(.success(EmployeeCard(id: employeeUid, position: positionName, employeeDetails: employeeDetails, responses:responses, positionInfo: postionInfo, emplyeeHardSkills: hardskills, positionHardSkills: postionHardSkills)))
 
     }
 

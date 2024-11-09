@@ -29,9 +29,7 @@ class CompanyManager: ObservableObject {
         guard let currentUserId = AuthManager.shared.getCurrentUser()?.uid  else {
             return
         }
-//        let currentUserId = "Dhdhdhdh"
- 
-        
+     
         if self.companyResponses.isEmpty {
             FirestoreManager.shared.fetchCompanies(withUid: currentUserId) { result in
                 switch result {
@@ -74,14 +72,11 @@ class CompanyManager: ObservableObject {
         }
     }
     
-    // Convert to matchEmployee
-    /*func likePosition(_ position: Dictionary<String, Any>) {
-        guard currentUserId != "" else {
-            return
-        }
-        var updatedLikes: [String] = position["likes"] as? [String] ?? []
-        updatedLikes.append(currentUserId)
-        FirestoreManager.shared.updatePosition(fromId: position["id"] as? String ?? "", data: ["likes":updatedLikes]) { result in
+    func likePosition(_ position: [String: Any], userUid: String) {
+
+        var updatedLikes: [String] = position["usersLikesByCompany"] as? [String] ?? []
+        updatedLikes.append(userUid)
+        FirestoreManager.shared.updatePosition(fromId: position["id"] as? String ?? "", data: ["usersLikesByCompany":updatedLikes]) { result in
             switch result {
             case .success:
                 print("Successfully liked position")
@@ -89,7 +84,7 @@ class CompanyManager: ObservableObject {
                 print("Error liking position")
             }
         }
-    }*/
+    }
     
     func uploadCollectedAnswers(collectedAnswers: [(questionID: String, answerIndex: Int)]) {
         guard let id = companyName else {

@@ -243,113 +243,115 @@ struct EmployeeProfileContentView: View{
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+//        NavigationView{
             VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 20)
+                        
+                        if isEditing {
+                            TextField("Name", text: $EmployeeName)
+                                .padding()
+                                .font(.system(size: 24, weight: .semibold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color(.systemGray5))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        } else {
+                            Text(UserManager.shared.userFirstName ?? "UserFirstName")
+                                .padding()
+                                .font(.system(size: 24, weight: .semibold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color("FigmaGrey"))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Last name")
+                            .font(.system(size: 24, weight: .semibold))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 20)
+                        
+                        if isEditing {
+                            TextField("LastName", text: $EmployeeLastName)
+                                .padding()
+                                .font(.system(size: 24, weight: .semibold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color(.systemGray5))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        } else {
+                            Text(userManager.userSecondName ?? "UserSecondName")
+                                .padding()
+                                .font(.system(size: 24, weight: .semibold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .frame(height: 50)
+                                .background(Color("FigmaGrey"))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                        }
+                    }
+                    
+                    //                VStack(alignment: .leading) {
+                    //                    Text("Industry")
+                    //                        .font(.system(size: 24, weight: .semibold))
+                    //                        .foregroundStyle(.gray)
+                    //                        .padding(.leading, 20)
+                    //
+                    //                    if isEditing {
+                    //                        TextField("Industry", text: $Employeeindustry)
+                    //                            .padding()
+                    //                            .font(.system(size: 24, weight: .semibold))
+                    //                            .frame(maxWidth: .infinity, alignment: .leading)
+                    //                            .frame(height: 50)
+                    //                            .background(Color(.systemGray5))
+                    //                            .cornerRadius(10)
+                    //                            .padding(.horizontal, 20)
+                    //                    } else {
+                    //                        Text(Employeeindustry)
+                    //                            .padding()
+                    //                            .font(.system(size: 24, weight: .semibold))
+                    //                            .frame(maxWidth: .infinity, alignment: .leading)
+                    //                            .frame(height: 50)
+                    //                            .background(Color("FigmaGrey"))
+                    //                            .cornerRadius(10)
+                    //                            .padding(.horizontal, 20)
+                    //                    }
+                    //                }
+                }
                 VStack(alignment: .leading) {
-                    Text("Name")
+                    Text("CV")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundStyle(.gray)
                         .padding(.leading, 20)
-                    
-                    if isEditing {
-                        TextField("Name", text: $EmployeeName)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    } else {
-                        Text(UserManager.shared.userFirstName ?? "UserFirstName")
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color("FigmaGrey"))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
+                    Button(action: {
+                        showDocumentPicker = true
+                    }) {
+                        HStack {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 20))
+                                .foregroundColor(.black)
+                            Text("Upload CV")
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black, lineWidth: 2))
                     }
+                    .padding(.horizontal)
                 }
-                
-                VStack(alignment: .leading) {
-                    Text("Last name")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundStyle(.gray)
-                        .padding(.leading, 20)
-                    
-                    if isEditing {
-                        TextField("LastName", text: $EmployeeLastName)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    } else {
-                        Text(userManager.userSecondName ?? "UserSecondName")
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color("FigmaGrey"))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    }
-                }
-                
-//                VStack(alignment: .leading) {
-//                    Text("Industry")
-//                        .font(.system(size: 24, weight: .semibold))
-//                        .foregroundStyle(.gray)
-//                        .padding(.leading, 20)
-//                    
-//                    if isEditing {
-//                        TextField("Industry", text: $Employeeindustry)
-//                            .padding()
-//                            .font(.system(size: 24, weight: .semibold))
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .frame(height: 50)
-//                            .background(Color(.systemGray5))
-//                            .cornerRadius(10)
-//                            .padding(.horizontal, 20)
-//                    } else {
-//                        Text(Employeeindustry)
-//                            .padding()
-//                            .font(.system(size: 24, weight: .semibold))
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .frame(height: 50)
-//                            .background(Color("FigmaGrey"))
-//                            .cornerRadius(10)
-//                            .padding(.horizontal, 20)
-//                    }
-//                }
             }
-            VStack(alignment: .leading) {
-                Text("CV")
-                    .font(.system(size: 24, weight: .semibold))
-                    .foregroundStyle(.gray)
-                    .padding(.leading, 20)
-                Button(action: {
-                    showDocumentPicker = true
-                }) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
-                        Text("Upload CV")
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 2))
-                }
-                .padding(.horizontal)
-            }
-        }
+//        }
     }
 }
 
@@ -358,8 +360,9 @@ struct NonEmployeeContentView: View{
     @State private var openChairs: [String] = []
     @State private var companyName = (CompanyManager.shared.companyName ?? "Mamaqat")
     @State private var industry = (CompanyManager.shared.companyIndustry ?? "entertainment")
-    @State private var website = "mamaqat.com"
+//    @State private var website = "mamaqat.com"
     @Binding var isEditing: Bool
+    @State private var addNewPosition: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -393,9 +396,9 @@ struct NonEmployeeContentView: View{
                             .padding(.vertical, 5)
                             .cornerRadius(20)
                         }
-                        
+                    NavigationLink(destination: CreatePositionView(isFirstPositions: false), isActive: $addNewPosition) {
                         Button(action: {
-                            
+                            addNewPosition = true
                         }) {
                             HStack {
                                 Spacer()
@@ -410,6 +413,7 @@ struct NonEmployeeContentView: View{
                             .padding(.horizontal, 20)
                         }
                         .padding(.vertical, 5)
+                    }
                     }
                 }
             
@@ -467,32 +471,32 @@ struct NonEmployeeContentView: View{
                             .padding(.horizontal, 20)
                     }
                 }
-                VStack(alignment: .leading) {
-                    Text("Website")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundStyle(.gray)
-                        .padding(.leading, 20)
-                    
-                    if isEditing {
-                        TextField("Website", text: $website)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    } else {
-                        Text(website)
-                            .padding()
-                            .font(.system(size: 24, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .frame(height: 50)
-                            .background(Color("FigmaGrey"))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
-                    }
-                }
+//                VStack(alignment: .leading) {
+//                    Text("Website")
+//                        .font(.system(size: 24, weight: .semibold))
+//                        .foregroundStyle(.gray)
+//                        .padding(.leading, 20)
+//                    
+//                    if isEditing {
+//                        TextField("Website", text: $website)
+//                            .padding()
+//                            .font(.system(size: 24, weight: .semibold))
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .frame(height: 50)
+//                            .background(Color(.systemGray5))
+//                            .cornerRadius(10)
+//                            .padding(.horizontal, 20)
+//                    } else {
+//                        Text(website)
+//                            .padding()
+//                            .font(.system(size: 24, weight: .semibold))
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .frame(height: 50)
+//                            .background(Color("FigmaGrey"))
+//                            .cornerRadius(10)
+//                            .padding(.horizontal, 20)
+//                    }
+//                }
             }
         
         .onAppear {

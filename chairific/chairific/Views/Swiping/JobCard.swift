@@ -62,14 +62,14 @@ struct JobCard: Identifiable, View {
                 .padding(.bottom, 10)
                 
                 // Display Matching Questions Section
-                ForEach(self.responses.keys.sorted(), id: \.self) { questionId in
-                    if let answerIndex = self.responses[questionId] {
-                        Text("Q: \(questionId) - A: \(answerIndex)")
-                            .font(.system(size: 20, weight: .regular))
-                            .foregroundStyle(baseButtonColor)
-                    }
-                }
-                .padding(.bottom, 10)
+//                ForEach(self.responses.keys.sorted(), id: \.self) { questionId in
+//                    if let answerIndex = self.responses[questionId] {
+//                        Text("Q: \(questionId) - A: \(answerIndex)")
+//                            .font(.system(size: 20, weight: .regular))
+//                            .foregroundStyle(baseButtonColor)
+//                    }
+//                }
+//                .padding(.bottom, 10)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
