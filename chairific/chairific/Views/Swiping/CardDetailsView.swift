@@ -136,13 +136,14 @@ struct CardDetailsView: View {
         }
     }
     
-    // Filter to get only matching question views
+    // Filter to get only matching question views based on company responses
     private var matchingQuestionViews: [QuestionView] {
         questionViews.filter { questionView in
-            // Check if both jobCard and user responses exist and match for the question
-            if let jobResponse = jobCard.responses[questionView.id],
+            // Cast company responses to [String: Int] and match with user responses
+            if let companyResponses = jobCard.company["responses"] as? [String: Int],
+               let companyResponse = companyResponses[questionView.id],
                let userResponse = UserManager.shared.usersResponses[questionView.id] {
-                return jobResponse == userResponse
+                return companyResponse == userResponse
             }
             return false
         }
@@ -155,11 +156,3 @@ struct CardDetailsView: View {
         }
     }
 }
-
-
-
-
-
-
-
-
