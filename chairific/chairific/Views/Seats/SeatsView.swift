@@ -17,7 +17,7 @@ struct SeatsView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("Potential chairs")
+                Text("Position Matches")
                     .font(.system(size: 32, weight: .semibold))
                     .foregroundColor(.gray)
                     .padding([.top, .leading])
