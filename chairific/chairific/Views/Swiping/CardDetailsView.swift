@@ -12,6 +12,9 @@ struct CardDetailsView: View {
     @Environment(\.presentationMode) var presentationMode // For dismissing the view
     @State private var questionViews: [QuestionView] = []
     
+    // Define grid layout with a single flexible column for left alignment
+    private let gridLayout = [GridItem(.flexible())]
+    
     var body: some View {
         VStack {
             // Close button at the top right
@@ -54,48 +57,51 @@ struct CardDetailsView: View {
                     }
                     .padding(.bottom, 10)
                     
-                    // Culture Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Culture")
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundColor(.primary)
-                        
-                        ForEach(jobCard.company["culture"] as? [String] ?? [], id: \.self) { point in
-                            Text("+ \(point)")
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.bottom, 20)
-                    
-                    // Benefits Section
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Benefits")
-                            .font(.system(size: 30, weight: .semibold))
-                            .foregroundColor(.primary)
-                        
-                        ForEach(jobCard.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
-                            Text("+ \(benefit)")
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    .padding(.bottom, 20)
-
-                    // Glassdoor Score Section
-                    if let glassdoorScore = jobCard.company["glassdoor"] as? Double {
+                    // Sections Grid with Left Alignment
+                    LazyVGrid(columns: gridLayout, alignment: .leading, spacing: 20) {
+                        // Culture Section
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("Glassdoor Score")
+                            Text("Culture")
                                 .font(.system(size: 30, weight: .semibold))
                                 .foregroundColor(.primary)
                             
-                            Text(String(format: "%.1f", glassdoorScore))
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.secondary)
+                            ForEach(jobCard.company["culture"] as? [String] ?? [], id: \.self) { point in
+                                Text("+ \(point)")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
                         }
-                        .padding(.bottom, 20)
+                        .padding(.bottom, 10)
+                        
+                        // Benefits Section
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Benefits")
+                                .font(.system(size: 30, weight: .semibold))
+                                .foregroundColor(.primary)
+                            
+                            ForEach(jobCard.company["benefits"] as? [String] ?? [], id: \.self) { benefit in
+                                Text("+ \(benefit)")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.bottom, 10)
+                        
+                        // Glassdoor Score Section
+                        if let glassdoorScore = jobCard.company["glassdoor"] as? Double {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Glassdoor Score")
+                                    .font(.system(size: 30, weight: .semibold))
+                                    .foregroundColor(.primary)
+                                
+                                Text(String(format: "%.1f", glassdoorScore))
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.bottom, 10)
+                        }
                     }
-
+                    
                     // Matching Questions Section
                     VStack(alignment: .leading, spacing: 10) {
                         Text("Matching Questions")
@@ -149,6 +155,7 @@ struct CardDetailsView: View {
         }
     }
 }
+
 
 
 
