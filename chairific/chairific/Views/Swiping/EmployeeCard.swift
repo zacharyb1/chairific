@@ -69,16 +69,11 @@ struct EmployeeCard: Identifiable, View {
     }
     
     static func generateEmplyeeCard(employeeDetails: Dictionary<String, Any>, positionName: String, employeeUid: String, completion: @escaping (Result<EmployeeCard, Error>) -> Void) {
-        FirestoreManager.shared.fetchCompany(fromId: employeeDetails["companyId"] as? String ?? "") { result in
-            switch result {
-            case .success(let company):
+
                 let responses = employeeDetails["responses"] as? [String: Int] ?? [:]
                 let hardskills = employeeDetails["skills"] as? [String] ?? []
                 completion(.success(EmployeeCard(id: employeeUid, position: positionName, employeeDetails: employeeDetails, responses:responses, hardSkills: hardskills)))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+
     }
 
 }
