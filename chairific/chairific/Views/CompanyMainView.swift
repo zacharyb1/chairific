@@ -32,7 +32,7 @@ struct CompanyMainView: View {
                     .tag(1)
                 
                 // CompanyMatchesView(matches: $matchList)
-                Text("")
+                SeatsCompanyView(matches: $matchList)
                     .tabItem {
                         Image(systemName: "message.fill")
                             .font(.title)
@@ -83,7 +83,7 @@ struct CompanyMainView: View {
 
                     let uniqueLikes = likes.filter { !matchedUsers.contains($0) }
                     
-                    for userUid in uniqueLikes {
+                    for userUid in likes {
                         FirestoreManager.shared.fetchUser(fromId: userUid) { result in
                             switch result {
                             case .success(let data):
@@ -94,10 +94,15 @@ struct CompanyMainView: View {
                                     switch result {
                                     case .success(var employeeCard):
                                         employeeCard.similarity = calculateSimilarity(companyArray: employeeCard.responses, userArray: CompanyManager.shared.companyResponses, positionHardskills: employeeCard.emplyeeHardSkills, userHardSkills: hardSkills).similarity
-                                        self.employeeCards.append(employeeCard)
-                                        self.employeeCards.sort {
-                                            ($0.similarity ?? 0.0) > ($1.similarity ?? 0.0)
-                                        }                                    case .failure(let error):
+                                        if !matchedUsers.contains(userUid){
+                                            self.employeeCards.append(employeeCard)
+                                            self.employeeCards.sort {
+                                                ($0.similarity ?? 0.0) > ($1.similarity ?? 0.0)
+                                            }
+                                        }else{
+                                            self.matchList.append(employeeCard)
+                                        }
+                                    case .failure(let error):
                                         print("Failed to generate employee card \(error)")
                                     }
                                 }
