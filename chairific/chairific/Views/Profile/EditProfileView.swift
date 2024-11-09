@@ -11,7 +11,7 @@ struct EditProfileView: View {
     @Environment(\.dismiss) var dismiss
     @State private var cvUrl: URL?
     @State private var showDocumentPicker = false
-    @State private var isEmployee = false
+    @State private var isEmployee = true
     @State private var isEditing = false
     @State private var showAlert = false
 
@@ -177,9 +177,9 @@ struct EditProfileView: View {
                         secondaryButton: .cancel()
                     )
                 }
-                .padding()
-                
-                Spacer()
+                .padding(.horizontal)
+                .padding(.bottom, 1)
+
             }
             
             .background(Color("backgroundColor"))

@@ -25,7 +25,6 @@ struct RegistrationView: View {
 
     
     var body: some View {
-        NavigationStack {
             ZStack {
                 ScrollView {
                     
@@ -131,8 +130,7 @@ struct RegistrationView: View {
             .navigationDestination(isPresented: $isAddedUser) {
                 SkillsView()
             }
-        }
-        .environment(\.colorScheme, .light)
+
     }
     
     

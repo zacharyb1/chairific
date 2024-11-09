@@ -129,9 +129,6 @@ struct CompanyRegistrationView: View {
             .navigationDestination(isPresented: $isAddedCompany) {
                 CultureView()
             }
-
-
-        .environment(\.colorScheme, .light)
     }
     
     private func signUp() {

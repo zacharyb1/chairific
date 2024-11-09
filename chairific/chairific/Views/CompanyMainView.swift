@@ -57,6 +57,7 @@ struct CompanyMainView: View {
                 }
                 UITabBar.appearance().unselectedItemTintColor = UIColor(baseColor)
             }
+            .environment(\.colorScheme, .light)
         }
     }
     
