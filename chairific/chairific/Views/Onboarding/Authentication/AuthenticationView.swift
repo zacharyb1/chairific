@@ -22,6 +22,8 @@ struct AuthenticationView: View {
     @AppStorage("isEmployee") private var isEmployee: Bool = false
     @State var navigateToMainScreen = false
     @State private var isLoading = false
+    @State private var navigateToNoUserView = false
+
     
     var body: some View {
         NavigationStack {
@@ -85,6 +87,23 @@ struct AuthenticationView: View {
                         }
                         Spacer()
                     }
+                    // Link to access non-account-based features
+                        NavigationLink(destination: NoUserView(), isActive: $navigateToNoUserView) {
+                            EmptyView()
+                        }
+                        
+                        Button(action: {
+                            navigateToNoUserView = true
+                        }) {
+                            Text("See content without an account")
+                                .foregroundColor(.blue)
+                                .underline()
+                        }
+                        .padding(.top, 10)
+                    
+                    
+                    
+                    
                     Spacer()
                     Spacer()
                     
