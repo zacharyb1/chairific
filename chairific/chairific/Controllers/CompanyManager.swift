@@ -13,7 +13,7 @@ class CompanyManager: ObservableObject {
     
     private init() {}
 
-    var companyResponses: [String: Int] = [:]
+    @Published var companyResponses: [String: Int] = [:]
     var benefits: [String] = []
     var culture: [String] = []
     @Published var companyName: String?

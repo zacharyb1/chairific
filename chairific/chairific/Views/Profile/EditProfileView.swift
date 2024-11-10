@@ -68,11 +68,19 @@ struct EditProfileView: View {
                         .foregroundColor(.gray)
                         .padding(.bottom)
                     
-                    let progressCount = isEmployee ? userManager.usersResponses.count : companyManager.companyResponses.count
+//                    let progressCount = isEmployee ? userManager.usersResponses.count : companyManager.companyResponses.count
 
-                    ProgressView(value: Double(progressCount) / 44.0)
-                        .progressViewStyle(LinearProgressViewStyle(tint: .orange))
-                        .padding(.horizontal)
+                    if isEmployee{
+                        ProgressView(value: Double(userManager.usersResponses.count) / 44.0)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .orange))
+                            .padding(.horizontal)
+                        
+                    }
+                    else{
+                        ProgressView(value: Double(companyManager.companyResponses.count) / 44.0)
+                            .progressViewStyle(LinearProgressViewStyle(tint: .orange))
+                            .padding(.horizontal)
+                    }
                     
                     HStack(spacing: 120) {
                         Text("0")

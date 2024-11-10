@@ -39,7 +39,7 @@ struct CardDetailsCompanyView: View {
                             .fill(Color.orange)
                             .frame(width: 100, height: 100)
                         
-                        Text("\(Int(jobCard.similarity ?? 0))%")
+                        Text("\(Int(jobCard.similarity?.isFinite == true ? jobCard.similarity! : 0))%")
                             .font(.system(size: 40, weight: .bold))
                             .foregroundColor(.white)
                     }

@@ -67,6 +67,9 @@ struct JobCard: Identifiable, View {
                 }
                 
                 
+
+                
+                
                 
                 // Display Matching Questions Section
 //                ForEach(self.responses.keys.sorted(), id: \.self) { questionId in
