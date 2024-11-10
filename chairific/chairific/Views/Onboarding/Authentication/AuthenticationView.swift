@@ -22,6 +22,7 @@ struct AuthenticationView: View {
     @AppStorage("isEmployee") private var isEmployee: Bool = false
     @State var navigateToMainScreen = false
     @State private var isLoading = false
+    @State private var countinueWithoutAccount = false
     
     var body: some View {
         NavigationStack {
@@ -85,6 +86,21 @@ struct AuthenticationView: View {
                         }
                         Spacer()
                     }
+                    
+                    HStack {
+                        Text("Do you want to just see positions?")
+                            .foregroundColor(Color.gray.opacity(0.8))
+                        
+                        Button(action: {
+                            countinueWithoutAccount = true
+                        }) {
+                            Text("Continue without an account")
+                                .foregroundColor(.blue)
+                                .bold()
+                        }
+                        Spacer()
+                    }
+                    
                     Spacer()
                     Spacer()
                     
@@ -108,6 +124,9 @@ struct AuthenticationView: View {
                     }
                 }
                 
+            }
+            .navigationDestination(isPresented: $countinueWithoutAccount) {
+                OnboardingView()
             }
             .navigationDestination(isPresented: $createAccount) {
                 OnboardingView()
