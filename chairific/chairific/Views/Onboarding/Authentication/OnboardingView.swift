@@ -54,7 +54,7 @@ struct OnboardingView: View {
                                 amazon = true
                                 isEmployee = false
                                 isCompany = false
-                                openAmazonWebsite()
+                                
                                 print("AMAZON")
                             }
                         }) {
@@ -69,6 +69,11 @@ struct OnboardingView: View {
                         }
                         .padding(.bottom, 50)
                         .padding(.trailing, 20)
+                        .alert(isPresented: $amazon) { // Alert configuration
+                            Alert(title: Text("Notice"),
+                                  message: Text("We don't sell chairs."),
+                                  dismissButton: .default(Text("OK")))
+                        }
                     }
                 }
                 .background(Color(UIColor.systemGray6))
@@ -83,11 +88,7 @@ struct OnboardingView: View {
             
         
     }
-    private func openAmazonWebsite() {
-        if let url = URL(string: "https://www.amazon.com") {
-            UIApplication.shared.open(url)
-        }
-    }
+
 }
 
 struct RadioButton: View {
