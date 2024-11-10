@@ -6,13 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		7F2147812CDF0D0E0025DD1F /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */; };
-		7F2147832CDF0D130025DD1F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7F2147822CDF0D130025DD1F /* FirebaseAnalytics */; };
-		7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9602CDE6BEA00001153 /* FirebaseAuth */; };
-		7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7F44C9622CDE6BEA00001153 /* FirebaseFirestore */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		7F44C9432CDE6AF000001153 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -36,22 +29,9 @@
 		7F44C94C2CDE6AF000001153 /* chairificUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chairificUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7F2148622CDF12DC0025DD1F /* Exceptions for "chairific" folder in "chairific" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 7F44C9312CDE6AED00001153 /* chairific */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7F44C9342CDE6AED00001153 /* chairific */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7F2148622CDF12DC0025DD1F /* Exceptions for "chairific" folder in "chairific" target */,
-			);
 			path = chairific;
 			sourceTree = "<group>";
 		};
@@ -72,10 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F2147812CDF0D0E0025DD1F /* FirebaseMessaging in Frameworks */,
-				7F44C9612CDE6BEA00001153 /* FirebaseAuth in Frameworks */,
-				7F2147832CDF0D130025DD1F /* FirebaseAnalytics in Frameworks */,
-				7F44C9632CDE6BEA00001153 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,20 +72,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7F21477F2CDF0D0E0025DD1F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7F44C9292CDE6AED00001153 = {
 			isa = PBXGroup;
 			children = (
 				7F44C9342CDE6AED00001153 /* chairific */,
 				7F44C9452CDE6AF000001153 /* chairificTests */,
 				7F44C94F2CDE6AF000001153 /* chairificUITests */,
-				7F21477F2CDF0D0E0025DD1F /* Frameworks */,
 				7F44C9332CDE6AED00001153 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,10 +112,6 @@
 			);
 			name = chairific;
 			packageProductDependencies = (
-				7F44C9602CDE6BEA00001153 /* FirebaseAuth */,
-				7F44C9622CDE6BEA00001153 /* FirebaseFirestore */,
-				7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */,
-				7F2147822CDF0D130025DD1F /* FirebaseAnalytics */,
 			);
 			productName = chairific;
 			productReference = 7F44C9322CDE6AED00001153 /* chairific.app */;
@@ -231,9 +195,6 @@
 			);
 			mainGroup = 7F44C9292CDE6AED00001153;
 			minimizedProjectReferenceProxies = 1;
-			packageReferences = (
-				7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F44C9332CDE6AED00001153 /* Products */;
 			projectDirPath = "";
@@ -432,36 +393,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = chairific/chairific.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"chairific/Preview Content\"";
 				DEVELOPMENT_TEAM = QMC32QCAG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = chairific/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = chairific;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chairific.chairificapp;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chairific.chairific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -470,36 +422,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = chairific/chairific.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"chairific/Preview Content\"";
 				DEVELOPMENT_TEAM = QMC32QCAG8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = chairific/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = chairific;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chairific.chairificapp;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = chairific.chairific;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -615,40 +558,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.4.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7F2147802CDF0D0E0025DD1F /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		7F2147822CDF0D130025DD1F /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		7F44C9602CDE6BEA00001153 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		7F44C9622CDE6BEA00001153 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7F44C95F2CDE6BEA00001153 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F44C92A2CDE6AED00001153 /* Project object */;
 }
