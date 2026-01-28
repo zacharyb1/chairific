@@ -29,7 +29,7 @@ profiles/{profileId}
   ├─ skills: array[string] (top 5 skills)
   ├─ hobbies: array[string]
   ├─ questionnaireAnswers: map{
-  │    questionId: answer
+  │    questionId: string → answer: string
   │  }
   ├─ revealed: boolean
   └─ updatedAt: timestamp
@@ -44,7 +44,7 @@ profiles/{profileId}
   ├─ companyCulture: string
   ├─ benefits: array[string]
   ├─ questionnaireAnswers: map{
-  │    questionId: answer
+  │    questionId: string → answer: string
   │  }
   ├─ positions: array[reference] → positions/{positionId}
   └─ updatedAt: timestamp

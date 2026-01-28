@@ -62,4 +62,8 @@ This document describes the system architecture of Chairific, a bias-free job ma
 ## Security & Privacy
 - All profiles are anonymized until mutual match agreement
 - Firebase Authentication handles secure user sessions
-- Firestore security rules ensure data privacy
+- Firestore security rules ensure data privacy:
+  - Users can only read/write their own profile data
+  - Match data is only accessible to the two parties involved
+  - Company information remains hidden until explicit reveal
+  - Questionnaire responses are private to profile owners

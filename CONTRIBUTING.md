@@ -99,6 +99,8 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 - **test**: Adding or correcting tests
 - **chore**: Changes to build process or auxiliary tools
 
+**Note**: Use lowercase for the description after the colon, following the Conventional Commits standard.
+
 ### Examples
 
 ```bash
